@@ -2,7 +2,6 @@ package rusanov;
 
 public class CalcInit {
 
-<<<<<<< HEAD
 	public static void main(String[] args) {
 		Calculator calc = new Calculator();
 		//
