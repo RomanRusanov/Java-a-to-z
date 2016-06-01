@@ -2,7 +2,7 @@ package rusanov;
 
 public class Calculator {
 
-    private Integer first, second;	
+    private int first, second;	
 
     private double result = 0;
 		
