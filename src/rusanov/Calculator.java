@@ -21,5 +21,7 @@ public class Calculator {
 	public void multiple(double first, double second) {
 		this.result = first * second;
 	}
-	double getResult();
+	public double getResult() {
+		return this.result;
+	}
 }
