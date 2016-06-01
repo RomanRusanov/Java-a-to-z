@@ -10,13 +10,13 @@ public class CalcInit {
 		calc.add(first, second);
 		System.out.printf("%d + %d = %d", first, second, calc.getResult);
 		//
-		calc.subtract(5,5);
+		calc.subtract(first, second);
 		System.out.printf("%d - %d = %d", first, second, calc.getResult);
 		//
-		calc.div(5,5);
+		calc.div(first, second);
 		System.out.printf("%d / %d = %d", first, second, calc.getResult);
 		//
-		calc.multiple(5,5);
+		calc.multiple(first, second);
 		System.out.printf("%d * %d = %d", first, second, calc.getResult);
 	}
 }
