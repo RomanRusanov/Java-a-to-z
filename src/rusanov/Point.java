@@ -1,26 +1,27 @@
-package rusanov
+package rusanov;
 
-//*
- * Class Класс для установления точки по двум координатам, вычисление расстояния между ними.
+/**
+ * Class РљР»Р°СЃСЃ РґР»СЏ СѓСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ С‚РѕС‡РєРё РїРѕ РґРІСѓРј РєРѕРѕСЂРґРёРЅР°С‚Р°Рј, РІС‹С‡РёСЃР»РµРЅРёРµ СЂР°СЃСЃС‚РѕСЏРЅРёСЏ РјРµР¶РґСѓ РЅРёРјРё.
  * @author rusanov
  * @param x,y (point)
- * @param distanceTo (вычисление растояния между точками)
+ * @param distanceTo (РІС‹С‡РёСЃР»РµРЅРёРµ СЂР°СЃС‚РѕСЏРЅРёСЏ РјРµР¶РґСѓ С‚РѕС‡РєР°РјРё)
  * @since 02.06.2016
  * @version 0.1
- *//
+ **/
  
 public class Point {
 
 	public double x,y;
 	
-	//* метод Point*//	
+	//* РјРµС‚РѕРґ Point*//	
 	public Point (double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
 	
-	//* вычисление расстояния между точками*//
+	//* РІС‹С‡РёСЃР»РµРЅРёРµ СЂР°СЃСЃС‚РѕСЏРЅРёСЏ РјРµР¶РґСѓ С‚РѕС‡РєР°РјРё*//
 	public double distanceTo (Point Point) {
 	
-	}
+		double d = Math.sqrt(Math.pow(pointB.x - pointA.x),2 + Math.pow(pointB.y - pointA.y),2 ); 
+	} 
 }
