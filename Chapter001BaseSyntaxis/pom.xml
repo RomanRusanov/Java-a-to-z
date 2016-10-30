@@ -1,0 +1,11 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ru.rrusanov</groupId>
+	<artifactId>Chapter001BaseSyntaxis</artifactId>
+	<version>1.0</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>1JVMBytecode2TypeData</module>
+		<module>3IfOperator</module>
+	</modules>
+</project>

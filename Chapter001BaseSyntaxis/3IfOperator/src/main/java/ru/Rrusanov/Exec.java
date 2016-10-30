@@ -8,7 +8,7 @@
  * @since 02.06.2016
  * @version 0.1
  **/
-package rusanov;
+package ru.rrusanov;
 
 
 public class Exec {

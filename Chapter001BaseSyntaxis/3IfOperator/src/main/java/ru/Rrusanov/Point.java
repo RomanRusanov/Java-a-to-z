@@ -7,7 +7,7 @@
  * @version 0.1
  **/
 
-package rusanov;
+package ru.rrusanov;
 import java.lang.Math.*;
  
 
@@ -21,7 +21,12 @@ public class Point {
 		this.y = y;
 	}
 	
-	//calculation of triangle side
+	/**
+	 * Calculation of triangle side
+	 * @param Point this(x.y)
+	 * @param Point p2(x.y)
+	 * @return double (Distance of two point this - p2 ) 
+	**/
 	public double distanceTo (Point p2) {
 		return Math.sqrt(Math.pow((this.x - p2.x),2) + Math.pow((this.y - p2.y),2));
 	}
