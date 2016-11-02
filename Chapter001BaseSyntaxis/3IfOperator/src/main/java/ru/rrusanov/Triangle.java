@@ -28,9 +28,9 @@ public class Triangle {
 	}
 	/** 
 	 * Calculate area of triangle
-	 * @param ab ( by Points A B)
- 	 * @param bc ( by Points B C)
- 	 * @param ca ( by Points C A)
+	 * @param ab ( distance by Points A B)
+ 	 * @param bc ( distance by Points B C)
+ 	 * @param ca ( distance by Points C A)
  	 * @param halfPerimetr (calculate half perimetr)
 	 * @return double AreaTriangle
 	**/  
@@ -53,7 +53,5 @@ public class Triangle {
 			System.out.println("by this values Point A,B,C triangle doesn't exist! ");
 			return -1;
 		}
-
 	}
-
 }

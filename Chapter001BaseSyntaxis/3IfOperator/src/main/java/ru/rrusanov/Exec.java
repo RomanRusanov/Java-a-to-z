@@ -18,10 +18,15 @@ public class Exec {
 		Point b = new Point(6,6);
 		Point c = new Point(11,1);
 
-
 		Triangle t = new Triangle (a,b,c);
+		MaxSide m = new MaxSide();
 
 		System.out.println("Area triangle = " + t.area());
-		//System.out.println("HalfPerimetr = " + t.area.halfP);
+		System.out.print("Max Side = ");
+		System.out.printf("%.1f\n",m.max(t));
+
+		//System.out.println("SideAB = " + t.a.distanceTo(b));
+		//System.out.println("SideBA = " + t.b.distanceTo(c));	
+		//System.out.println("SideCA = " + t.c.distanceTo(a));
 	}
 }
