@@ -31,9 +31,9 @@ class MaxSide {
 		double bSide = (double) (t.b.distanceTo(t.c));
 		double cSide = (double) (t.c.distanceTo(t.a));
 
-		if (aSide > bSide & aSide > cSide) {
+		if (aSide > bSide && aSide > cSide) {
 			return aSide;
-		} else if (bSide > aSide & bSide > cSide){
+		} else if (bSide > aSide && bSide > cSide){
 			return bSide;
 		} else {
 			return cSide;
