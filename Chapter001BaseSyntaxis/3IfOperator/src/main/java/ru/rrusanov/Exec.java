@@ -17,6 +17,8 @@ public class Exec {
 		Point a = new Point(3,2);
 		Point b = new Point(6,6);
 		Point c = new Point(11,1);
+		Point d = new Point(4,0);
+		Point e = new Point(3,2);
 
 		Triangle t = new Triangle (a,b,c);
 		MaxSide m = new MaxSide();
@@ -24,6 +26,7 @@ public class Exec {
 		System.out.println("Area triangle = " + t.area());
 		System.out.print("Max Side = ");
 		System.out.printf("%.1f\n",m.max(t));
+		System.out.println("Point c coordinates (" + t.c.x + "," + t.c.y + ")");
 
 		//System.out.println("SideAB = " + t.a.distanceTo(b));
 		//System.out.println("SideBA = " + t.b.distanceTo(c));	
