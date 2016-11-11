@@ -7,5 +7,6 @@
 	<modules>
 		<module>1JVMBytecode2TypeData</module>
 		<module>3IfOperator</module>
+		<module>4Cycles</module>
 	</modules>
 </project>
