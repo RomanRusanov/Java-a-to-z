@@ -13,11 +13,6 @@ package ru.rrusanov;
 
 public class Square {
 
-	public int x = 0;
-	public int start = 0;
-	public int finish = 20;
-	public int step = 2;
-
 	// Calculate return float ( a * x2 + b * x + c )
 	public float calculate(int x) {
 
@@ -35,7 +30,7 @@ public class Square {
 			System.out.println("y = " + calculate(start) + " x value = " + start);
 		}
 		*/
-		while (start < finish) {
+		while (start<finish) {
 			System.out.println("y = " + calculate(start) + " x value = " + start);
 			start = start + step;
 		}
