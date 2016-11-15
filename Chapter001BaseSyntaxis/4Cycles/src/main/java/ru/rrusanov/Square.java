@@ -27,6 +27,7 @@ public class Square {
 	 * @param start - int first value of x
 	 * @param finish - int last value of x
 	 * @param step - int step the value increases at each iteration
+	 * {@value} stringOut - get string summing calculate(start) + start
 	 */
 	public void show(int start, int finish, int step) {
 		/*
@@ -35,7 +36,8 @@ public class Square {
 		}
 		*/
 		while (start < finish) {
-			System.out.println("y = " + calculate(start) + " x value = " + start);
+			String stringOut = String.format("y = %f  x value = %f", calculate(start), start);
+			System.out.println(stringOut);
 			start = start + step;
 		}
 	}
