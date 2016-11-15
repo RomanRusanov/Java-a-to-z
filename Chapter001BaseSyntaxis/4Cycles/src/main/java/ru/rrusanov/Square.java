@@ -35,7 +35,8 @@ public class Square {
 		}
 		*/
 		while (start < finish) {
-			System.out.println("y = " + calculate(start) + " x value = " + start);
+			String stringOut = String.format("y = %f  x value = %f", calculate(start), start);
+			System.out.println(stringOut);
 			start = start + step;
 		}
 	}
