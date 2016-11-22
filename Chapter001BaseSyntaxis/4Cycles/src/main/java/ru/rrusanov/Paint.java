@@ -1,9 +1,5 @@
 package ru.rrusanov;
-<<<<<<< HEAD
-/** "Exercise 4.3. To build a pyramid in pseudographics."
-=======
 /** Exercise 4.3. To build a pyramid in pseudographics.
->>>>>>> f24cb77b5384a0de3726ed8d5869de9616c170e9
  * @author Roman Rusanov
  * @since 21.11.2016
  * @version 0.1
