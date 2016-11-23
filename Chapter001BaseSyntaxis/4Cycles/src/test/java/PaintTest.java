@@ -8,14 +8,12 @@ import static org.junit.Assert.assertThat;
  * @Version 0.1
  */
 public class PaintTest {
-	/** Then Heght of piramid 1 return single string
-	
-	@Test
+	//Then Heght of piramid 1 return single string
+	//@Test
 	public void thenHeghtPiramid1ReturnSingleString() {
-		Paint paint = new Paint();
-		final String expect = "^";
+		Paint1 paint = new Paint1();
+		final String expect = " ^\n";
 		final String result = paint.piramid(1);
 		assertThat(result, is(expect));	
 	}
-	*/
 }

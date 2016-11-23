@@ -2,57 +2,54 @@ package ru.rrusanov;
 /** Exercise 4.3. To build a pyramid in pseudographics.
  * @author Roman Rusanov
  * @since 21.11.2016
- * @version 0.1
+ * @version 0.2
  */
 import java.lang.StringBuilder;
 public class Paint {
 	/** Build Piramid use charecter '^'.
 	 * @param n - (int) Heigth of the piramid.
 	 * @{value} baseChar - (String)Symbol base to build piramid.
-	 * @{value} i - index of iteration for loop.
-	 * @{value} numberOfSpacesBeforeChar - (string) number of ' ' space character before print baseChar '^'.
-	 * @{value} numberOfSpacesAfterChar - (string) number of ' ' space character between baseChar '^'.
-	 * @{value} sb - (StringBuilder) Each 
+	 * @{value} i,j - index of iteration for loop.
+	 * @{value} incrementIndex - (int) depends on the height of the pyramid, need build sequence spaces between base chars.
+	 * @{value} decrementIndex - (int) need for build string spaces before base char.
+	 * @{value} sb - (StringBuilder) string contain the piramid.
 	 */
-	public void piramid(int h) {
+	public String piramid(int h) {
 		// Initialization of variables.
 	 	String baseChar = "^";
-	 	int numberOfSpacesBeforeChar = h;
-	 	int numberOfSpacesAfterChar = 1;
+	 	int incrementIndex = 0;
+	 	int decrimentIndex = h;
 		StringBuilder sb = new StringBuilder();
-		//Build and out to console first string of piramid.
-		sb.append(spaces(numberOfSpacesBeforeChar));
-		sb.append(baseChar);
-		System.out.println(sb);
-		sb.delete(0,sb.length());
-		numberOfSpacesBeforeChar -= 1;
-		// Loop build other strings of piramid.
-	 	for (int i = 1; i != h; i++) {
-	 		sb.append(spaces(numberOfSpacesBeforeChar));
-	 		sb.append(baseChar);
-	 		sb.append(spaces(numberOfSpacesAfterChar));
-	 		sb.append(baseChar);
-	 		System.out.println(sb);
-	 		sb.delete(0,sb.length());
-	 		numberOfSpacesBeforeChar -= 1;
-	 		numberOfSpacesAfterChar += 2;
-	 	}
-	}
-	/** Build string use charecter ' '(space).
-	 * @param s - (int) String length.
-	 * @return string - return the sequence of space.
-	 * @{value} sb - (StringBuilder) plus space to sb for each iteration.
-	 * @{value} i - index of iteration for loop.
-	 */
-	public String spaces(int s) {
-		String space = " ";
-		StringBuilder sb1 = new StringBuilder();
-		for (int i = 0; i != s; i++){
-			sb1.append(" ");
+		// Chek hight of piramid
+		if (h == 1) {
+			incrementIndex = 0;
+		} else if (h == 2) {
+			incrementIndex = 1;
+		} else if (h >= 3) {
+			incrementIndex = 2;
+		} else {
+			sb.append("ERROR! Height of the pyramid cannot be a zero or negative number");
 		}
-		return sb1.toString();
+		// Loop build of piramid.
+	 	for (int i = 0; i != h; i++) {
+	 		// Loop for build sequence space before ^
+	 		for (int f = 0; f != decrimentIndex ; f++) {
+	 			sb.append(" ");
+	 		}
+	 		decrimentIndex -= 2;
+	 		// Add ^
+	 		sb.append(baseChar);
+	 		// Loop for build sequence space after ^
+	 		for (int j = 0; j != incrementIndex; j++) {
+				sb.append(" ");
+	 		}
+	 		// On next iteration on two spaces longer.
+			incrementIndex += 2;
+			// Add ^ and end string.
+	 		sb.append(baseChar).append("\n");
+	 	}
+		return sb.toString();
 	}
-
 }
 /**
 		^
