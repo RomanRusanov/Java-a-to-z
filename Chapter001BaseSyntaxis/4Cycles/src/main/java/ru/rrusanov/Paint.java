@@ -2,57 +2,56 @@ package ru.rrusanov;
 /** Exercise 4.3. To build a pyramid in pseudographics.
  * @author Roman Rusanov
  * @since 21.11.2016
- * @version 0.2
+ * @version 0.3
  */
 import java.lang.StringBuilder;
 public class Paint {
 	/** Build Piramid use charecter '^'.
-	 * @param n - (int) Heigth of the piramid.
-	 * @{value} baseChar - (String)Symbol base to build piramid.
-	 * @{value} i,j - index of iteration for loop.
-	 * @{value} incrementIndex - (int) depends on the height of the pyramid, need build sequence spaces between base chars.
-	 * @{value} decrementIndex - (int) need for build string spaces before base char.
+	 * @param h - (int) Heigth of the piramid.
+	 * @{value} baseChar - (String) Symbol base to build piramid.
+	 * @{value} i,j,k - (int) index of iteration for loop.
+	 * @{value} baseCounter - (int) number of spaces in that iteration string of a peramid.
 	 * @{value} sb - (StringBuilder) string contain the piramid.
+	 * @{value} charSquence - (String) sequene spaces before piramid.
 	 */
 	public String piramid(int h) {
 		// Initialization of variables.
 	 	String baseChar = "^";
-	 	int incrementIndex = 0;
-	 	int decrimentIndex = h;
+	 	String charSquence = " ";
+	 	int baseCounter = 0;
 		StringBuilder sb = new StringBuilder();
-		// Chek hight of piramid
-		if (h == 1) {
-			incrementIndex = 0;
-		} else if (h == 2) {
-			incrementIndex = 1;
-		} else if (h >= 3) {
-			incrementIndex = 2;
-		} else {
-			sb.append("ERROR! Height of the pyramid cannot be a zero or negative number");
-		}
 		// Loop build of piramid.
 	 	for (int i = 0; i != h; i++) {
-	 		// Loop for build sequence space before ^
-	 		for (int f = 0; f != decrimentIndex ; f++) {
-	 			sb.append(" ");
-	 		}
-	 		decrimentIndex -= 2;
-	 		// Add ^
-	 		sb.append(baseChar);
-	 		// Loop for build sequence space after ^
-	 		for (int j = 0; j != incrementIndex; j++) {
-				sb.append(" ");
-	 		}
-	 		// On next iteration on two spaces longer.
-			incrementIndex += 2;
-			// Add ^ and end string.
-	 		sb.append(baseChar).append("\n");
+	 		//System.out.println(String.format("(loop  i = %d) h=%d ", i, h));
+	 		// Bild sequene spaces before piramid.
+	 		for (int k = 0; k < h - i ; k++) {
+	 			charSquence += charSquence;
+	 			//System.out.println(String.format("   (loop space before = %d) h=%d baseCounter = %d", k, h,baseCounter));
+	 		}	
+	 		// Chek hight of piramid 
+	 		// if string 1 base 0, string 2 base 1, string 3 and other (base = base + 2).
+			if (i == 0) {
+				sb.append(charSquence, 0 , h);
+			} else if (i == 1) {
+				baseCounter += 1;
+				sb.append(charSquence, 0, h - i).append(baseChar);
+			} else if (i >= 2) {
+				baseCounter += 2;
+				sb.append(charSquence, 0, h - i).append(baseChar);
+			}
+			// Build sequnce char base of piramid.
+			for (int j = 0; j != baseCounter; j++) {
+				sb.append("*");
+			}
+			// End string.
+			sb.append(baseChar).append("\n");
+			//System.out.println(String.format("     \n(loop end string = %d) h=%d baseCounter = %d", i, h,baseCounter));
 	 	}
 		return sb.toString();
 	}
 }
 /**
-		^
+ 		^ ------0
    	   ^ ^ -----1
  	  ^   ^ ----3
  	 ^     ^ ---5
