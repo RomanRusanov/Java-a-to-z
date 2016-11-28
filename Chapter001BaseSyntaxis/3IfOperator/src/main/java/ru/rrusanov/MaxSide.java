@@ -1,5 +1,5 @@
 /**
- * Class calulate perimetr, calculate sides of triangle 
+ * Class calulate perimetr, calculate sides of triangle
  * and get max side.
  * @author Rusanov
  * @param Point a (x,y coordinates values for point a)
@@ -11,18 +11,17 @@
 **/
 
 package ru.rrusanov;
-
+/**
+ * Class Calculate MaxSide.
+**/
 class MaxSide {
-
-	//public Triangle t;
-
-	/** 
-	 * Calculate area of triangle
-	 * @param double a ( side between points A B)
- 	 * @param double b ( side between points B C)
- 	 * @param double c ( side between points C A)
- 	 * @param double perimetr (perimetr of triangle)
-	 * @return double (maximum side this triangle)
+	/**
+	 * Calculate area of triangle.
+	 * @param t - (Triangle) get triangle
+	 * @{values} aSide - (double) a side between points A B
+ 	 * @{values} bSide - (double) b side between points B C
+ 	 * @{values} cSide - (double) c side between points C A
+	 * @return aSide or bSide or cSide - (double) maximum side this triangle
 	**/
 
 	public double max(Triangle t) {
@@ -33,7 +32,7 @@ class MaxSide {
 
 		if (aSide > bSide && aSide > cSide) {
 			return aSide;
-		} else if (bSide > aSide && bSide > cSide){
+		} else if (bSide > aSide && bSide > cSide) {
 			return bSide;
 		} else {
 			return cSide;

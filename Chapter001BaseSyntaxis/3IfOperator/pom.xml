@@ -1,14 +1,11 @@
-<project>
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>ru.rrusanov</groupId>
-	<artifactId>3IfOperator</artifactId>
-	<version>1.0</version>
-	<packaging>jar</packaging>
-	<!-->
-		<parent>
+﻿<project>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>3IfOperator</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+	    <parent>
 	        <groupId>ru.rrusanov</groupId>
-	        <artifactId>Java-a-to-z</artifactId>
+	        <artifactId>Chapter001BaseSyntaxis</artifactId>
 	        <version>1.0</version>
 	    </parent>
-	</!-->
 </project>

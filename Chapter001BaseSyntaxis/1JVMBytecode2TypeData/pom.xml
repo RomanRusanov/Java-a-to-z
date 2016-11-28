@@ -1,13 +1,13 @@
 <project>
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>ru.rrusanov</groupId>
-	<artifactId>1JVMBytecode2TypeData</artifactId>
-	<version>1.0</version>
-	<packaging>jar</packaging>
-	<!-->
-		<parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>ru.rrusanov</groupId>
+    <artifactId>1JVMBytecode2TypeData</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+    <!-->
+	    <parent>
 	        <groupId>ru.rrusanov</groupId>
-	        <artifactId>Java-a-to-z</artifactId>
+	        <artifactId>Chapter001BaseSyntaxis</artifactId>
 	        <version>1.0</version>
 	    </parent>
 	</!-->

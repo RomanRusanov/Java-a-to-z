@@ -8,27 +8,32 @@
  **/
 
 package ru.rrusanov;
-import java.lang.Math.*;
- 
-
+import static java.lang.Math.sqrt;
+import static java.lang.Math.pow;
+/**
+ * Class build point by two coordinates, and calculate distance between two points.
+**/
 public class Point {
-
-	public double x,y;
-	
-	// disigner Point	
-	public Point (double x, double y) {
+	/**
+	 * x,y coordinates.
+	**/
+	//public double x,y;
+	/**
+	 * Disigner for Point.
+	 * @param x - (int) x coordinate
+	 * @param y - (int) y coordinate
+	**/
+	public Point(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
-	
 	/**
-	 * Calculation of triangle side
-	 * @param Point this(x.y)
-	 * @param Point p2(x.y)
-	 * @return double (Distance of two point this - p2 ) 
+	 * Calculation of triangle side.
+	 * @param p2 - (Point) x.y
+	 * @return double (Distance of two point this - p2 )
 	**/
-	public double distanceTo (Point p2) {
-		return Math.sqrt(Math.pow((this.x - p2.x),2) + Math.pow((this.y - p2.y),2));
+	public double distanceTo(Point p2) {
+		return sqrt(pow((this.x - p2.x), 2) + pow((this.y - p2.y), 2));
 	}
 }
 

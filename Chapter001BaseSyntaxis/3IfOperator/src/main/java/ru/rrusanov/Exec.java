@@ -10,26 +10,35 @@
  **/
 package ru.rrusanov;
 
-
+/**
+ * Run Program.
+ **/
 public class Exec {
+	/**
+	 * Main method.
+	 * @param args - array of string.
+	 */
 	public static void main(String[] args) {
 
-		Point a = new Point(3,2);
-		Point b = new Point(6,6);
-		Point c = new Point(11,1);
-		Point d = new Point(4,0);
-		Point e = new Point(3,2);
+		final int ax, dy, ex = 3;
+		final int ay, ey = 2;
+		final int bx, by = 6;
+		final int cx = 11;
+		final int cy = 1;
+		final int dx = 4;
 
-		Triangle t = new Triangle (a,b,c);
+		Point a = new Point(ax, ay);
+		Point b = new Point(bx, by);
+		Point c = new Point(cx, cy);
+		Point d = new Point(dx, dy);
+		Point e = new Point(ex, ey);
+
+		Triangle t = new Triangle(a, b, c);
 		MaxSide m = new MaxSide();
 
 		System.out.println("Area triangle = " + t.area());
 		System.out.print("Max Side = ");
-		System.out.printf("%.1f\n",m.max(t));
+		System.out.printf("%.1f\n", m.max(t));
 		System.out.println("Point c coordinates (" + t.c.x + "," + t.c.y + ")");
-
-		//System.out.println("SideAB = " + t.a.distanceTo(b));
-		//System.out.println("SideBA = " + t.b.distanceTo(c));	
-		//System.out.println("SideCA = " + t.c.distanceTo(a));
 	}
 }
