@@ -1,12 +1,12 @@
 <project>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ru.rrusanov</groupId>
-	<artifactId>Chapter001BaseSyntaxis</artifactId>
+	<artifactId>5Array</artifactId>
 	<version>1.0</version>
-	<packaging>pom</packaging>
-	<modules>
-		<module>1JVMBytecode2TypeData</module>
-		<module>3IfOperator</module>
-		<module>4Cycles</module>
-	</modules>
+	<packaging>jar</packaging>
+		<parent>
+	        <groupId>ru.rrusanov</groupId>
+	        <artifactId>Java-a-to-z</artifactId>
+	        <version>1.0</version>
+	    </parent>
 </project>
