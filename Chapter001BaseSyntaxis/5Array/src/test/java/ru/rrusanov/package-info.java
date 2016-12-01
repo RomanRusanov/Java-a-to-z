@@ -1,2 +1,3 @@
-/**Class test Turn.java.
+/**Tests:
+ * - Turn.java
  **/
