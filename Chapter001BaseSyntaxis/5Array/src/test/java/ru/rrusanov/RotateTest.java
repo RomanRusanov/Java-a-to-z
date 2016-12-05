@@ -9,7 +9,8 @@ import static org.junit.Assert.assertThat;
 **/
 public class RotateTest {
 	/**
-	 * Then Array{2,4,8,6}.
+	 * Then Array.
+	 *			 {2,4,8,6}
 	 *			 {5,7,0,3}
 	 *			 {9,1,3,7}
 	 *			 {4,0,8,2}
