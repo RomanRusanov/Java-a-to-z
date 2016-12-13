@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 **/
 public class FindAndDeleteTest {
 	/**
-	 * Then Array{Hello,Hello,my,name,name,is,is,Nute,Hello,Hello}.
+	 * Then Array{Hello,Hello,Hello,my,name,name,is,is,Nute,is}.
 	 * When return Array{Hello,my,name,is,Nute}
 	 **/
 	@Test
