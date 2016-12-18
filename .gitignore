@@ -13,5 +13,7 @@ hs_err_pid*
 
 # Execute test files
 Exec*.java
+Contr*.txt
 target
+
 
