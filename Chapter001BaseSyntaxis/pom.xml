@@ -14,5 +14,6 @@
 		<!--<module>3IfOperator</module>
 		<module>4Cycles</module>-->
 		<module>5Array</module>
+		<module>6ControlQuestions</module>
 	</modules>
 </project>
