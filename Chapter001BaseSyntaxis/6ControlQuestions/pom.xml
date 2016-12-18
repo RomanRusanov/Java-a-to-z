@@ -1,0 +1,12 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>ru.rrusanov</groupId>
+    <artifactId>6ControlQuestions</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+    <parent>
+        <groupId>ru.rrusanov</groupId>
+        <artifactId>Chapter001BaseSyntaxis</artifactId>
+        <version>1.0</version>
+    </parent>
+</project>
