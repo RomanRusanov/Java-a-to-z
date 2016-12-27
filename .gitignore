@@ -15,5 +15,7 @@ hs_err_pid*
 Exec*.java
 Contr*.txt
 target
+.idea
+*.iml
 
 
