@@ -14,14 +14,11 @@ import static java.lang.Math.pow;
  * Class build point by two coordinates, and calculate distance between two points.
 **/
 public class Point {
-	/**
-	 * x,y coordinates.
-	**/
-	//public double x,y;
+	public double x, y;
 	/**
 	 * Disigner for Point.
-	 * @param x - (int) x coordinate
-	 * @param y - (int) y coordinate
+	 * @param x (int) x coordinate
+	 * @param y (int) y coordinate
 	**/
 	public Point(double x, double y) {
 		this.x = x;
@@ -29,10 +26,10 @@ public class Point {
 	}
 	/**
 	 * Calculation of triangle side.
-	 * @param p2 - (Point) x.y
+	 * @param p2 (Point) x.y
 	 * @return double (Distance of two point this - p2 )
 	**/
-	public double distanceTo(Point p2) {
+    public double distanceTo(Point p2) {
 		return sqrt(pow((this.x - p2.x), 2) + pow((this.y - p2.y), 2));
 	}
 }
