@@ -4,6 +4,7 @@
 	<version>1.0</version>
 	<modules>
 		<module>Polymorphism</module>
+		<module>Chess</module>
 	</modules>
 	<packaging>pom</packaging>
 		<parent>
