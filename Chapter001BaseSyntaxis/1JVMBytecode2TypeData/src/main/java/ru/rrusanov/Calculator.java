@@ -1,4 +1,4 @@
-package rusanov;
+package ru.rrusanov;
 
 public class Calculator {
 
