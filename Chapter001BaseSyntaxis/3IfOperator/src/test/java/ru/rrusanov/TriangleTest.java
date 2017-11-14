@@ -18,10 +18,10 @@ public class TriangleTest {
 	**/
 	@Test
 	public void thenTriangleCalculateArea() {
-		public final int p2ax, p2ay = 4;
-		public final int p3ax = 6;
-		public final int expect = 4;
-		public final int deviation = 0.1;
+		final int p2ax = 4, p2ay = 4;
+		final int p3ax = 6;
+		final int expect = 4;
+		final double deviation = 0.1;
 		Triangle t = new Triangle(new Point(2, 2), new Point(p2ax, p2ay), new Point(p3ax, 2));
 		assertEquals(expect, t.area(), deviation);
 	}

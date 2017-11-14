@@ -21,8 +21,8 @@ public class PointTest {
 	public void thenDistancePointToPoint() {
 		Point a = new Point(1, 1);
 		Point b = new Point(2, 2);
-		public final int expect = 1.4;
-		public final int deviation = 0.1;
+		final double expect = 1.4;
+		final double deviation = 0.1;
 		assertEquals(expect, a.distanceTo(b), deviation);
 	}
 }

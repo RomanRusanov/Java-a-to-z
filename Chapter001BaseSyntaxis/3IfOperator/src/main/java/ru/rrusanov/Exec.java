@@ -20,9 +20,9 @@ public class Exec {
 	 */
 	public static void main(String[] args) {
 
-		final int ax, dy, ex = 3;
-		final int ay, ey = 2;
-		final int bx, by = 6;
+		final int ax = 3, dy =3, ex = 3;
+		final int ay = 2, ey = 2;
+		final int bx = 6, by = 6;
 		final int cx = 11;
 		final int cy = 1;
 		final int dx = 4;
@@ -37,8 +37,7 @@ public class Exec {
 		MaxSide m = new MaxSide();
 
 		System.out.println("Area triangle = " + t.area());
-		System.out.print("Max Side = ");
-		System.out.printf("%.1f\n", m.max(t));
+		System.out.printf("Max Side = %.1f\n", m.max(t));
 		System.out.println("Point c coordinates (" + t.c.x + "," + t.c.y + ")");
 	}
 }
