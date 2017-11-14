@@ -5,7 +5,7 @@ package ru.rrusanov;
  * @version 0.1
  * @since 13.11.17
  */
-public interface ChessType {
+public interface FigureType {
     /**
      * Name of type.
      * @return String name of figure.
@@ -15,5 +15,5 @@ public interface ChessType {
      * Check.
      * @return Cell[] where figure can go.
      */
-    public Cell[] checkMove(Cell position);
+    public Cell[] possibleMovesFromCell(Cell position);
 }

@@ -8,18 +8,18 @@ public abstract class Figure {
     /**
      * Constructor for figure.
      */
-    Figure(Cell position, ChessType chessType) {
+    Figure(Cell position, FigureType figureType) {
         this.position = position;
-        this.chessType = chessType;
+        this.figureType = figureType;
     }
     /**
      * Position figure on board chess.
      */
     private final Cell position;
     /**
-     * ChessType figure of chess.
+     * FigureType figure of chess.
      */
-    private final ChessType chessType;
+    private final FigureType figureType;
     /**
      * Way that figure can cross on board.
      * @param source from what cell you want move figure.
