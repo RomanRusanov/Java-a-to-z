@@ -36,4 +36,16 @@ public class Cell {
     int getY() {
         return this.y;
     }
+
+    /**
+     * Overide toString() method.
+     * @return String with coordinates of this cell.
+     */
+    @Override
+    public String toString() {
+        return "Cell{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }

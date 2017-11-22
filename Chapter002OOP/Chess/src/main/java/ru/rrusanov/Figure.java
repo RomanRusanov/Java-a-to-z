@@ -4,7 +4,7 @@ package ru.rrusanov;
  * @since 13.11.2017
  * @version 0.1
  */
-public abstract class Figure extends Board {
+public abstract class Figure {
     /**
      * Constructor for figure.
      */
