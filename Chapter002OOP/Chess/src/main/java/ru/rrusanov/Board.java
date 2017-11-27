@@ -21,6 +21,19 @@ public class Board {
         return false;
     }
     /**
+     * Add new figure at board.
+     * @param figure type of figure.
+     * @param position position on board.
+     */
+    public void addNewFigure(Figure figure, Cell position) {
+        Cell [] occupiedCells = this.getOccupiedCells(this.figures);
+        for (Cell occupied:occupiedCells) {
+            if (position.getY() == occupied.getX()) {
+
+            }
+        }
+    }
+    /**
      * Contain all occupied cells.
      * @param figures Contains all figures on boards.
      * @return Cell[] Occupied cells.
@@ -34,4 +47,5 @@ public class Board {
         }
         return result;
     }
+
 }

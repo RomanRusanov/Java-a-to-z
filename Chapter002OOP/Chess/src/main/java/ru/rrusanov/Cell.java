@@ -43,9 +43,21 @@ public class Cell {
      */
     @Override
     public String toString() {
-        return "Cell{" +
-                "x=" + x +
-                ", y=" + y +
-                '}';
+        return "Cell{x=" + this.x + ", y=" + this.y + '}';
+    }
+    /**
+     * Overide eqals() method.
+     * @return true if cells have same position on board.
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) return true;
+        if (otherObject == null || this.getClass() != otherObject.getClass()) return false;
+        Cell other = (Cell) otherObject;
+        if (this.x == other.x && this.y == other.y) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
