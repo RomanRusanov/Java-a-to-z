@@ -60,4 +60,14 @@ public class Cell {
             return false;
         }
     }
+    /**
+     * hashcode() method.
+     * @return int value of hashcode cell (x + y).
+     */
+    public int hashcode() {
+        int result = 17;
+        result *= getX();
+        result *= getY();
+        return result;
+    }
 }

@@ -2,9 +2,12 @@ package ru.rrusanov;
 
 import org.junit.Assert;
 import org.junit.Test;
-
 import static org.hamcrest.core.Is.is;
-
+/** Class contains tests for Elephant class.
+ * @author Roman Rusanov
+ * @since 29.11.2017
+ * @version 0.1
+ */
 public class ElephantTest {
     @Test
     public void thenUserChooseCorrectCellForDestinationWhenReturnCellArray() throws ImpossibleCreateCellException{
