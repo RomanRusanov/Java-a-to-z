@@ -50,7 +50,6 @@ public abstract class Figure {
         } else {
             return false;
         }
-
     }
 
 }

@@ -33,7 +33,15 @@ public class Board {
      * @return boolean Movement possible.
      */
     boolean move(Cell source, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException{
-        return false;
+        // Check source cell
+        Cell[] occupiedCells = this.getOccupiedCells();
+        for (Cell occupied:occupiedCells) {
+            if (!source.equals(occupied)) {
+                throw new FigureNotFoundException("There is now figure in source cell!");
+            } else if (dest.equals(occupied)) {
+                throw new OccupiedWayException("There is exist figure on destination cell!");
+            }
+        }
     }
     /**
      * Add new figure at board.
@@ -44,16 +52,15 @@ public class Board {
         for (Cell occupied:occupiedCells) {
             if (figure.position.equals(occupied)) {
                 throw new OccupiedWayException("This cell occupied another figure!");
-            } else {
-                figures = copyOf(figures, figures.length + 1);
-                figures[figures.length - 1] = figure;
-//                if (figures.length == 0 ) {
-//                    figures[0] = figure;
-//                } else {
-//                    figures[figures.length - 1] = figure;
-//                }
             }
         }
+        if (figures.length == 0 ) {
+            this.figures = new Figure[] {figure};
+        } else {
+            this.figures = copyOf(figures, figures.length + 1);
+            figures[figures.length - 1] = figure;
+        }
+
     }
     /**
      * Contain all occupied cells.
@@ -70,8 +77,8 @@ public class Board {
             }
             return result;
         } else {
+            // No figure on board
             return new Cell[] {};
-            //throw new FigureNotFoundException("No figure on board!");
         }
     }
 }
