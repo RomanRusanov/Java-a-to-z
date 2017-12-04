@@ -8,12 +8,21 @@ import static java.util.Arrays.copyOf;
  */
 public class Elephant extends Figure {
     /**
-     * Constructor for figure.
+     * Constructor for create figure.
      *
      * @param position current cell where figure exist.
      */
     Elephant(Cell position) {
         super(position);
+    }
+    /**
+     * Constructor for clone figure.
+     *
+     * @param position current cell where figure exist.
+     * @param id assign id.
+     */
+    Elephant(Cell position, long id) {
+        super(position, id);
     }
     @Override
     Cell[] way(Cell dest) throws ImpossibleMoveException, ImpossibleCreateCellException {
@@ -41,6 +50,9 @@ public class Elephant extends Figure {
         x = position.getX();
         y = position.getY();
         oneWayCheck = false;
+        if (!destinationFinded) {
+            result = new Cell[0];
+        }
         while(!oneWayCheck && !destinationFinded) {
             x++;
             y--;
@@ -59,10 +71,13 @@ public class Elephant extends Figure {
         x = position.getX();
         y = position.getY();
         oneWayCheck = false;
+        if (!destinationFinded) {
+            result = new Cell[0];
+        }
         while(!oneWayCheck && !destinationFinded) {
             x--;
             y--;
-            if (x-- >= 1 && y-- >= 1) {
+            if (x >= 1 && y >= 1) {
                 result = copyOf(result, result.length + 1);
                 result[result.length - 1] = new Cell(x,y);
                 if (x == dest.getX() && y == dest.getY()) {
@@ -77,10 +92,13 @@ public class Elephant extends Figure {
         x = position.getX();
         y = position.getY();
         oneWayCheck = false;
+        if (!destinationFinded) {
+            result = new Cell[0];
+        }
         while(!oneWayCheck && !destinationFinded) {
             x--;
             y++;
-            if (x-- >= 1 && y++ >= 8) {
+            if (x >= 1 && y <= 8) {
                 result = copyOf(result, result.length + 1);
                 result[result.length - 1] = new Cell(x,y);
                 if (x == dest.getX() && y == dest.getY()) {
@@ -96,5 +114,10 @@ public class Elephant extends Figure {
         } else {
             throw new ImpossibleMoveException("Destination cell not correct for this figure!");
         }
+    }
+
+    @Override
+    Figure clone(Cell dest) throws ImpossibleCreateCellException {
+        return new Elephant(dest, this.id);
     }
 }

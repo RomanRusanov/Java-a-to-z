@@ -11,9 +11,9 @@ import static org.hamcrest.core.Is.is;
 public class ElephantTest {
     @Test
     public void thenUserChooseCorrectCellForDestinationWhenReturnCellArray() throws ImpossibleCreateCellException{
-        Elephant elephant = new Elephant(new Cell(1,1));
-        Cell[] result = elephant.way(new Cell(3,3));
-        Cell[] expect = new Cell[] {new Cell(2,2), new Cell(3,3)};
+        Elephant elephant = new Elephant(new Cell(4,4));
+        Cell[] result = elephant.way(new Cell(1,7));
+        Cell[] expect = new Cell[] {new Cell(3,5), new Cell(2,6), new Cell(1,7)};
         Assert.assertThat(result, is(expect));
     }
 }

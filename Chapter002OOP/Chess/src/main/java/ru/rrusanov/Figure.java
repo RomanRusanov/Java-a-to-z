@@ -7,11 +7,18 @@ import  java.util.Date;
  */
 public abstract class Figure {
     /**
-     * Constructor for figure.
+     * Constructor for create figure.
      */
     Figure(Cell position) {
         this.position = position;
         this.id = getId();
+    }
+    /**
+     * Constructor for clone figure.
+     */
+    Figure(Cell position, long id) {
+        this.position = position;
+        this.id = getId(id);
     }
     /**
      * Position figure on board chess.
@@ -22,13 +29,21 @@ public abstract class Figure {
      */
     final long id;
     /**
-     * generate unique id for figure.
+     * generate unique id for create figure.
      * @return int id.
      */
     public long getId() {
         Date date = new Date();
         long result = date.getTime() + position.getX() + position.getY();
         return result;
+    }
+    /**
+     * assign id for figure.
+     * @param id long id
+     * @return long id.
+     */
+    public long getId(long id) {
+        return id;
     }
     /**
      * Way that figure can cross on board.
@@ -51,5 +66,9 @@ public abstract class Figure {
             return false;
         }
     }
-
+    /**
+     * Clone one figure to another cell.
+     * @param dest cell for new position.
+     */
+    abstract Figure clone(Cell dest) throws ImpossibleCreateCellException;
 }

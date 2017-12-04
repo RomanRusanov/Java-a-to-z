@@ -11,7 +11,22 @@ import static org.hamcrest.core.Is.is;
  */
 public class BoardTest {
     @Test
-    public void move() throws Exception {
+    public void getFigureFromCell() throws ImpossibleCreateCellException {
+        Board board = new Board();
+        Cell cell = new Cell(3,3);
+        Figure expect = new Elephant(cell);
+        board.addNewFigure(expect);
+        Figure result = board.getFigureFromCell(cell);
+        Assert.assertThat(result, is(expect));
+    }
+
+    @Test
+    public void move() throws ImpossibleCreateCellException, ImpossibleMoveException, FigureNotFoundException, OccupiedWayException{
+        Board board = new Board();
+        Cell cell = new Cell(4,4);
+        Figure elephant = new Elephant(cell);
+        board.addNewFigure(elephant);
+        Assert.assertTrue(board.move(cell, new Cell(3,5)));
     }
 
     @Test
@@ -25,6 +40,13 @@ public class BoardTest {
 
     @Test
     public void getOccupiedCells() throws Exception {
+        Board board = new Board();
+        Cell cell = new Cell(1,1);
+        Figure figure = new Elephant(cell);
+        board.addNewFigure(figure);
+        Cell[] result = board.getOccupiedCells();
+        Cell[] expect = new Cell[] {cell};
+        Assert.assertThat(result, is(expect));
     }
 
 }

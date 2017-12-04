@@ -25,6 +25,26 @@ public class Board {
         return result;
     }
     /**
+     * Method return figure if it is present on the cell.
+     * @param cell chosen.
+     * @return figure.
+     */
+    public Figure getFigureFromCell(Cell cell) throws ImpossibleCreateCellException {
+        Figure result = new Elephant(new Cell(1,1));
+        boolean finded = false;
+        for (Figure figure:figures) {
+            if (figure.position.equals(cell)) {
+                result = figure;
+                finded = true;
+            }
+        }
+        if (finded) {
+            return result;
+        } else {
+            throw new FigureNotFoundException("No Figure in this cell!");
+        }
+    }
+    /**
      * Method check what destination cell have figure, if no throw exception (FigureNotFoundException).
      * Check correct movement of figure(ImpossibleMoveException).
      * Check the way of movement not blocked other figure, else(OccupiedWayException).
@@ -32,16 +52,40 @@ public class Board {
      * @param dest where you wan to move figure.
      * @return boolean Movement possible.
      */
-    boolean move(Cell source, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException{
-        // Check source cell
+    boolean move(Cell source, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException, ImpossibleCreateCellException {
+        // Check source and destination cell
+        boolean result = false;
         Cell[] occupiedCells = this.getOccupiedCells();
         for (Cell occupied:occupiedCells) {
             if (!source.equals(occupied)) {
                 throw new FigureNotFoundException("There is now figure in source cell!");
             } else if (dest.equals(occupied)) {
-                throw new OccupiedWayException("There is exist figure on destination cell!");
+                throw new OccupiedWayException("There is exist figure in destination cell!");
             }
         }
+        // Check move is correct
+        Figure figureToMove = getFigureFromCell(source);
+        Cell[] wayToMove = figureToMove.way(dest);
+        boolean pathOccupied = false;
+        for (Cell occupied:occupiedCells) {
+            for (Cell way:wayToMove){
+                if (way.equals(occupied)) {
+                    pathOccupied = true;
+                    throw new OccupiedWayException("The path of the figure is occupied by another figure!");
+                }
+            }
+        }
+        if (!wayToMove[wayToMove.length - 1].equals(dest)) throw new ImpossibleMoveException("Destination cell not correct for this figure!");
+        // Clone figure
+        if (!pathOccupied) {
+            for (int i = 0; i < figures.length; i++) {
+                if (figures[i].equals(figureToMove)) {
+                    figures[i] = figureToMove.clone(dest);
+                    result = true;
+                }
+            }
+        }
+        return result;
     }
     /**
      * Add new figure at board.
