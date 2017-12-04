@@ -6,6 +6,9 @@ package ru.rrusanov;
  * @since 14.11.17
  */
 public class FigureNotFoundException extends RuntimeException {
+    /**
+     *
+     */
     FigureNotFoundException(String msg) {
         super(msg);
     }

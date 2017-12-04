@@ -24,6 +24,11 @@ public class Elephant extends Figure {
     Elephant(Cell position, long id) {
         super(position, id);
     }
+    /**
+     * Way that figure can cross on board.
+     * @param dest where you wan to move figure.
+     * @return Cell[] all cells that figure need go to the destination cell.
+     */
     @Override
     Cell[] way(Cell dest) throws ImpossibleMoveException, ImpossibleCreateCellException {
         Cell[] result = new Cell[0];
@@ -115,7 +120,10 @@ public class Elephant extends Figure {
             throw new ImpossibleMoveException("Destination cell not correct for this figure!");
         }
     }
-
+    /**
+     * Clone one figure to another cell.
+     * @param dest cell for new position.
+     */
     @Override
     Figure clone(Cell dest) throws ImpossibleCreateCellException {
         return new Elephant(dest, this.id);

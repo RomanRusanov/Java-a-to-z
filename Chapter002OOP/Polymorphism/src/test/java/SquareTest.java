@@ -38,7 +38,6 @@ public class SquareTest {
 
         final String expect = stringBuilder.toString();
         final String result = byteArrayOutputStream.toString();
-
         assertThat(result, is(expect));
     }
 

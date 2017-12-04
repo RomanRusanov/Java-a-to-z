@@ -8,6 +8,7 @@ import  java.util.Date;
 public abstract class Figure {
     /**
      * Constructor for create figure.
+     * @param position figure on board.
      */
     Figure(Cell position) {
         this.position = position;
@@ -15,6 +16,8 @@ public abstract class Figure {
     }
     /**
      * Constructor for clone figure.
+     * @param position figure on board.
+     * @param id if need create id manually.
      */
     Figure(Cell position, long id) {
         this.position = position;
@@ -25,7 +28,7 @@ public abstract class Figure {
      */
     final Cell position;
     /**
-     * Id unique for figure timestamp + cell position;
+     * Id unique for figure timestamp + cell position.
      */
     final long id;
     /**
@@ -49,6 +52,8 @@ public abstract class Figure {
      * Way that figure can cross on board.
      * @param dest where you wan to move figure.
      * @return Cell[] all cells that figure need go to the destination cell.
+     * @throws ImpossibleMoveException If destination cell busy or on way exist other figure generate exception.
+     * @throws ImpossibleCreateCellException Possibly wrong value x,y for create cell.
      */
     abstract Cell[] way(Cell dest) throws ImpossibleMoveException, ImpossibleCreateCellException;
     /**
@@ -57,18 +62,28 @@ public abstract class Figure {
      */
     @Override
     public boolean equals(Object otherObject) {
-        if (this == otherObject) return true;
-        if (this == null || !(this instanceof Figure)) return false;
-        Figure figure = (Figure) otherObject;
-        if (this.id == figure.id) {
+        if (this == otherObject) {
             return true;
-        } else {
+        }
+        if (this == null || !(this instanceof Figure)) {
             return false;
         }
+        Figure figure = (Figure) otherObject;
+        return id == figure.id;
+    }
+    /**
+     * hashcode() method.
+     * @return int value 17 * 31 + position hash code.
+     */
+    @Override
+    public int hashCode() {
+        return position.hashCode();
     }
     /**
      * Clone one figure to another cell.
      * @param dest cell for new position.
+     * @return Figure cloned.
+     * @throws ImpossibleCreateCellException Possibly wrong value x,y for create cell.
      */
     abstract Figure clone(Cell dest) throws ImpossibleCreateCellException;
 }

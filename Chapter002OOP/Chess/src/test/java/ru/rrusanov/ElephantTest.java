@@ -9,6 +9,9 @@ import static org.hamcrest.core.Is.is;
  * @version 0.1
  */
 public class ElephantTest {
+    /**
+     * Check way of figure.
+     */
     @Test
     public void thenUserChooseCorrectCellForDestinationWhenReturnCellArray() throws ImpossibleCreateCellException{
         Elephant elephant = new Elephant(new Cell(4,4));
