@@ -16,3 +16,6 @@ Contr*.txt
 target
 .idea
 *.iml
+png
+*.asta
+Exec*
