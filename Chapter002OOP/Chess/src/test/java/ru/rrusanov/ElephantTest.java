@@ -10,13 +10,34 @@ import static org.hamcrest.core.Is.is;
  */
 public class ElephantTest {
     /**
+     * Value of cell for test.
+     */
+    private static final int THREE = 3;
+    /**
+     * Value of cell for test.
+     */
+    private static final int FOUR = 4;
+    /**
+     * Value of cell for test.
+     */
+    private static final int FIVE = 5;
+    /**
+     * Value of cell for test.
+     */
+    private static final int SIX = 6;
+    /**
+     * Value of cell for test.
+     */
+    private static final int SEVEN = 7;
+    /**
      * Check way of figure.
+     * @throws ImpossibleCreateCellException Possibly wrong value x,y for create cell.
      */
     @Test
-    public void thenUserChooseCorrectCellForDestinationWhenReturnCellArray() throws ImpossibleCreateCellException{
-        Elephant elephant = new Elephant(new Cell(4,4));
-        Cell[] result = elephant.way(new Cell(1,7));
-        Cell[] expect = new Cell[] {new Cell(3,5), new Cell(2,6), new Cell(1,7)};
+    public void thenUserChooseCorrectCellForDestinationWhenReturnCellArray() throws ImpossibleCreateCellException {
+        Elephant elephant = new Elephant(new Cell(FOUR, FOUR));
+        Cell[] result = elephant.way(new Cell(1, SEVEN));
+        Cell[] expect = new Cell[] {new Cell(THREE, FIVE), new Cell(2, SIX), new Cell(1, SEVEN)};
         Assert.assertThat(result, is(expect));
     }
 }

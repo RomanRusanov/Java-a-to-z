@@ -7,7 +7,8 @@ package ru.rrusanov;
  */
 public class FigureNotFoundException extends RuntimeException {
     /**
-     *
+     * Constructor for class using parent constructor.
+     * @param msg Message describe error.
      */
     FigureNotFoundException(String msg) {
         super(msg);

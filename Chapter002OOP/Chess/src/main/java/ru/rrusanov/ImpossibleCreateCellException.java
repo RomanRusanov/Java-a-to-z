@@ -8,7 +8,8 @@ package ru.rrusanov;
 public class ImpossibleCreateCellException extends Exception {
     /**
      * Constructor for class using parent constructor.
-      */
+     * @param msg Message describe error.
+     */
     ImpossibleCreateCellException(String msg) {
         super(msg);
     }

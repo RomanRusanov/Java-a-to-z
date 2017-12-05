@@ -8,6 +8,7 @@ package ru.rrusanov;
 public class ImpossibleMoveException extends RuntimeException {
     /**
      * Constructor for class using parent constructor.
+     * @param msg Message describe error.
      */
     ImpossibleMoveException(String msg) {
         super(msg);

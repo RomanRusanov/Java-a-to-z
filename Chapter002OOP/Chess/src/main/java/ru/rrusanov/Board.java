@@ -28,9 +28,10 @@ public class Board {
      * Method return figure if it is present on the cell.
      * @param cell chosen.
      * @return figure.
+     * @throws ImpossibleCreateCellException Possibly wrong value x,y for create cell.
      */
     public Figure getFigureFromCell(Cell cell) throws ImpossibleCreateCellException {
-        Figure result = new Elephant(new Cell(1,1));
+        Figure result = new Elephant(new Cell(1, 1));
         boolean finded = false;
         for (Figure figure:figures) {
             if (figure.position.equals(cell)) {
@@ -51,6 +52,10 @@ public class Board {
      * @param source from what cell you want move figure.
      * @param dest where you wan to move figure.
      * @return boolean Movement possible.
+     * @throws ImpossibleMoveException If destination cell busy or on way exist other figure generate exception.
+     * @throws OccupiedWayException If way of movement of figure cross another figure.
+     * @throws FigureNotFoundException If source cell not have figure exist.
+     * @throws ImpossibleCreateCellException Possibly wrong value x,y for create cell.
      */
     boolean move(Cell source, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException, ImpossibleCreateCellException {
         // Check source and destination cell
@@ -68,14 +73,16 @@ public class Board {
         Cell[] wayToMove = figureToMove.way(dest);
         boolean pathOccupied = false;
         for (Cell occupied:occupiedCells) {
-            for (Cell way:wayToMove){
+            for (Cell way:wayToMove) {
                 if (way.equals(occupied)) {
                     pathOccupied = true;
                     throw new OccupiedWayException("The path of the figure is occupied by another figure!");
                 }
             }
         }
-        if (!wayToMove[wayToMove.length - 1].equals(dest)) throw new ImpossibleMoveException("Destination cell not correct for this figure!");
+        if (!wayToMove[wayToMove.length - 1].equals(dest)) {
+            throw new ImpossibleMoveException("Destination cell not correct for this figure!");
+        }
         // Clone figure
         if (!pathOccupied) {
             for (int i = 0; i < figures.length; i++) {
@@ -90,6 +97,7 @@ public class Board {
     /**
      * Add new figure at board.
      * @param figure type of figure.
+     * @throws ImpossibleCreateCellException Possibly wrong value x,y for create cell.
      */
     public void addNewFigure(Figure figure) throws ImpossibleCreateCellException {
         Cell[] occupiedCells = this.getOccupiedCells();
@@ -98,7 +106,7 @@ public class Board {
                 throw new OccupiedWayException("This cell occupied another figure!");
             }
         }
-        if (figures.length == 0 ) {
+        if (figures.length == 0) {
             this.figures = new Figure[] {figure};
         } else {
             this.figures = copyOf(figures, figures.length + 1);
@@ -109,6 +117,7 @@ public class Board {
     /**
      * Contain all occupied cells.
      * @return Cell[] Occupied cells.
+     * @throws FigureNotFoundException If source cell not have figure exist.
      */
     public Cell[] getOccupiedCells() throws FigureNotFoundException {
         int length = figures.length;

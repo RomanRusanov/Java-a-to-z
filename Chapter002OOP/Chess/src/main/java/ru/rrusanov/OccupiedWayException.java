@@ -6,6 +6,10 @@ package ru.rrusanov;
  * @since 14.11.17
  */
 public class OccupiedWayException extends RuntimeException {
+    /**
+     * Constructor for class using parent constructor.
+     * @param msg Message describe error.
+     */
     OccupiedWayException(String msg) {
         super(msg);
     }

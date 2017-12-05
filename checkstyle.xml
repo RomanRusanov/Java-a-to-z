@@ -141,7 +141,9 @@
         <!--<module name="FinalClass"/>-->
         <!--<module name="HideUtilityClassConstructor"/>-->
         <module name="InterfaceIsType"/>
-        <module name="VisibilityModifier"/>
+
+        <!--Private Fields->-->
+        <!--<module name="VisibilityModifier"/>-->
 
         <!-- Miscellaneous other checks.                   -->
         <!-- See http://checkstyle.sf.net/config_misc.html -->
@@ -149,7 +151,5 @@
         <!--<module name="FinalParameters"/>-->
         <module name="TodoComment"/>
         <module name="UpperEll"/>
-
     </module>
-
 </module>

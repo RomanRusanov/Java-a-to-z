@@ -8,6 +8,14 @@ import static java.util.Arrays.copyOf;
  */
 public class Elephant extends Figure {
     /**
+     * Maximum value cells on board.
+     */
+    private static final int EIGHT = 8;
+    /**
+     * Minimum value cells on board.
+     */
+    private static final int ONE = 1;
+    /**
      * Constructor for create figure.
      *
      * @param position current cell where figure exist.
@@ -37,12 +45,12 @@ public class Elephant extends Figure {
         // up and rigth.
         int x = position.getX();
         int y = position.getY();
-        while(!oneWayCheck && !destinationFinded) {
+        while (!oneWayCheck && !destinationFinded) {
             x++;
             y++;
-            if (x <= 8 && y <= 8) {
+            if (x <= EIGHT && y <= EIGHT) {
                 result = copyOf(result, result.length + 1);
-                result[result.length - 1] = new Cell(x,y);
+                result[result.length - 1] = new Cell(x, y);
                 if (x == dest.getX() && y == dest.getY()) {
                     oneWayCheck = true;
                     destinationFinded = true;
@@ -58,12 +66,12 @@ public class Elephant extends Figure {
         if (!destinationFinded) {
             result = new Cell[0];
         }
-        while(!oneWayCheck && !destinationFinded) {
+        while (!oneWayCheck && !destinationFinded) {
             x++;
             y--;
-            if (x <= 8 && y >= 1) {
+            if (x <= EIGHT && y >= ONE) {
                 result = copyOf(result, result.length + 1);
-                result[result.length - 1] = new Cell(x,y);
+                result[result.length - 1] = new Cell(x, y);
                 if (x == dest.getX() && y == dest.getY()) {
                     oneWayCheck = true;
                     destinationFinded = true;
@@ -79,12 +87,12 @@ public class Elephant extends Figure {
         if (!destinationFinded) {
             result = new Cell[0];
         }
-        while(!oneWayCheck && !destinationFinded) {
+        while (!oneWayCheck && !destinationFinded) {
             x--;
             y--;
-            if (x >= 1 && y >= 1) {
+            if (x >= ONE && y >= ONE) {
                 result = copyOf(result, result.length + 1);
-                result[result.length - 1] = new Cell(x,y);
+                result[result.length - 1] = new Cell(x, y);
                 if (x == dest.getX() && y == dest.getY()) {
                     oneWayCheck = true;
                     destinationFinded = true;
@@ -100,12 +108,12 @@ public class Elephant extends Figure {
         if (!destinationFinded) {
             result = new Cell[0];
         }
-        while(!oneWayCheck && !destinationFinded) {
+        while (!oneWayCheck && !destinationFinded) {
             x--;
             y++;
-            if (x >= 1 && y <= 8) {
+            if (x >= ONE && y <= EIGHT) {
                 result = copyOf(result, result.length + 1);
-                result[result.length - 1] = new Cell(x,y);
+                result[result.length - 1] = new Cell(x, y);
                 if (x == dest.getX() && y == dest.getY()) {
                     oneWayCheck = true;
                     destinationFinded = true;
