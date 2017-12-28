@@ -1,7 +1,7 @@
 <project>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ru.rrusanov</groupId>
-	<artifactId>Chapter001BaseSyntaxis</artifactId>
+	<artifactId>Chapter001_BaseSyntaxis</artifactId>
 	<version>1.0</version>
 	<packaging>pom</packaging>
 		<parent>

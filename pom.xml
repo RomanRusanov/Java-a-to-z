@@ -5,9 +5,10 @@
 	<version>1.0</version>
 	<packaging>pom</packaging>
 	<modules>
-		<module>Chapter001BaseSyntaxis</module>
-        <module>Chapter002OOP</module>
-	</modules>
+		<module>Chapter001_BaseSyntaxis</module>
+        <module>Chapter002_OOP</module>
+        <module>Chapter003_CollictionLite</module>
+    </modules>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
