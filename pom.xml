@@ -7,7 +7,7 @@
 	<modules>
 		<module>Chapter001_BaseSyntaxis</module>
         <module>Chapter002_OOP</module>
-        <module>Chapter003_CollictionLite</module>
+        <module>Chapter003_CollectionLite</module>
     </modules>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

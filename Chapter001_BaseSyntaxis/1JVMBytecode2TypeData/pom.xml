@@ -4,11 +4,9 @@
     <artifactId>1JVMBytecode2TypeData</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
-    <!-->
 	    <parent>
 	        <groupId>ru.rrusanov</groupId>
-	        <artifactId>Chapter001BaseSyntaxis</artifactId>
+	        <artifactId>Chapter001_BaseSyntaxis</artifactId>
 	        <version>1.0</version>
 	    </parent>
-	</!-->
 </project>
