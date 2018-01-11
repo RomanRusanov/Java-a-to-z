@@ -1,7 +1,6 @@
 package ru.rrusanov.TestCollectionPerformance;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -57,7 +56,7 @@ public class TestCollectionPerformance {
      * @return How many millisecond need to delete.
      */
     public long delete(Collection<String> collection, int amount) {
-        
+        return -1;
     }
     /**
      * Methods compute current system time in milliseconds.
