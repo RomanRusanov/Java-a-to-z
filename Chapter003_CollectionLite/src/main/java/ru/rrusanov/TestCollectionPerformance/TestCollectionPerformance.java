@@ -1,6 +1,8 @@
 package ru.rrusanov.TestCollectionPerformance;
 
+import javax.swing.text.html.HTMLDocument;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -56,15 +58,24 @@ public class TestCollectionPerformance {
      * @return How many millisecond need to delete.
      */
     public long delete(Collection<String> collection, int amount) {
-        return -1;
+        Iterator iterator = collection.iterator();
+        int index = 0;
+        long start = currentTime();
+        while(iterator.hasNext() && index < amount){
+            iterator.next();
+            iterator.remove();
+            index++;
+        }
+        long end = currentTime();
+        return end - start;
     }
     /**
-     * Methods compute current system time in milliseconds.
+     * Methods compute current system time in nano seconds.
      *
-     * @return Current time in milliseconds.
+     * @return Current time in nano seconds.
      */
     public long currentTime(){
-        return System.currentTimeMillis();
+        return System.nanoTime();
     }
     /**
      * Generate random string.
@@ -80,5 +91,18 @@ public class TestCollectionPerformance {
             text[i] = this.characters.charAt(this.random.nextInt(this.characters.length()));
         }
         return new String(text);
+    }
+    /**
+     * Print table result.
+     * @param collection Collection to action.
+     * @param typeCollection String to comment.
+     * @param amount Number element to action test.
+     */
+    public void printTable(Collection<String> collection, String typeCollection, int amount){
+        System.out.printf("\n\n%7.15s %12s %7s %25s","Collection", "Elements", "Action", "Elapsed time in nano sec.");
+        long result = this.add(collection,amount);
+        System.out.printf("\n%-10.15s %12d %7s %25d",typeCollection, amount, "add", result);
+        result = this.delete(collection,amount);
+        System.out.printf("\n%-10.15s %12d %7s %25d",typeCollection, amount, "delete", result);
     }
 }
