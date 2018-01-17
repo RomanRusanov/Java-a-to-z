@@ -6,5 +6,6 @@
  * ConvertListTest test class ConvertList.
  * Methods:
  *   thenPassArrayWhenReturnList() Then pass two dimension array when return array list with elements two dimension array.
+ *   thenPassCollectionWhenReturnArray() Then pass collection implement List, and number rows when return array int[rows][row].
  */
 package ru.rrusanov.ToArrayListAndBack;

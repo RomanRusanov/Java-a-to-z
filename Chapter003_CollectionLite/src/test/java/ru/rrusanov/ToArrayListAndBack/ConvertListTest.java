@@ -32,13 +32,26 @@ public class ConvertListTest {
         for (int i = 0; i < 9; i++) {
             expectList.add(i, i + 1);
         }
-        Assert.assertThat(returnedList,is(expectList));
+        Assert.assertThat(returnedList, is(expectList));
     }
 
     /**
-     * Then pass collection implement List, and number rows when return array int[rows][collection.size / row]
+     * Then pass collection implement List, and number rows when return array int[rows][row].
      */
     @Test
-    public void toArray() {
+    public void thenPassCollectionWhenReturnArray() {
+        ConvertList convertList = new ConvertList();
+        int[][] expect = new int[][]{
+                                   {1, 2, 3, 4},
+                                   {5, 6, 7, 8},
+                                   {9, 10, 11, 12},
+                                   {13, 0, 0, 0}
+        };
+        List<Integer> list = new ArrayList<>(9);
+        for (int i = 0; i < 13; i++) {
+            list.add(i, i + 1);
+        }
+        int[][]result = convertList.toArray(list, 4);
+        Assert.assertThat(result, is(expect));
     }
 }
