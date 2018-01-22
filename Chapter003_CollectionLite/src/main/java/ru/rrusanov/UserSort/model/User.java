@@ -1,4 +1,7 @@
 package ru.rrusanov.UserSort.model;
+
+import java.util.Objects;
+
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -74,5 +77,39 @@ public class User implements Comparable<User> {
      */
     public Integer getAge() {
         return this.age;
+    }
+    /**
+     * Getter for name value.
+     * @return String name;
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Compare users.
+     * @param o Other user.
+     * @return if equals return true.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        User user = (User) o;
+        return Objects.equals(name, user.name) && Objects.equals(age, user.age);
+    }
+
+    /**
+     * Generate hashcode of user.
+     * @return int hashcode.
+     */
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(name, age);
     }
 }
