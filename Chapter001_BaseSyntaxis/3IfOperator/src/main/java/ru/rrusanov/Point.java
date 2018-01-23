@@ -14,6 +14,9 @@ import static java.lang.Math.pow;
  * Class build point by two coordinates, and calculate distance between two points.
 **/
 public class Point {
+	/**
+	 * value for coordinates.
+	 */
 	public double x, y;
 	/**
 	 * Disigner for Point.
