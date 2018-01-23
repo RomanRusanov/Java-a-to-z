@@ -1,6 +1,6 @@
 <project>
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>Chapter00_2OOP</artifactId>
+	<artifactId>Chapter002_OOP</artifactId>
 	<version>1.0</version>
 	<modules>
 		<module>Polymorphism</module>
