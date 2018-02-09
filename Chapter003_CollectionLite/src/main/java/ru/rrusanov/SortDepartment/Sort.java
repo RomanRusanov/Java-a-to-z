@@ -16,4 +16,15 @@ public class Sort {
 
         return result;
     }
+    /**
+     * Method get first numeric value before char "\".
+     */
+    public Integer number(String record) {
+        int size = record.length();
+        char temp;
+        do {
+            temp = record.charAt(0;
+        } while ()
+    }
+
 }
