@@ -3,6 +3,10 @@ package ru.rrusanov.SortDepartment;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
@@ -16,19 +20,40 @@ import static org.junit.Assert.*;
 public class SortTest {
 
     @Test
-    public void ascendingOrder() {
+    public void thenPassUnsortedStringArrayWhenReturnSortedList() {
+        String[] unsortedStrings = new String[]{
+                "K1\\SK1",
+                "K1\\SK2",
+                "K1\\SK1\\SSK1",
+                "K1\\SK1\\SSK2",
+                "K2",
+                "K2\\SK1\\SSK1",
+                "K2\\SK1\\SSK2"
+        };
+        List<String> expect = Arrays.asList(
+                "K1\\SK1",
+                "K1\\SK1\\SSK1",
+                "K1\\SK1\\SSK2",
+                "K1\\SK2",
+                "K2",
+                "K2\\SK1\\SSK1",
+                "K2\\SK1\\SSK2"
+        );
+        Sort sort = new Sort();
+        List<String> result = sort.ascendingOrder(unsortedStrings);
+        Assert.assertThat(result,is(expect));
     }
 
     @Test
     public void thenStringContainsNumberWhenReturnThatNumbers() {
-        String record1 = "SK13\\SSK10";
+        String record1 = "K1\\SK13\\SSK10";
         String record2 = "SK5";
-        int except1 = 13;
+        int except1 = 10;
         int except2 = 5;
         Sort sort = new Sort();
-        Integer result = sort.numberDep(record1);
-        Assert.assertThat(result,is(except1));
-        result = sort.numberDep(record2);
-        Assert.assertThat(result,is(except2));
+        Integer result = sort.number(record1, 3);
+        Assert.assertThat(result, is(except1));
+        result = sort.number(record2, 1);
+        Assert.assertThat(result, is(except2));
     }
 }
