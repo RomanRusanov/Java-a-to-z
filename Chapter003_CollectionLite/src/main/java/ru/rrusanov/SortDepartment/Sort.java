@@ -3,6 +3,7 @@ package ru.rrusanov.SortDepartment;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * The class sorts departments in flowing order.
@@ -20,17 +21,52 @@ public class Sort {
         result.sort(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
-                int result = number(o1, 1).compareTo(number(o2, 1));
-                if (result == 0) {
-                    result = number(o1, 2).compareTo(number(o2, 2));
+                int resultComp = number(o1, 1).compareTo(number(o2, 1));
+                if (resultComp == 0) {
+                    resultComp = number(o1, 2).compareTo(number(o2, 2));
                 }
-                if (result == 0) {
-                    result = number(o1, 3).compareTo(number(o2, 3));
+                if (resultComp == 0) {
+                    resultComp = number(o1, 3).compareTo(number(o2, 3));
                 }
-                return result;
+                return resultComp;
             }
         });
+        ListIterator<String> listIterator = result.listIterator();
+        while (listIterator.hasPrevious()) {
+
+        }
         return result;
+    }
+    /**
+     * Method get number last section in record.
+     */
+    public Integer[] getLast(String record) {
+        int sizeString = record.length();
+        int lastCharNumber = record.length() - 1;
+        int indexLoop = 0;
+        char currentChar = record.charAt(lastCharNumber);
+        boolean lastFinded = false;
+        String temp = "";
+        String result = "";
+        while (sizeString != indexLoop && !lastFinded) {
+            currentChar = record.charAt(lastCharNumber--);
+            if (currentChar == '\\') {
+                lastFinded = true;
+            }
+            temp += String.valueOf(currentChar);
+            indexLoop++;
+        }
+        sizeString = temp.length();
+        lastCharNumber = temp.length() - 1;
+        indexLoop = 0;
+        currentChar = temp.charAt(lastCharNumber);
+        while (sizeString != indexLoop) {
+            currentChar = temp.charAt(lastCharNumber--);
+            result += this.charReturn(currentChar);
+            indexLoop++;
+
+        }
+        return Integer.valueOf(result);
     }
     /**
      * Method get numeric value from specific section.
@@ -58,22 +94,30 @@ public class Sort {
             }
             currentChar = record.charAt(indexLoop++);
         }
-        while (!(sizeString == indexLoop) && !(currentChar =='\\') & sectionMath) {
-                currentChar = record.charAt(indexLoop);
-                if (currentChar == '0' |
-                    currentChar == '1' |
-                    currentChar == '2' |
-                    currentChar == '3' |
-                    currentChar == '4' |
-                    currentChar == '5' |
-                    currentChar == '6' |
-                    currentChar == '7' |
-                    currentChar == '8' |
-                    currentChar == '9') {
-                    temp += String.valueOf(currentChar);
-                }
-                indexLoop++;
-            }
+        while (!(sizeString == indexLoop) && !(currentChar == '\\') && sectionMath) {
+            currentChar = record.charAt(indexLoop);
+            temp += this.charReturn(currentChar);
+            indexLoop++;
+        }
         return Integer.valueOf(temp);
+    }
+    /**
+     * Method return String with one char if char number.
+     */
+    public String charReturn(char currentChar) {
+        String temp = "";
+        if (currentChar == '0' |
+            currentChar == '1' |
+            currentChar == '2' |
+            currentChar == '3' |
+            currentChar == '4' |
+            currentChar == '5' |
+            currentChar == '6' |
+            currentChar == '7' |
+            currentChar == '8' |
+            currentChar == '9') {
+            temp = String.valueOf(currentChar);
+        }
+        return temp;
     }
 }

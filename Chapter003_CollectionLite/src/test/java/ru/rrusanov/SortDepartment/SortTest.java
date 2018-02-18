@@ -18,7 +18,9 @@ import static org.junit.Assert.*;
  * @since 11.02.2018
  */
 public class SortTest {
-
+    /**
+     * Test for ascendingOrder().
+     */
     @Test
     public void thenPassUnsortedStringArrayWhenReturnSortedList() {
         String[] unsortedStrings = new String[]{
@@ -43,7 +45,9 @@ public class SortTest {
         List<String> result = sort.ascendingOrder(unsortedStrings);
         Assert.assertThat(result,is(expect));
     }
-
+    /**
+     * Test for number().
+     */
     @Test
     public void thenStringContainsNumberWhenReturnThatNumbers() {
         String record1 = "K1\\SK13\\SSK10";
@@ -54,6 +58,21 @@ public class SortTest {
         Integer result = sort.number(record1, 3);
         Assert.assertThat(result, is(except1));
         result = sort.number(record2, 1);
+        Assert.assertThat(result, is(except2));
+    }
+    /**
+     * Test for getLast().
+     */
+    @Test
+    public void thenPassStringWhenReturnNumberLastSection() {
+        String record1 = "K1\\SK13\\SSK10";
+        String record2 = "SK5";
+        int except1 = 10;
+        int except2 = 5;
+        Sort sort = new Sort();
+        Integer result = sort.getLast(record1);
+        Assert.assertThat(result, is(except1));
+        result = sort.getLast(record2);
         Assert.assertThat(result, is(except2));
     }
 }
