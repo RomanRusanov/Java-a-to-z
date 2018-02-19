@@ -46,6 +46,33 @@ public class SortTest {
         Assert.assertThat(result,is(expect));
     }
     /**
+     * Test for addMissedStrings().
+     */
+    @Test
+    public void thenPassListWhenAddMissedDepartment() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("K1\\SK1");
+        list.add("K1\\SK1\\SSK1");
+        list.add("K1\\SK1\\SSK2");
+        list.add("K1\\SK2");
+        list.add("K2");
+        list.add("K2\\SK1\\SSK1");
+        list.add("K2\\SK1\\SSK2");
+        ArrayList<String> expect = new ArrayList<>();
+        expect.add("K1");
+        expect.add("K1\\SK1");
+        expect.add("K1\\SK1\\SSK1");
+        expect.add("K1\\SK1\\SSK2");
+        expect.add("K1\\SK2");
+        expect.add("K2");
+        expect.add("K2\\SK1");
+        expect.add("K2\\SK1\\SSK1");
+        expect.add("K2\\SK1\\SSK2");
+        Sort sort = new Sort();
+        sort.addMissedStrings(list);
+        Assert.assertThat(list, is(expect));
+    }
+    /**
      * Test for number().
      */
     @Test
@@ -67,10 +94,10 @@ public class SortTest {
     public void thenPassStringWhenReturnNumberLastSection() {
         String record1 = "K1\\SK13\\SSK10";
         String record2 = "SK5";
-        int except1 = 10;
-        int except2 = 5;
+        int[] except1 = new int[] {3, 10};
+        int[] except2 = new int[] {1, 5};
         Sort sort = new Sort();
-        Integer result = sort.getLast(record1);
+        int[] result = sort.getLast(record1);
         Assert.assertThat(result, is(except1));
         result = sort.getLast(record2);
         Assert.assertThat(result, is(except2));

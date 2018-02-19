@@ -31,23 +31,67 @@ public class Sort {
                 return resultComp;
             }
         });
-        ListIterator<String> listIterator = result.listIterator();
-        while (listIterator.hasPrevious()) {
-
-        }
+        this.addMissedStrings(result);
         return result;
+    }
+    /**
+     * Method add to list missed strings.
+     */
+    public void addMissedStrings(List<String> sortedList) {
+        ListIterator<String> listIteratorLast = sortedList.listIterator(sortedList.size());
+        ListIterator<String> listIteratorPrevious = sortedList.listIterator(sortedList.size() - 1);
+        while (listIteratorPrevious.hasPrevious()) {
+            int collision = 0;
+            int sectionIndex = 1;
+            String missedString = "";
+            String stringLast = listIteratorLast.previous();
+            String stringPrevious = listIteratorPrevious.previous();
+            int sectionValueLast = number(stringLast, sectionIndex);
+            int sectionValuePrevious = number(stringPrevious, sectionIndex);
+            if (this.getLast(stringLast)[0] == 1) {
+                break;
+            }
+            if (sectionValueLast != sectionValuePrevious) {
+                collision++;
+            }
+            missedString += "K" + sectionValueLast;
+            sectionIndex++;
+            sectionValueLast = number(stringLast, sectionIndex);
+            sectionValuePrevious = number(stringPrevious, sectionIndex);
+            if (sectionValueLast != sectionValuePrevious) {
+                collision++;
+                if (collision == 2) {
+                    listIteratorLast.add(missedString);
+                }
+                if (collision == 1) {
+                    missedString += "\\";
+                }
+                missedString += "SK" + sectionValueLast;
+
+            }
+            sectionIndex++;
+            sectionValueLast = number(stringLast, sectionIndex);
+            sectionValuePrevious = number(stringPrevious, sectionIndex);
+            if (sectionValueLast != sectionValuePrevious) {
+                collision++;
+                if (collision == 2) {
+                    listIteratorLast.add(missedString);
+                }
+            }
+        }
     }
     /**
      * Method get number last section in record.
      */
-    public Integer[] getLast(String record) {
+    public int[] getLast(String record) {
+        int[] result = new int[2];
         int sizeString = record.length();
         int lastCharNumber = record.length() - 1;
         int indexLoop = 0;
-        char currentChar = record.charAt(lastCharNumber);
+        char currentChar;
         boolean lastFinded = false;
         String temp = "";
-        String result = "";
+        String value = "";
         while (sizeString != indexLoop && !lastFinded) {
             currentChar = record.charAt(lastCharNumber--);
             if (currentChar == '\\') {
@@ -59,14 +103,25 @@ public class Sort {
         sizeString = temp.length();
         lastCharNumber = temp.length() - 1;
         indexLoop = 0;
-        currentChar = temp.charAt(lastCharNumber);
         while (sizeString != indexLoop) {
             currentChar = temp.charAt(lastCharNumber--);
-            result += this.charReturn(currentChar);
+            value += this.numberReturn(currentChar);
             indexLoop++;
 
         }
-        return Integer.valueOf(result);
+        sizeString = record.length();
+        indexLoop = 0;
+        int counter = 1;
+        while (sizeString != indexLoop) {
+            currentChar = record.charAt(indexLoop);
+            if (currentChar == '\\') {
+                counter++;
+            }
+            indexLoop++;
+        }
+        result[0] = counter;
+        result[1] = Integer.valueOf(value);
+        return result;
     }
     /**
      * Method get numeric value from specific section.
@@ -96,7 +151,7 @@ public class Sort {
         }
         while (!(sizeString == indexLoop) && !(currentChar == '\\') && sectionMath) {
             currentChar = record.charAt(indexLoop);
-            temp += this.charReturn(currentChar);
+            temp += this.numberReturn(currentChar);
             indexLoop++;
         }
         return Integer.valueOf(temp);
@@ -104,7 +159,7 @@ public class Sort {
     /**
      * Method return String with one char if char number.
      */
-    public String charReturn(char currentChar) {
+    public String numberReturn(char currentChar) {
         String temp = "";
         if (currentChar == '0' |
             currentChar == '1' |
