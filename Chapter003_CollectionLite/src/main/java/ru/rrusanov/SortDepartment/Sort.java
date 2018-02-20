@@ -1,15 +1,28 @@
 package ru.rrusanov.SortDepartment;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * The class sorts departments in flowing order.
  * K 1...n, SK 1...n, SSK 1...n. - Natural ordering
  */
 public class Sort {
+    /**
+     * Default constructor.
+     */
+    public Sort(List<String> unsorted) {
+        this.unsorted = unsorted;
+    }
+    /**
+     * Data with department strings.
+     */
+    private List<String> unsorted;
+    /**
+     * Getter for unsorted.
+     */
+    public List<String> getUnsorted() {
+        return this.unsorted;
+    }
     /**
      * Sort by ascending order.
      */
@@ -31,54 +44,50 @@ public class Sort {
                 return resultComp;
             }
         });
-        this.addMissedStrings(result);
         return result;
     }
     /**
      * Method add to list missed strings.
      */
-    public void addMissedStrings(List<String> sortedList) {
-        ListIterator<String> listIteratorLast = sortedList.listIterator(sortedList.size());
-        ListIterator<String> listIteratorPrevious = sortedList.listIterator(sortedList.size() - 1);
-        while (listIteratorPrevious.hasPrevious()) {
-            int collision = 0;
-            int sectionIndex = 1;
-            String missedString = "";
-            String stringLast = listIteratorLast.previous();
-            String stringPrevious = listIteratorPrevious.previous();
-            int sectionValueLast = number(stringLast, sectionIndex);
-            int sectionValuePrevious = number(stringPrevious, sectionIndex);
-            if (this.getLast(stringLast)[0] == 1) {
-                break;
-            }
-            if (sectionValueLast != sectionValuePrevious) {
-                collision++;
-            }
-            missedString += "K" + sectionValueLast;
-            sectionIndex++;
-            sectionValueLast = number(stringLast, sectionIndex);
-            sectionValuePrevious = number(stringPrevious, sectionIndex);
-            if (sectionValueLast != sectionValuePrevious) {
-                collision++;
-                if (collision == 2) {
-                    listIteratorLast.add(missedString);
+    public void addMissedStrings() {
+        HashSet<String> dataSet = new HashSet<>(this.unsorted);
+        HashSet<String> missedSet = new HashSet<>();
+        Iterator<String> iteratorDataSet = dataSet.iterator();
+        while (iteratorDataSet.hasNext()) {
+            String currentString = iteratorDataSet.next();
+            if (this.getLast(currentString)[0] == 2) {
+                int indexLoop = 0;
+                char currentChar;
+                String stringToFind = "";
+                while(currentString.length() > indexLoop) {
+                    currentChar = currentString.charAt(indexLoop);
+                    if (currentChar == '\\') {
+                        break;
+                    }
+                    stringToFind += currentChar;
+                    indexLoop++;
                 }
-                if (collision == 1) {
-                    missedString += "\\";
-                }
-                missedString += "SK" + sectionValueLast;
-
-            }
-            sectionIndex++;
-            sectionValueLast = number(stringLast, sectionIndex);
-            sectionValuePrevious = number(stringPrevious, sectionIndex);
-            if (sectionValueLast != sectionValuePrevious) {
-                collision++;
-                if (collision == 2) {
-                    listIteratorLast.add(missedString);
+                if (!this.find(stringToFind)) {
+                    missedSet.add(stringToFind);
                 }
             }
         }
+    }
+    /**
+     * Find string in unsorted data.
+     */
+    public boolean find(String record) {
+        String dataValue = "";
+        String recordValue = "";
+        for (String item:this.unsorted) {
+            dataValue += String.valueOf(this.number(item,1));
+            dataValue += String.valueOf(this.number(item,2));
+            dataValue += String.valueOf(this.number(item,3));
+        }
+        recordValue += String.valueOf(this.number(record,1));
+        recordValue += String.valueOf(this.number(record,2));
+        recordValue += String.valueOf(this.number(record,3));
+        return recordValue == dataValue ? true: false;
     }
     /**
      * Method get number last section in record.
