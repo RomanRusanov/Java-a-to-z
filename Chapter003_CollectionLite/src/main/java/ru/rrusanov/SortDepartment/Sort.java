@@ -67,27 +67,60 @@ public class Sort {
                     stringToFind += currentChar;
                     indexLoop++;
                 }
-                if (!this.find(stringToFind)) {
+                if (!this.Find(stringToFind)) {
                     missedSet.add(stringToFind);
+                    ArrayList<String> result = new ArrayList<>(dataSet);
+                    result.addAll(missedSet);
+                    this.unsorted = result;
+                }
+            }
+            if (this.getLast(currentString)[0] == 3) {
+                int indexLoop = 0;
+                char currentChar;
+                String stringToFind = "";
+                int counter = 0;
+                while(currentString.length() > indexLoop) {
+                    currentChar = currentString.charAt(indexLoop);
+                    if (currentChar == '\\') {
+                        counter++;
+                        if (counter == 2) {
+                            break;
+                        }
+                    }
+                    stringToFind += currentChar;
+                    indexLoop++;
+                }
+                if (!this.Find(stringToFind)) {
+                    missedSet.add(stringToFind);
+                    ArrayList<String> result = new ArrayList<>(dataSet);
+                    result.addAll(missedSet);
+                    this.unsorted = result;
                 }
             }
         }
+
     }
     /**
      * Find string in unsorted data.
      */
-    public boolean find(String record) {
+    public boolean Find(String record) {
         String dataValue = "";
         String recordValue = "";
+        boolean result = false;
+        recordValue += String.valueOf(this.number(record,1));
+        recordValue += String.valueOf(this.number(record,2));
+        recordValue += String.valueOf(this.number(record,3));
         for (String item:this.unsorted) {
             dataValue += String.valueOf(this.number(item,1));
             dataValue += String.valueOf(this.number(item,2));
             dataValue += String.valueOf(this.number(item,3));
+            if (dataValue.equals(recordValue)) {
+                result = true;
+                break;
+            }
+            dataValue = "";
         }
-        recordValue += String.valueOf(this.number(record,1));
-        recordValue += String.valueOf(this.number(record,2));
-        recordValue += String.valueOf(this.number(record,3));
-        return recordValue == dataValue ? true: false;
+        return result;
     }
     /**
      * Method get number last section in record.
