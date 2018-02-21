@@ -1,6 +1,10 @@
 package ru.rrusanov.SortDepartment;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.TreeSet;
+import java.util.Iterator;
 
 /**
  * The class sorts departments in flowing order.
@@ -8,30 +12,33 @@ import java.util.*;
  */
 public class Sort {
     /**
-     * Default constructor.
+     * Constructor with data field.
+     * @param data target collection to sort.
      */
-    public Sort(List<String> unsorted) {
-        this.unsorted = unsorted;
+    public Sort(List<String> data) {
+        this.data = data;
+    }
+    /**
+     * Default constructor for test method.
+     */
+    public Sort() {
     }
     /**
      * Data with department strings.
      */
-    private List<String> unsorted;
+    private List<String> data;
     /**
-     * Getter for unsorted.
+     * Getter for data field.
+     * @return reference to target collection.
      */
-    public List<String> getUnsorted() {
-        return this.unsorted;
+    public List<String> getData() {
+        return this.data;
     }
     /**
      * Sort by ascending order.
      */
-    public List<String> ascendingOrder(String[] unsorted) {
-        ArrayList<String> result = new ArrayList<>();
-        for (String item:unsorted) {
-            result.add(item);
-        }
-        result.sort(new Comparator<String>() {
+    public void ascendingOrder() {
+        this.data.sort(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
                 int resultComp = number(o1, 1).compareTo(number(o2, 1));
@@ -44,14 +51,44 @@ public class Sort {
                 return resultComp;
             }
         });
-        return result;
+    }
+    /**
+     * Sort by descending order.
+     */
+    public void descendingOrder() {
+        this.data.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                int resultComp = number(o2, 1).compareTo(number(o1, 1));
+
+                if (resultComp == 0) {
+                    if (number(o2, 2) == 0) {
+                        resultComp = 1;
+                    } else if (number(o1, 2) == 0) {
+                        resultComp = -1;
+                    } else {
+                        resultComp = number(o2, 2).compareTo(number(o1, 2));
+                    }
+                }
+                if (resultComp == 0) {
+                    if (number(o2, 3) == 0) {
+                        resultComp = 1;
+                    } else if (number(o1, 3) == 0) {
+                        resultComp = -1;
+                    } else {
+                        resultComp = number(o2, 3).compareTo(number(o1, 3));
+                    }
+                }
+                return resultComp;
+            }
+        });
     }
     /**
      * Method add to list missed strings.
      */
     public void addMissedStrings() {
-        HashSet<String> dataSet = new HashSet<>(this.unsorted);
-        HashSet<String> missedSet = new HashSet<>();
+        TreeSet<String> dataSet = new TreeSet<>(this.data);
+        TreeSet<String> missedSet = new TreeSet<>();
         Iterator<String> iteratorDataSet = dataSet.iterator();
         while (iteratorDataSet.hasNext()) {
             String currentString = iteratorDataSet.next();
@@ -59,7 +96,7 @@ public class Sort {
                 int indexLoop = 0;
                 char currentChar;
                 String stringToFind = "";
-                while(currentString.length() > indexLoop) {
+                while (currentString.length() > indexLoop) {
                     currentChar = currentString.charAt(indexLoop);
                     if (currentChar == '\\') {
                         break;
@@ -67,11 +104,11 @@ public class Sort {
                     stringToFind += currentChar;
                     indexLoop++;
                 }
-                if (!this.Find(stringToFind)) {
+                if (!this.find(stringToFind)) {
                     missedSet.add(stringToFind);
                     ArrayList<String> result = new ArrayList<>(dataSet);
                     result.addAll(missedSet);
-                    this.unsorted = result;
+                    this.data = result;
                 }
             }
             if (this.getLast(currentString)[0] == 3) {
@@ -79,7 +116,7 @@ public class Sort {
                 char currentChar;
                 String stringToFind = "";
                 int counter = 0;
-                while(currentString.length() > indexLoop) {
+                while (currentString.length() > indexLoop) {
                     currentChar = currentString.charAt(indexLoop);
                     if (currentChar == '\\') {
                         counter++;
@@ -90,11 +127,11 @@ public class Sort {
                     stringToFind += currentChar;
                     indexLoop++;
                 }
-                if (!this.Find(stringToFind)) {
+                if (!this.find(stringToFind)) {
                     missedSet.add(stringToFind);
                     ArrayList<String> result = new ArrayList<>(dataSet);
                     result.addAll(missedSet);
-                    this.unsorted = result;
+                    this.data = result;
                 }
             }
         }
@@ -102,18 +139,20 @@ public class Sort {
     }
     /**
      * Find string in unsorted data.
+     * @param record String to find in field data collection.
+     * @return true - data contain passed string record, false - not.
      */
-    public boolean Find(String record) {
+    public boolean find(String record) {
         String dataValue = "";
         String recordValue = "";
         boolean result = false;
-        recordValue += String.valueOf(this.number(record,1));
-        recordValue += String.valueOf(this.number(record,2));
-        recordValue += String.valueOf(this.number(record,3));
-        for (String item:this.unsorted) {
-            dataValue += String.valueOf(this.number(item,1));
-            dataValue += String.valueOf(this.number(item,2));
-            dataValue += String.valueOf(this.number(item,3));
+        recordValue += String.valueOf(this.number(record, 1));
+        recordValue += String.valueOf(this.number(record, 2));
+        recordValue += String.valueOf(this.number(record, 3));
+        for (String item:this.data) {
+            dataValue += String.valueOf(this.number(item, 1));
+            dataValue += String.valueOf(this.number(item, 2));
+            dataValue += String.valueOf(this.number(item, 3));
             if (dataValue.equals(recordValue)) {
                 result = true;
                 break;
@@ -124,6 +163,8 @@ public class Sort {
     }
     /**
      * Method get number last section in record.
+     * @param record String to analyze.
+     * @return int[0] - section in String (1\2\3). int[1] - value of that section.
      */
     public int[] getLast(String record) {
         int[] result = new int[2];
@@ -169,7 +210,9 @@ public class Sort {
      * Method get numeric value from specific section.
      * Delimiters for section "\"
      * (section1\section2\section3).
-     * Return number.
+     * @param record String to analyze.
+     * @param section int value number of target section.
+     * @return number of target section.
      */
     public Integer number(String record, int section) {
         int sizeString = record.length();
@@ -200,19 +243,21 @@ public class Sort {
     }
     /**
      * Method return String with one char if char number.
+     * @param currentChar to convert. Example -(5)
+     * @return String converted char to string. Example - ("5")
      */
     public String numberReturn(char currentChar) {
         String temp = "";
-        if (currentChar == '0' |
-            currentChar == '1' |
-            currentChar == '2' |
-            currentChar == '3' |
-            currentChar == '4' |
-            currentChar == '5' |
-            currentChar == '6' |
-            currentChar == '7' |
-            currentChar == '8' |
-            currentChar == '9') {
+        if (currentChar == '0'
+            | currentChar == '1'
+            | currentChar == '2'
+            | currentChar == '3'
+            | currentChar == '4'
+            | currentChar == '5'
+            | currentChar == '6'
+            | currentChar == '7'
+            | currentChar == '8'
+            | currentChar == '9') {
             temp = String.valueOf(currentChar);
         }
         return temp;
