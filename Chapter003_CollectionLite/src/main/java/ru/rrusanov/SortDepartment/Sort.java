@@ -1,7 +1,6 @@
 package ru.rrusanov.SortDepartment;
 
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.TreeSet;
 import java.util.Iterator;
@@ -88,50 +87,20 @@ public class Sort {
      */
     public void addMissedStrings() {
         TreeSet<String> dataSet = new TreeSet<>(this.data);
-        TreeSet<String> missedSet = new TreeSet<>();
         Iterator<String> iteratorDataSet = dataSet.iterator();
+        String delimiter = "\\\\";
         while (iteratorDataSet.hasNext()) {
             String currentString = iteratorDataSet.next();
             if (this.getLast(currentString)[0] == 2) {
-                int indexLoop = 0;
-                char currentChar;
-                String stringToFind = "";
-                while (currentString.length() > indexLoop) {
-                    currentChar = currentString.charAt(indexLoop);
-                    if (currentChar == '\\') {
-                        break;
-                    }
-                    stringToFind += currentChar;
-                    indexLoop++;
-                }
+                String stringToFind = currentString.split(delimiter)[0];
                 if (!this.find(stringToFind)) {
-                    missedSet.add(stringToFind);
-                    ArrayList<String> result = new ArrayList<>(dataSet);
-                    result.addAll(missedSet);
-                    this.data = result;
+                    this.data.add(stringToFind);
                 }
             }
             if (this.getLast(currentString)[0] == 3) {
-                int indexLoop = 0;
-                char currentChar;
-                String stringToFind = "";
-                int counter = 0;
-                while (currentString.length() > indexLoop) {
-                    currentChar = currentString.charAt(indexLoop);
-                    if (currentChar == '\\') {
-                        counter++;
-                        if (counter == 2) {
-                            break;
-                        }
-                    }
-                    stringToFind += currentChar;
-                    indexLoop++;
-                }
+                String stringToFind = currentString.split(delimiter)[0] + "\\" + currentString.split(delimiter)[1];
                 if (!this.find(stringToFind)) {
-                    missedSet.add(stringToFind);
-                    ArrayList<String> result = new ArrayList<>(dataSet);
-                    result.addAll(missedSet);
-                    this.data = result;
+                    this.data.add(stringToFind);
                 }
             }
         }
