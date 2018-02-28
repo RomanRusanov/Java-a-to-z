@@ -19,8 +19,8 @@ public class AccountTest {
     @Test
     public void thenAccountExistWhenReturnValueField() {
         Account account = new Account(250, "sb12");
-        int result = account.getValue();
-        Assert.assertThat(250, is(result));
+        double result = account.getValue();
+        Assert.assertThat(250.0, is(result));
     }
 
     /**
@@ -30,8 +30,8 @@ public class AccountTest {
     public void thenValueUpdatedWhenReturnNewValueField() {
         Account account = new Account(250, "sb12");
         account.setValue(350);
-        int result = account.getValue();
-        Assert.assertThat(350, is(result));
+        double result = account.getValue();
+        Assert.assertThat(350.0, is(result));
     }
 
     /**
@@ -53,5 +53,29 @@ public class AccountTest {
         account.setRequisites("sb15");
         String result = account.getRequisites();
         Assert.assertThat("sb15", is(result));
+    }
+    /**
+     * Test equals().
+     */
+    @Test
+    public void thenInstanceEqualsWhenReturnTrue() {
+        Account account1 = new Account(250, "sb14");
+        Account account2 = new Account(0, "sb14");
+        Assert.assertEquals(account1, account2);
+    }
+
+    /**
+     * Test hashCode().
+     */
+    @Test
+    public void thenInstanceEqualsWhenHashCodeEquals() {
+        Account account1 = new Account(250, "sb14");
+        Account account2 = new Account(0, "sb14");
+        int account1Hash = account1.hashCode();
+        int account2Hash = account2.hashCode();
+        Assert.assertEquals(account1Hash, account2Hash);
+        account2 = new Account(350, "sb15");
+        account2Hash = account2.hashCode();
+        Assert.assertNotEquals(account1Hash, account2Hash);
     }
 }

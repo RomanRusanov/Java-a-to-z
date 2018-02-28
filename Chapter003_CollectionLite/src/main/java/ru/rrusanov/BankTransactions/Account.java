@@ -1,4 +1,7 @@
 package ru.rrusanov.BankTransactions;
+
+import static java.util.Objects.hash;
+
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -20,7 +23,7 @@ public class Account {
     /**
      * Value for money sum this account.
      */
-    private int value;
+    private double value;
     /**
      * Requisites for bank account.
      */
@@ -28,9 +31,9 @@ public class Account {
 
     /**
      * Getter for value field.
-     * @return int value.
+     * @return double value.
      */
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 
@@ -38,7 +41,7 @@ public class Account {
      * Setter for value.
      * @param value Set value.
      */
-    public void setValue(int value) {
+    public void setValue(double value) {
         this.value = value;
     }
 
@@ -56,5 +59,30 @@ public class Account {
      */
     public void setRequisites(String requisites) {
         this.requisites = requisites;
+    }
+    /**
+     * Override equals method.
+     * @param obj object to compare.
+     * @return boolean if equal true, otherwise false.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
+        Account temp = (Account) obj;
+        return temp.getRequisites().equals(this.getRequisites());
+    }
+
+    /**
+     * Overide hashCode() method.
+     * @return int hash sum of all fields instance.
+     */
+    @Override
+    public int hashCode() {
+        return hash(this.requisites);
     }
 }
