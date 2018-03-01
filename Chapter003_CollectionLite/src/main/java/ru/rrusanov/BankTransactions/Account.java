@@ -78,7 +78,7 @@ public class Account {
     }
 
     /**
-     * Overide hashCode() method.
+     * Override hashCode() method.
      * @return int hash sum of all fields instance.
      */
     @Override

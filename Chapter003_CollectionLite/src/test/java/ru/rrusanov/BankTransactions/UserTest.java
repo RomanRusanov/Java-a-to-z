@@ -2,9 +2,7 @@ package ru.rrusanov.BankTransactions;
 
 import org.junit.Assert;
 import org.junit.Test;
-
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -14,7 +12,7 @@ import static org.junit.Assert.*;
  */
 public class UserTest {
     /**
-     * Test for getName().
+     * Test for method getName().
      */
     @Test
     public void thenUserExistWhenReturnFieldName() {
@@ -24,7 +22,7 @@ public class UserTest {
     }
 
     /**
-     * Test for setName().
+     * Test for method setName().
      */
     @Test
     public void thenNameChangedWhenNameFieldUpdated() {
@@ -35,7 +33,7 @@ public class UserTest {
     }
 
     /**
-     * Test for getPassport().
+     * Test for method getPassport().
      */
     @Test
     public void thenUserExistWhenReturnFieldPassport() {
@@ -45,7 +43,7 @@ public class UserTest {
     }
 
     /**
-     * Test for setPassport().
+     * Test for method setPassport().
      */
     @Test
     public void thenNameChangedWhenPassportFieldUpdated() {
@@ -56,7 +54,7 @@ public class UserTest {
     }
 
     /**
-     * Test equals().
+     * Test for method equals().
      */
     @Test
     public void thenInstanceEqualsWhenReturnTrue() {
@@ -66,7 +64,7 @@ public class UserTest {
     }
 
     /**
-     * Test hashCode().
+     * Test for method hashCode().
      */
     @Test
     public void thenInstanceEqualsWhenHashCodeEquals() {

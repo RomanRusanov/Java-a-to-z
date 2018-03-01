@@ -100,7 +100,7 @@ public class Bank {
         boolean result = false;
         List<Account> accountListSrc = this.getUserAccounts(srcPassport);
         Account srcAccount = this.findAccount(accountListSrc, srcRequisite);
-        if (srcAccount.getValue() <= amount) {
+        if (srcAccount.getValue() >= amount) {
             List<Account> accountListDest = this.getUserAccounts(destPassport);
             Account destAccount = this.findAccount(accountListDest, destRequisite);
             srcAccount.setValue(srcAccount.getValue() - amount);
@@ -129,20 +129,12 @@ public class Bank {
     }
 
     /**
-     *
-     * @param accountList
-     * @return
+     * Method return account that contain passed requisites.
+     * @param accountList Collection accounts to find.
+     * @param requisite Unique string in account.
+     * @return math account.
      */
     public Account findAccount(List<Account> accountList, String requisite) {
-       Account result = new Account(-1, "-1");
-       Iterator<Account> iterator = accountList.iterator();
-       Account item;
-       while (iterator.hasNext()) {
-           item = iterator.next();
-           if (item.getRequisites().equals(requisite)) {
-               result = item;
-           }
-       }
-       return result;
+       return accountList.get(accountList.indexOf(new Account(0, requisite)));
     }
 }

@@ -2,9 +2,7 @@ package ru.rrusanov.BankTransactions;
 
 import org.junit.Assert;
 import org.junit.Test;
-
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -14,7 +12,7 @@ import static org.junit.Assert.*;
  */
 public class AccountTest {
     /**
-     * Test for getValue.
+     * Test for method getValue().
      */
     @Test
     public void thenAccountExistWhenReturnValueField() {
@@ -24,7 +22,7 @@ public class AccountTest {
     }
 
     /**
-     * Test for setValue.
+     * Test for method setValue().
      */
     @Test
     public void thenValueUpdatedWhenReturnNewValueField() {
@@ -35,7 +33,7 @@ public class AccountTest {
     }
 
     /**
-     * Test for getRequisites.
+     * Test for method getRequisites().
      */
     @Test
     public void thenAccountExistWhenReturnRequisitesField() {
@@ -45,7 +43,7 @@ public class AccountTest {
     }
 
     /**
-     * Test for setRequisites.
+     * Test for method setRequisites().
      */
     @Test
     public void thenRequisitesUpdatedWhenReturnNewRequisitesField() {
@@ -55,7 +53,7 @@ public class AccountTest {
         Assert.assertThat("sb15", is(result));
     }
     /**
-     * Test equals().
+     * Test for method equals().
      */
     @Test
     public void thenInstanceEqualsWhenReturnTrue() {
@@ -65,7 +63,7 @@ public class AccountTest {
     }
 
     /**
-     * Test hashCode().
+     * Test for method hashCode().
      */
     @Test
     public void thenInstanceEqualsWhenHashCodeEquals() {

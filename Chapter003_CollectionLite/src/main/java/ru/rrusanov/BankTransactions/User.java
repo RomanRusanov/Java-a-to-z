@@ -20,6 +20,8 @@ public class User {
     private String passport;
     /**
      * Default constructor.
+     * @param name name of user.
+     * @param passport unique string.
      */
     public User(String name, String passport) {
         this.name = name;
@@ -76,7 +78,7 @@ public class User {
     }
 
     /**
-     * Overide hashCode() method.
+     * Override hashCode() method.
      * @return int hash sum of all fields instance.
      */
     @Override
