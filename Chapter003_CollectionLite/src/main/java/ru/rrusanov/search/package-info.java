@@ -15,5 +15,14 @@
  *  List<Person> getPersons() Getter fot dictionary collection.
  *   void add(Person person) Add person to dictionary.
  *   List<Person> find(String key) Вернуть список всех пользователей, который содержат key в любых полях.
+ *
+ * Task.java Class define Task.
+ *  String getDesc() Getter for description field.
+ *  int getPriority() Getter for priority field.
+ *
+ * PriorityQueue.java Class define PriorityQueue.
+ *  void put(Task task) Метод должен вставлять в нужную позицию элемент. Позиция определять по полю приоритет.
+ *   Для вставик использовать add(int index, E value)
+ *  Task take() Get last task and remove from collection.
  */
 package ru.rrusanov.search;

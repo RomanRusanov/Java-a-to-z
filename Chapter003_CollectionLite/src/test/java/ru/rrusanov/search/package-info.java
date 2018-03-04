@@ -14,5 +14,13 @@
  * PhoneDictionaryTest.java Class test PhoneDictionary class.
  *  void thenAddedPersonWhenCollectionNotEmpty() Test for add method.
  *  void whenFindByName() Test for find method.
+ *
+ * TaskTest.java Class test Task class.
+ *  void thenNewTaskCreateWhenGetterDescReturnSameValue() Test for method getDesc.
+ *  void thenNewTaskCreateWhenGetterPriorityReturnSameValue() Test for method getPriority.
+ *
+ * PriorityQueueTest.java Class test PriorityQueue class.
+ *  void whenHigherPriority() est for method put.
+ *  void take() Test for method take.
  */
 package ru.rrusanov.search;
