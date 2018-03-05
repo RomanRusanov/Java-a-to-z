@@ -1,5 +1,9 @@
 package ru.rrusanov.comparator;
+import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.ArrayList;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 /**
@@ -45,5 +49,15 @@ public class ListCompareTest {
                 "Ivanova"
         );
         assertThat(rst, is(1));
+    }
+    /**
+     * Test fot stringToArrayList method.
+     */
+    @Test
+    public void thenPassStringWhenReturnListChar() {
+        ListCompare listCompare = new ListCompare();
+        String string = "A";
+        ArrayList<Character> rst = listCompare.stringToArrayList(string);
+        Assert.assertThat(rst.get(0), is('A'));
     }
 }
