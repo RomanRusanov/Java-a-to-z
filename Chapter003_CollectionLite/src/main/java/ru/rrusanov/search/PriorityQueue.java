@@ -30,32 +30,7 @@ public class PriorityQueue {
                 this.tasks.add(index, task);
                 break;
             } else {
-                ListIterator<Task> listIterator2 = tasks.listIterator();
-                while (listIterator2.hasNext()) {
-                    index = listIterator2.nextIndex();
-                    current = listIterator2.next();
-                    if (task.getPriority() <= current.getPriority()) {
-                        this.tasks.add(index, task);
-                        break;
-                    } else {
-                        if (!listIterator2.hasNext()) {
-                            this.tasks.add(index + 1, task);
-                            break;
-                        } else {
-                            ListIterator<Task> listIterator3 = tasks.listIterator();
-                            while (listIterator3.hasNext()) {
-                                index = listIterator3.nextIndex();
-                                current = listIterator3.next();
-                                if (task.getPriority() <= current.getPriority()) {
-                                    this.tasks.add(index, task);
-                                    break;
-                                }
-                            }
-                        }
-                        break;
-                    }
-
-                }
+                this.tasks.add(index + 1, task);
                 break;
             }
 

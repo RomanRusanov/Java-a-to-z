@@ -17,26 +17,19 @@ public class ListCompare implements Comparator<String> {
      */
     @Override
     public int compare(String left, String right) {
-        int result;
+        int result = -2;
         ArrayList<Character> leftList = this.stringToArrayList(left);
         ArrayList<Character> rightList = this.stringToArrayList(right);
         int leftListSize = leftList.size();
         int rightListSize = rightList.size();
-        int zeroElementToAdd;
-        if (leftListSize > rightListSize) {
-            zeroElementToAdd = leftListSize - rightListSize;
-            for (int i = 0; zeroElementToAdd > i; i++) {
-                rightList.add(' ');
-            }
-        } else if (leftListSize < rightListSize) {
-            zeroElementToAdd = rightListSize - leftListSize;
-            for (int i = 0; zeroElementToAdd > i; i++) {
-                leftList.add(' ');
-            }
-        }
         int leftSum = 0;
         int rightSum = 0;
-        for (int i = 0; rightList.size() > i; i++) {
+        if (leftListSize < rightListSize) {
+            rightSum = rightListSize - leftListSize;
+        } else if (leftListSize > rightListSize) {
+            leftSum = leftListSize - rightListSize;
+        }
+        for (int i = 0; leftListSize <= rightListSize ? leftListSize > i : rightListSize > i; i++) {
             if (leftList.get(i) < rightList.get(i)) {
                 rightSum++;
             }
@@ -48,14 +41,14 @@ public class ListCompare implements Comparator<String> {
             result = 1;
         } else if (leftSum < rightSum) {
             result = -1;
-        } else {
+        } else if (leftSum == rightSum) {
             result = 0;
         }
         return result;
     }
     /**
      * Method converts string into arrayList<Character>.
-     * @param string to conrersion
+     * @param string to conversion
      * @return ArrayList<Character>
      */
     public ArrayList<Character> stringToArrayList(String string) {
