@@ -41,11 +41,7 @@ public class ListCompare implements Comparator<String> {
             result = 1;
         } else if (leftSum < rightSum) {
             result = -1;
-<<<<<<< HEAD
         } else if (leftSum == rightSum && leftListSize == rightListSize) {
-=======
-        } else if (leftSum == rightSum) {
->>>>>>> 5f8a586... Edited with comments.
             result = 0;
         }
         return result;
