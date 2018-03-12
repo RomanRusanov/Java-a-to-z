@@ -22,5 +22,6 @@
  * PriorityQueueTest.java Class test PriorityQueue class.
  *  void whenHigherPriority() est for method put.
  *  void take() Test for method take.
+ *  void shouldReturnFromOneToFiveSequentially() Test for method take.
  */
 package ru.rrusanov.search;
