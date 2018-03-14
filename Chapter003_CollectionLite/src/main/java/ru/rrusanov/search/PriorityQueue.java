@@ -21,28 +21,18 @@ public class PriorityQueue {
      */
     public void put(Task task) {
         ListIterator<Task> listIterator = this.tasks.listIterator();
-        Task current;
-        int index;
-        int positionToAdd;
         while (listIterator.hasNext()) {
-            index = listIterator.nextIndex();
-            current = listIterator.next();
-            if (task.getPriority() <= current.getPriority()) {
-                positionToAdd = index;
-            } else {
-                positionToAdd = ++index;
-            }
-            ListIterator<Task> listIteratorIn = this.tasks.listIterator(index);
-            if (listIteratorIn.hasNext()) {
-                while (listIteratorIn.hasNext()) {
-                    index = listIteratorIn.nextIndex();
-                    current = listIteratorIn.next();
+            int index = listIterator.nextIndex();
+            Task current = listIterator.next();
+            int positionToAdd = task.getPriority() <= current.getPriority() ? index : ++index;
+                while (listIterator.hasNext()) {
+                    current = this.tasks.get(index);
                     if (current.getPriority() > task.getPriority()) {
                         positionToAdd = index;
                         break;
                     }
+                    index++;
                 }
-            }
             this.tasks.add(positionToAdd, task);
             break;
         }
