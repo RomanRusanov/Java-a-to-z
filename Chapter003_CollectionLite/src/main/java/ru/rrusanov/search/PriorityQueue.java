@@ -1,6 +1,5 @@
 package ru.rrusanov.search;
 import java.util.LinkedList;
-import java.util.ListIterator;
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -20,25 +19,27 @@ public class PriorityQueue {
      * @param task задача
      */
     public void put(Task task) {
-        ListIterator<Task> listIterator = this.tasks.listIterator();
-        while (listIterator.hasNext()) {
-            int index = listIterator.nextIndex();
-            Task current = listIterator.next();
-            int positionToAdd = task.getPriority() <= current.getPriority() ? index : ++index;
-                while (listIterator.hasNext()) {
-                    current = this.tasks.get(index);
-                    if (current.getPriority() > task.getPriority()) {
-                        positionToAdd = index;
-                        break;
-                    }
-                    index++;
+
+        int positionToAdd = 0;
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (task.getPriority() <= this.tasks.get(i).getPriority()) {
+                positionToAdd = i;
+                break;
+            } else {
+                positionToAdd = ++i;
+                break;
+            }
+        }
+        if (this.tasks.size() > positionToAdd) {
+            for (int j = positionToAdd; j < this.tasks.size(); j++) {
+                if (this.tasks.get(j).getPriority() > task.getPriority()) {
+                    positionToAdd = j;
+                    break;
                 }
-            this.tasks.add(positionToAdd, task);
-            break;
+            }
         }
-        if (this.tasks.isEmpty()) {
-            this.tasks.add(0, task);
-        }
+        positionToAdd = this.tasks.isEmpty() ? 0 : positionToAdd;
+        this.tasks.add(positionToAdd, task);
     }
     /**
      * Get last task and remove from collection.

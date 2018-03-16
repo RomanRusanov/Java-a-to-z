@@ -44,3 +44,23 @@ public class ListCompare implements Comparator<String> {
         return result;
     }
 }
+/**
+ * Mentor better example.
+ *
+@Override
+public int compare (String left, String right) {
+    int result = 0;                                                   //--> по умолчанию будем считать что все символы совпадают
+    int shortest = Math.min(left.length(), right.length());           //--> определяем длину самого короткого слова
+
+    for (int i = 0; i < shortest; i++) {                              //--> последовательно проходим по каждому символу
+        if (left.charAt(i) != right.charAt(i)) {                      //--> если символы не равны
+                result = left.charAt(i) > right.charAt(i) ? 1 : -1;   //--> запоминаем меньше/больше левый символ чем правый
+            break;                                                    //--> прерываем цикл, т.к. нашли разные символы
+        }
+    }
+
+    return result != 0 ? result : Integer.compare(left.length(), right.length()); //--> если result не 0 вернем его.
+                                                                                  // если result равен 0, значит слова совпадают
+                                                                                  // и оцениваем по длине слов.
+}
+ */
