@@ -1,0 +1,19 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ru.rrusanov</groupId>
+	<artifactId>Chapter001_BaseSyntaxis</artifactId>
+	<version>1.0</version>
+	<packaging>pom</packaging>
+		<parent>
+	        <groupId>ru.rrusanov</groupId>
+	        <artifactId>1.Level-Trainee</artifactId>
+	        <version>1.0</version>
+	    </parent>
+    <modules>
+		<module>1JVMBytecode2TypeData</module>
+		<module>3IfOperator</module>
+		<module>4Cycles</module>
+		<module>5Array</module>
+		<module>6ControlQuestions</module>
+	</modules>
+</project>

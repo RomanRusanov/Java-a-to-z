@@ -5,8 +5,8 @@
 	<version>1.0</version>
 	<packaging>pom</packaging>
 	<modules>
-		<module>1. Level - Trainee</module>
-        <module>2. Level - Junior</module>
+		<module>1.Level-Trainee</module>
+        <module>2.Level-Junior</module>
     </modules>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
