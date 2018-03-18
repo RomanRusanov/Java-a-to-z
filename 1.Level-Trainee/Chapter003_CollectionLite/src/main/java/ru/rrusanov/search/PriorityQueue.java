@@ -19,7 +19,6 @@ public class PriorityQueue {
      * @param task задача
      */
     public void put(Task task) {
-
         int positionToAdd = 0;
         for (int i = 0; i < this.tasks.size(); i++) {
             if (task.getPriority() <= this.tasks.get(i).getPriority()) {

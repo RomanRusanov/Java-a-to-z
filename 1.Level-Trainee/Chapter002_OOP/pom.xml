@@ -1,5 +1,6 @@
 <project>
 	<modelVersion>4.0.0</modelVersion>
+	<groupId>ru.rrusanov</groupId>
 	<artifactId>Chapter002_OOP</artifactId>
 	<version>1.0</version>
 	<modules>
@@ -9,7 +10,7 @@
 	<packaging>pom</packaging>
 	<parent>
 		<groupId>ru.rrusanov</groupId>
-		<artifactId>Java-a-to-z</artifactId>
+		<artifactId>1.Level-Trainee</artifactId>
 		<version>1.0</version>
 	</parent>
 	<dependencies>

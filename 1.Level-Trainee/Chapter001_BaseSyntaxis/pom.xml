@@ -1,17 +1,19 @@
 <project>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ru.rrusanov</groupId>
-	<artifactId>1. Level - Trainee</artifactId>
+	<artifactId>Chapter001_BaseSyntaxis</artifactId>
 	<version>1.0</version>
 	<packaging>pom</packaging>
 		<parent>
 	        <groupId>ru.rrusanov</groupId>
-	        <artifactId>Java-a-to-z</artifactId>
+	        <artifactId>1.Level-Trainee</artifactId>
 	        <version>1.0</version>
 	    </parent>
     <modules>
-		<module>Chapter001_BaseSyntaxis</module>
-        <module>Chapter002_OOP</module>
-        <module>Chapter003_CollectionLite</module>
+		<module>1JVMBytecode2TypeData</module>
+		<module>3IfOperator</module>
+		<module>4Cycles</module>
+		<module>5Array</module>
+		<module>6ControlQuestions</module>
 	</modules>
 </project>

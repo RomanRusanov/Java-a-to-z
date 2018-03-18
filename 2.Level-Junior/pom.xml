@@ -1,7 +1,7 @@
 <project>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ru.rrusanov</groupId>
-	<artifactId>2. Level - Junior</artifactId>
+	<artifactId>2.Level-Junior</artifactId>
 	<version>1.0</version>
 	<packaging>pom</packaging>
 		<parent>
