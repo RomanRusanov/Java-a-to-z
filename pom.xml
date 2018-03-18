@@ -5,9 +5,8 @@
 	<version>1.0</version>
 	<packaging>pom</packaging>
 	<modules>
-		<module>Chapter001_BaseSyntaxis</module>
-        <module>Chapter002_OOP</module>
-        <module>Chapter003_CollectionLite</module>
+		<module>1. Level - Trainee</module>
+        <module>2. Level - Junior</module>
     </modules>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
