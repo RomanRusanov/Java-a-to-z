@@ -1,0 +1,1 @@
+/** * @author Roman Rusanov * @version 0.1 * @since 18.03.2018 * */package ru.rrusanov.Iterator;
