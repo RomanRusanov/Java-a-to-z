@@ -51,7 +51,7 @@ public class PrimeIterator  extends EvenIterator implements Iterator<Integer> {
         public int find() {
             int result = -1;
             for (int i = index; i < this.array.length; i++) {
-                if (this.array[i] > 1 && this.array[i] % 2 != 0) {
+                if (this.array[i] > 1 && this.prime(this.array[i])) {
                     result = i;
                     break;
                 }
@@ -59,8 +59,15 @@ public class PrimeIterator  extends EvenIterator implements Iterator<Integer> {
             return result;
         }
 
-        public boolean prime() {
-
+        public boolean prime(int number) {
+            boolean result = true;
+            for (int i = 2; i < number; i++) {
+                if (number % i == 0) {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
         }
     }
 
