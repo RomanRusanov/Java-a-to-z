@@ -19,10 +19,6 @@ public class EvenIterator implements Iterator<Integer> {
      * Index current position of iterator.
      */
     private int index;
-    public EvenIterator() {
-        this.array = new int[]{};
-        this.index = 0;
-    }
     /**
      * Default constructor.
      *
