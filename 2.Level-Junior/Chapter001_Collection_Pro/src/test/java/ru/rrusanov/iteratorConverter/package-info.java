@@ -1,0 +1,1 @@
+/** * @author Roman Rusanov * @version 0.1 * @since 20.03.2018 * *  Class test Converter.java. * */package ru.rrusanov.iteratorConverter;
