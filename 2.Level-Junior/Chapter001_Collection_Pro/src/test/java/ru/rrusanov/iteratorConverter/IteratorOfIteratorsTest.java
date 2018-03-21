@@ -7,12 +7,23 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-
+/**
+ * @author Roman Rusanov
+ * @version 0.1
+ * @since 20.03.2018
+ *
+ * Class test Converter.java
+ */
 public class IteratorOfIteratorsTest {
+    /**
+     * Instance iterator.
+     */
     Iterator<Integer> it;
-
+    /**
+     * Before block execute before all test blocks.
+     */
     @Before
-    public void setUp () {
+    public void setUp() {
         Iterator<Integer> it1 = Arrays.asList(1, 2, 3).iterator();
         Iterator<Integer> it2 = Arrays.asList(4, 5, 6).iterator();
         Iterator<Integer> it3 = Arrays.asList(7, 8, 9).iterator();
@@ -20,9 +31,11 @@ public class IteratorOfIteratorsTest {
         Converter IteratorOfIterators = new Converter();
         it = IteratorOfIterators.convert(its);
     }
-
+    /**
+     * Test sequence invocation hasNext.
+     */
     @Test
-    public void hasNextNextSequentialInvocation () {
+    public void hasNextNextSequentialInvocation() {
         assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(1));
         assertThat(it.hasNext(), is(true));
@@ -43,9 +56,11 @@ public class IteratorOfIteratorsTest {
         assertThat(it.next(), is(9));
         assertThat(it.hasNext(), is(false));
     }
-
+    /**
+     * Test next method shouldn't depends on hasNext invocation method.
+     */
     @Test
-    public void testsThatNextMethodDoesntDependsOnPriorHasNextInvocation () {
+    public void testsThatNextMethodDoesntDependsOnPriorHasNextInvocation() {
         assertThat(it.next(), is(1));
         assertThat(it.next(), is(2));
         assertThat(it.next(), is(3));
@@ -56,9 +71,11 @@ public class IteratorOfIteratorsTest {
         assertThat(it.next(), is(8));
         assertThat(it.next(), is(9));
     }
-
+    /**
+     * Test hasNext invocation doesn't affect retrieval order.
+     */
     @Test
-    public void sequentialHasNextInvocationDoesntAffectRetrievalOrder () {
+    public void sequentialHasNextInvocationDoesntAffectRetrievalOrder() {
         assertThat(it.hasNext(), is(true));
         assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(1));
@@ -71,9 +88,11 @@ public class IteratorOfIteratorsTest {
         assertThat(it.next(), is(8));
         assertThat(it.next(), is(9));
     }
-
+    /**
+     * Test hasNext invocation must return false in case of empty iterators.
+     */
     @Test
-    public void hasNextShouldReturnFalseInCaseOfEmptyIterators(){
+    public void hasNextShouldReturnFalseInCaseOfEmptyIterators() {
         Iterator<Integer> it1 = (new ArrayList<Integer>()).iterator();
         Iterator<Integer> it2 = (new ArrayList<Integer>()).iterator();
         Iterator<Integer> it3 = (new ArrayList<Integer>()).iterator();
@@ -82,9 +101,11 @@ public class IteratorOfIteratorsTest {
         it = IteratorOfIterators.convert(its);
         assertThat(it.hasNext(), is(false));
     }
-
+    /**
+     * Test next invocation must throw exception if no elements left.
+     */
     @Test(expected = NoSuchElementException.class)
-    public void invocationOfNextMethodShouldThrowNoSuchElementException(){
+    public void invocationOfNextMethodShouldThrowNoSuchElementException() {
         Iterator<Integer> it1 = Arrays.asList(1,2,3).iterator();
         Iterator<Iterator<Integer>> its = Arrays.asList(it1).iterator();
         Converter IteratorOfIterators = new Converter();
