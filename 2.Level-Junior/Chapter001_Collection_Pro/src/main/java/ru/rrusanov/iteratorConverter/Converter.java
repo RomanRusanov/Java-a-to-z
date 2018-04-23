@@ -1,7 +1,6 @@
 package ru.rrusanov.iteratorConverter;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -10,28 +9,45 @@ import java.util.NoSuchElementException;
  * Class convert object Iterator<Iterator<Integer>> to Iterator<Integer>
  */
 public class Converter {
-
+    /**
+     *  Method convert from Iterator1<Iterator2<Integer>> in sequence Iterator<Integer> contains all Iterators2.
+     * @param it iterator to conversion.
+     * @return Iterator<Integer> contains all Iterators2.
+     */
     Iterator<Integer> convert(Iterator<Iterator<Integer>> it) {
-
         return new Iterator<Integer>() {
-
-            Iterator<Integer> itIn = it.next();
-
+            /**
+             * Pointer to internal iterator.
+             */
+            Iterator<Integer> current = it.next();
+            /**
+             * Method return true if Iterator contain Integer values left, otherwise false.
+             * @return boolean
+             */
             @Override
             public boolean hasNext() {
-                return it.hasNext() || itIn.hasNext();
+                boolean result = false;
+                while (it.hasNext() || current.hasNext()) {
+                    if (current.hasNext()) {
+                        result = true;
+                        break;
+                    } else {
+                        current = it.next();
+                    }
+                }
+                return result;
             }
-
+            /**
+             * Method return next Integer element in iterator.
+             * @return Integer.
+             */
             @Override
             public Integer next() {
                 int result;
-                while (true) {
-                    if (itIn.hasNext()) {
-                        result = itIn.next();
-                        break;
-                    } else {
-                        itIn = it.next();
-                    }
+                if (hasNext()) {
+                    result = current.next();
+                } else {
+                    throw new NoSuchElementException();
                 }
                 return result;
             }
