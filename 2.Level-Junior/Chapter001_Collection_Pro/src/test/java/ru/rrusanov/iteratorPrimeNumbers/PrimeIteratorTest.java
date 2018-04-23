@@ -70,7 +70,7 @@ public class PrimeIteratorTest {
     public void thenPassPrimeNumberWhenReturnTrue() {
         PrimeIterator primeIterator = new PrimeIterator(new int[]{});
         boolean result = false;
-        result = primeIterator.prime(7);
+        result = primeIterator.isPrime(7);
         assertThat(result, is(true));
     }
 }

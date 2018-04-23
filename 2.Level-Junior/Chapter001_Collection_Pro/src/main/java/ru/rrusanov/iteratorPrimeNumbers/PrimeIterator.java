@@ -67,7 +67,7 @@ public class PrimeIterator implements Iterator<Integer> {
     public int find() {
         int result = -1;
         for (int i = index; i < this.array.length; i++) {
-            if (this.array[i] > 1 && this.prime(this.array[i])) {
+            if (this.array[i] > 1 && this.isPrime(this.array[i])) {
                 result = i;
                 break;
             }
@@ -80,7 +80,7 @@ public class PrimeIterator implements Iterator<Integer> {
      * @param number int number to check.
      * @return boolean result check.
      */
-    public boolean prime(int number) {
+    public boolean isPrime(int number) {
         boolean result = true;
         for (int i = 2; i < number; i++) {
             if (number % i == 0) {
@@ -91,5 +91,30 @@ public class PrimeIterator implements Iterator<Integer> {
         return result;
     }
 }
-
+/**
+ * Пример от ментора.
+ * Как альтернативный вариант без дублирования кода:
+ *
+ * @Override
+ * public boolean hasNext () {
+ *     for (int i = index; i < array.length; i++) {
+ *         if(isPrime(array[i])){
+ *             index = i;
+ *             return true;
+ *         }
+ *     }
+ *     return false;
+ * }
+ *
+ * @Override
+ * public Integer next () throws NoSuchElementException {
+ *     if (!hasNext()){
+ *         throw new NoSuchElementException();
+ *     }
+ *     return array[index++];
+ * }
+ *
+ * Метод prime лучше переименовать isPrime. Методам возвращающим булевый тип принято давать имена начинающиеся на is, has
+ * чтобы звучало как вопрос.
+ */
 
