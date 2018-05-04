@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
  * @version 0.1
  * @since 20.03.2018
  *
- * Class convert object Iterator<Iterator<Integer>> to Iterator<Integer>
+ * Class convert object Iterator<Iterator<Integer>> to Iterator<Integer>.
  */
 public class Converter {
     /**
@@ -43,13 +43,10 @@ public class Converter {
              */
             @Override
             public Integer next() {
-                int result;
-                if (hasNext()) {
-                    result = current.next();
-                } else {
+                if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return result;
+                return current.next();
             }
         };
     }
