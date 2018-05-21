@@ -51,7 +51,7 @@ public class UserStore<User> implements Store {
     public Base findById(String id) {
         Base result;
         for (User item : models) {
-            if(item)
+            if(item) 
         }
     }
 }
