@@ -29,12 +29,10 @@ public class SimpleArray<T>  implements Iterable<T> {
      * @param model element to add.
      */
     public void add(T model) {
-        if (index >= 0 && index < 5) {
+        if (index > 4)
+            throw new ArrayIndexOutOfBoundsException("Max models = 5");
             models.add(model);
             index++;
-        } else {
-            throw new ArrayIndexOutOfBoundsException("Max models = 5");
-        }
     }
     /**
      * The method set element in collection.
@@ -42,22 +40,18 @@ public class SimpleArray<T>  implements Iterable<T> {
      * @param model new element to insert.
      */
     public void set(int index, T model) {
-        if (index >= 0 && index < 5) {
-            models.set(index, model);
-        } else {
+        if (index > 4)
             throw new ArrayIndexOutOfBoundsException("Index model out of range");
-        }
+            models.set(index, model);
     }
     /**
      * The method delete element from collection, replace value to null.
      * @param index to delete.
      */
     public void delete(int index) {
-        if (index >= 0 && index < 5) {
-            models.set(index, null);
-        } else {
+        if (index > 4)
             throw new ArrayIndexOutOfBoundsException("Index model out of range");
-        }
+            models.set(index, null);
     }
     /**
      * The method get value from collection.
@@ -65,11 +59,9 @@ public class SimpleArray<T>  implements Iterable<T> {
      * @return value of that index.
      */
     public T get(int index) {
-        if (index >= 0 && index < 5) {
-            return models.get(index);
-        } else {
+        if (index > 4)
             throw new ArrayIndexOutOfBoundsException("Index model out of range");
-        }
+            return models.get(index);
     }
     /**
      * The method return iterator for collection.
