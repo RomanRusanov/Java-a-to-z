@@ -1,4 +1,5 @@
 package ru.rrusanov.generic;
+import java.util.Objects;
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -7,7 +8,6 @@ package ru.rrusanov.generic;
  * User class.
  */
 public class User extends Base{
-
     /**
      * Default constructor.
      *
@@ -31,6 +31,6 @@ public class User extends Base{
     }
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(this.getId());
     }
 }
