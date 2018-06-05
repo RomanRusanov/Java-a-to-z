@@ -20,4 +20,17 @@ public class User extends Base{
     public String getId(){
         return super.getId();
     }
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this)
+            return true;
+        if(!(obj instanceof User))
+            return false;
+        User user = (User) obj;
+        return user.getId().equals(this.getId());
+    }
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

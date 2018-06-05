@@ -2,6 +2,8 @@ package ru.rrusanov.generic;
 
 import ru.rrusanov.simpleArrayT.SimpleArray;
 
+import java.util.Iterator;
+
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -16,8 +18,11 @@ public class UserStore<User> implements Store {
      */
     private SimpleArray<User> models;
 
+    /**
+     * Default constructor.
+     */
     public UserStore() {
-        this.models = new SimpleArray<User>();
+        this.models = new SimpleArray<>();
     }
 
     /**
@@ -50,8 +55,11 @@ public class UserStore<User> implements Store {
     @Override
     public Base findById(String id) {
         Base result;
-        for (User item : models) {
-            if(item) 
+        User current;
+        Iterator<User> iterator = models.iterator();
+        while (iterator.hasNext()) {
+            current = iterator.next();
+            if(current.????)
         }
     }
 }
