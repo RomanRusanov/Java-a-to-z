@@ -71,4 +71,12 @@ public class SimpleArray<T>  implements Iterable<T> {
     public Iterator<T> iterator() {
         return models.iterator();
     }
+    /**
+     * The method return index of instance in collection.
+     * @param model
+     * @return int index.
+     */
+    public int findIndex(T model) {
+        return models.indexOf(model);
+    }
 }

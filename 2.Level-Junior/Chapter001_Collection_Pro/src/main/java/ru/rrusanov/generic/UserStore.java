@@ -1,8 +1,6 @@
 package ru.rrusanov.generic;
-
 import ru.rrusanov.simpleArrayT.SimpleArray;
 import java.util.Iterator;
-
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -16,14 +14,12 @@ public class UserStore<User extends Base> implements Store {
      * The field contains all models.
      */
     private SimpleArray<User> models;
-
     /**
      * Default constructor.
      */
     public UserStore() {
         this.models = new SimpleArray<>();
     }
-
     /**
      * Method add model to collection.
      *
@@ -42,9 +38,10 @@ public class UserStore<User extends Base> implements Store {
      */
     @Override
     public boolean replace(String id, Base model) {
-        return false;
+        int index = this.models.findIndex((User) this.findById(id));
+        this.models.set(index, (User) model);
+        return true;
     }
-
     /**
      * Method find in collection model by id string.
      *
@@ -52,7 +49,7 @@ public class UserStore<User extends Base> implements Store {
      * @return if find return that model.
      */
     @Override
-    public Base findById(String id) {
+    public Base findById(String id) throws userNotFoundException {
         User current;
         Iterator<User> iterator = models.iterator();
         while (iterator.hasNext()) {
