@@ -28,7 +28,7 @@ public class UserStoreTest {
     /**
      * Test replace one user to other.
      */
-    @Test (expected = userNotFoundException.class)
+    @Test (expected = UserNotFoundException.class)
     public void thenReplaceUserWhenOldValueNotExist() {
     userStore.replace("13", new User("3"));
     userStore.findById("13");
@@ -44,7 +44,7 @@ public class UserStoreTest {
     /**
      * Test if user not found must throw exception.
      */
-    @Test (expected = userNotFoundException.class)
+    @Test (expected = UserNotFoundException.class)
     public void thenUserNotFoundThrowException()  {
         User expectForException = new User("10");
         userStore.add(expectForException);

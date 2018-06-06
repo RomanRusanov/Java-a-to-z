@@ -1,6 +1,5 @@
 package ru.rrusanov.generic;
 import ru.rrusanov.simpleArrayT.SimpleArray;
-import java.util.Iterator;
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -9,7 +8,7 @@ import java.util.Iterator;
  * UserStore class.
  * @param <User> type must be User, that collection be contain.
  */
-public class UserStore<User extends Base> implements Store {
+public class UserStore<User> implements Store {
     /**
      * The field contains all models.
      */
@@ -49,14 +48,12 @@ public class UserStore<User extends Base> implements Store {
      * @return if find return that model.
      */
     @Override
-    public Base findById(String id) throws userNotFoundException {
-        User current;
-        Iterator<User> iterator = models.iterator();
-        while (iterator.hasNext()) {
-            current = iterator.next();
-            if (current.getId().equals(id))
-                return current;
+    public Base findById(String id) throws UserNotFoundException {
+        for(int i = 0; i < this.models.getSize(); i++) {
+            Base base = (Base) this.models.get(i);
+            if (base.getId().equals(id))
+                return base;
         }
-        throw new userNotFoundException("User not present in collection!");
+        throw new UserNotFoundException("User not present in collection!");
     }
 }

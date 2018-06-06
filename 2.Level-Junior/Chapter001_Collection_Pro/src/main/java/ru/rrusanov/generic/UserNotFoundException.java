@@ -6,12 +6,12 @@ package ru.rrusanov.generic;
  * @version 0.1
  * @since 05.06.18
  */
-public class userNotFoundException extends RuntimeException {
+public class UserNotFoundException extends RuntimeException {
     /**
      * Construcor return to parent string with exception.
      * @param msg String message.
      */
-    public userNotFoundException(String msg) {
+    public UserNotFoundException(String msg) {
         super(msg);
     }
 }

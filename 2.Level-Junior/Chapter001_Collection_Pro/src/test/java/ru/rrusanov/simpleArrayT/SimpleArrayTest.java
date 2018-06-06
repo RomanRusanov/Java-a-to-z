@@ -88,4 +88,13 @@ public class SimpleArrayTest {
         Assert.assertFalse(iterator.hasNext());
         iterator.next();
     }
+//    /**
+//     * Method check collection size.
+//     */
+//    @Test
+//    public void thenCollectionCreateWhenSizePassToConstructor() {
+//        SimpleArray<Integer> simpleArray = new SimpleArray<>(10);
+//        int result = simpleArray.getSize();
+//        Assert.assertEquals(10, result);
+//    }
 }
