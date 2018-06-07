@@ -29,10 +29,11 @@ public class SimpleArray<T>  implements Iterable<T> {
      * @param model element to add.
      */
     public void add(T model) {
-        if (index > 4)
+        if (index > 4) {
             throw new ArrayIndexOutOfBoundsException("Max models = 5");
-            models.add(model);
-            index++;
+        }
+        models.add(model);
+        index++;
     }
     /**
      * The method set element in collection.
@@ -40,18 +41,20 @@ public class SimpleArray<T>  implements Iterable<T> {
      * @param model new element to insert.
      */
     public void set(int index, T model) {
-     if (index > 4)
-            throw new ArrayIndexOutOfBoundsException("Index model out of range");
-            models.set(index, model);
+        if (index > 4) {
+             throw new ArrayIndexOutOfBoundsException("Index model out of range");
+        }
+        models.set(index, model);
     }
     /**
      * The method delete element from collection, replace value to null.
      * @param index to delete.
      */
     public void delete(int index) {
-        if (index > 4)
+        if (index > 4) {
             throw new ArrayIndexOutOfBoundsException("Index model out of range");
-            models.set(index, null);
+        }
+        models.set(index, null);
     }
     /**
      * The method get value from collection.
@@ -59,9 +62,10 @@ public class SimpleArray<T>  implements Iterable<T> {
      * @return value of that index.
      */
     public T get(int index) {
-        if (index > 4)
+        if (index > 4) {
             throw new ArrayIndexOutOfBoundsException("Index model out of range");
-            return models.get(index);
+        }
+        return models.get(index);
     }
     /**
      * The method return iterator for collection.
@@ -73,12 +77,17 @@ public class SimpleArray<T>  implements Iterable<T> {
     }
     /**
      * The method return index of instance in collection.
-     * @param model
+     * @param model element to search index(position) in collection.
      * @return int index.
      */
     public int findIndex(T model) {
         return models.indexOf(model);
     }
+
+    /**
+     * The method return size of collection.
+     * @return int size.
+     */
     public int getSize() {
         return this.models.size();
     }

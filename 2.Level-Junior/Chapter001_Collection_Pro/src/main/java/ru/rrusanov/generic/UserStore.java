@@ -1,23 +1,18 @@
 package ru.rrusanov.generic;
-import ru.rrusanov.simpleArrayT.SimpleArray;
+
 /**
  * @author Roman Rusanov
  * @version 0.1
  * @since 21.05.2018
  *
- * UserStore class.
- * @param <User> type must be User, that collection be contain.
+ * Collection User class.
  */
-public class UserStore<User> implements Store {
-    /**
-     * The field contains all models.
-     */
-    private SimpleArray<User> models;
+public class UserStore extends AbstractStore<User> implements Store {
     /**
      * Default constructor.
      */
     public UserStore() {
-        this.models = new SimpleArray<>();
+        super();
     }
     /**
      * Method add model to collection.
@@ -26,7 +21,7 @@ public class UserStore<User> implements Store {
      */
     @Override
     public void add(Base model) {
-        this.models.add((User) model);
+        super.models.add((User) model);
     }
     /**
      * Method replace new value model to existing id.
@@ -37,9 +32,7 @@ public class UserStore<User> implements Store {
      */
     @Override
     public boolean replace(String id, Base model) {
-        int index = this.models.findIndex((User) this.findById(id));
-        this.models.set(index, (User) model);
-        return true;
+        return super.replace(id, (User) model);
     }
     /**
      * Method find in collection model by id string.
@@ -49,11 +42,6 @@ public class UserStore<User> implements Store {
      */
     @Override
     public Base findById(String id) throws UserNotFoundException {
-        for(int i = 0; i < this.models.getSize(); i++) {
-            Base base = (Base) this.models.get(i);
-            if (base.getId().equals(id))
-                return base;
-        }
-        throw new UserNotFoundException("User not present in collection!");
+        return super.findById(id);
     }
 }

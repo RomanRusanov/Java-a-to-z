@@ -3,19 +3,16 @@
  * @version 0.1
  * @since 06.06.2018
  *
- *  MatrixTest.java Class test MatrixIterator.java class.
- *   void setUp() Before block execute before all test blocks.
- *   void hasNextNextSequentialInvocation() Test sequence invocation hasNext.
- *   void testsThatNextMethodDoesntDependsOnPriorHasNextInvocation() Test returned value with out hasNext invocation.
- *   void sequentialHasNextInvocationDoesntAffectRetrievalOrder() Test hasNext invocation doesn't affect retrieval order.
- *   void shoulThrowNoSuchElementException() Test check  if next call in empty array, then throw exception.
+ * UserStoreTest.java Class test UserStore.java class.
+ *  void setUp() Section execute before each tests.
+ *  void thenReplaceUserWhenOldValueNotExist() Test replace one user to other.
+ *  void thenUserExistWhenReturnUser() Test add & findById method.
+ *  void thenUserNotFoundThrowException() Test if user not found must throw exception.
  *
- *  JaggedArrayIteratorTest.java Class test MatrixIterator.java class with jagged array.
- *   void setUp() Before block execute before all test blocks.
- *   void testsThatNextMethodDoesntDependsOnPriorHasNextInvocation() Test returned value with out hasNext invocation.
- *   void sequentialHasNextInvocationDoesntAffectRetrievalOrder() Test hasNext invocation doesn't affect retrieval order.
- *   void hasNextNextSequentialInvocationz() Test sequence invocation hasNext.
- *
- *
+ * RoleStoreTest.java Class test RoleStore.java class.
+ *  void setUp() Section execute before each tests.
+ *  void thenReplaceRoleWhenOldValueNotExist() Test replace one user to other.
+ *  void thenRoleExistWhenReturnRole() Test add & findById method.
+ *  void thenRoleNotFoundThrowException() Test if user not found must throw exception.
  */
 package ru.rrusanov.generic;

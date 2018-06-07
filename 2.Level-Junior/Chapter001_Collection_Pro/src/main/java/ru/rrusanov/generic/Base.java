@@ -4,7 +4,7 @@ package ru.rrusanov.generic;
  * @version 0.1
  * @since 21.05.2018
  *
- * Base class .
+ * Base class.
  */
 public abstract class Base {
     /**
@@ -19,7 +19,7 @@ public abstract class Base {
         this.id = id;
     }
     /**
-     * Method Getter return id.
+     * The method Getter return id.
      * @return id string.
      */
     public String getId() {
