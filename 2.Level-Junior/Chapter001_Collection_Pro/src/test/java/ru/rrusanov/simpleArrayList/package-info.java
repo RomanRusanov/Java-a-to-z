@@ -1,0 +1,1 @@
+/** * @author Roman Rusanov * @version 0.1 * @since 20.05.2018 * * SimpleArrayList class . * */package ru.rrusanov.simpleArrayList;
