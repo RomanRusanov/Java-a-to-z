@@ -13,13 +13,22 @@ public class User extends Base{
      *
      * @param id unique id.
      */
-    protected User(String id) {
+    User(String id) {
         super(id);
     }
+    /**
+     * Method Getter return id.
+     * @return id string.
+     */
     @Override
     public String getId(){
         return super.getId();
     }
+    /**
+     * The method compare User object by field id.
+     * @param obj object to compare.
+     * @return boolean result.
+     */
     @Override
     public boolean equals(Object obj) {
         if(obj == this)
@@ -29,6 +38,10 @@ public class User extends Base{
         User user = (User) obj;
         return user.getId().equals(this.getId());
     }
+    /**
+     * The method return hash of that object.
+     * @return int hash.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(this.getId());

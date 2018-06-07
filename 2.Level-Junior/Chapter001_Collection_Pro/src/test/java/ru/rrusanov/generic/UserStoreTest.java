@@ -13,7 +13,7 @@ public class UserStoreTest {
     /**
      * Instance UserStore.
      */
-    private UserStore<User> userStore = new UserStore<>();
+    private UserStore userStore = new UserStore();
     /**
      * Instance new User.
      */
