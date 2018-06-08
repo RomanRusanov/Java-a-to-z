@@ -5,6 +5,7 @@ package ru.rrusanov.simpleArrayList;
  * @since 07.06.2018
  *
  * SimpleArrayList class. Single linked list.
+ * @param <E> generic type.
  */
 public class SimpleArrayList<E> {
     /**

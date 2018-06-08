@@ -5,6 +5,7 @@ package ru.rrusanov.simpleArrayList;
  * @since 07.06.2018
  *
  * Node class, contain data.
+ * @param <E> generic type.
  */
 public class Node<E> {
     /**

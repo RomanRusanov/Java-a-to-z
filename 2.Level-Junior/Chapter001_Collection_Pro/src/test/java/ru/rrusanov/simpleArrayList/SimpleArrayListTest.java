@@ -1,9 +1,8 @@
 package ru.rrusanov.simpleArrayList;
 import org.junit.Before;
 import org.junit.Test;
-
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 /**
  * @author Roman Rusanov
  * @version 0.1
