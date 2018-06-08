@@ -7,13 +7,17 @@ package ru.rrusanov.simpleArrayList;
  * SimpleArrayList class. Single linked list.
  */
 public class SimpleArrayList<E> {
-
+    /**
+     * The field size of collection.
+     */
     private int size;
-
+    /**
+     * The field contain link to last added element.
+     */
     private Node<E> first;
-
     /**
      * The method insert data at beginning list.
+     * @param date new element to adding in collection.
      */
     public void add(E date) {
         Node<E> newLink = new Node<>(date);
@@ -23,12 +27,17 @@ public class SimpleArrayList<E> {
     }
     /**
      * Implements The method deleting first element in list.
+     * @return deleted element.
      */
     public E delete() {
-        return null;
+        Node<E> wasFirst = first.next;
+        this.first = first.next;
+        return (E) wasFirst;
     }
     /**
      * The method get element using index to find.
+     * @param index element to get.
+     * @return element.
      */
     public E get(int index) {
         Node<E> result = this.first;
@@ -39,6 +48,7 @@ public class SimpleArrayList<E> {
     }
     /**
      * The method return size of list.
+     * @return int size of collection.
      */
     public int getSize() {
         return this.size;

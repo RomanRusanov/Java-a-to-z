@@ -26,14 +26,26 @@ public class SimpleArrayListTest {
         list.add(2);
         list.add(3);
     }
-
+    /**
+     * Return second element in collection.
+     */
     @Test
-    public void thenAddThreeElementsWhenUseGetResultTwo() {
+    public void whenAddThreeElementsThenUseGetResultTwo() {
         assertThat(list.get(1), is(2));
     }
-
+    /**
+     * Return size of collection.
+     */
     @Test
-    public void thenAddThreeElementsWhenUseGetSizeResultThree() {
+    public void whenAddThreeElementsThenUseGetSizeResultThree() {
         assertThat(list.getSize(), is(3));
+    }
+    /**
+     * When delete call, the method must delete first and next element become first.
+     */
+    @Test
+    public void whenDeleteFirstThenSecondBecomeFirst() {
+        list.delete();
+        assertThat(list.get(0), is(2));
     }
 }
