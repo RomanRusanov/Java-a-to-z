@@ -1,4 +1,4 @@
-package ru.rrusanov.dynamicLinkedListBasedNodeArray;
+package ru.rrusanov.dynamicLinkedListBasedNode;
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -18,6 +18,7 @@ public class Node<E> {
     Node<E> next;
     /**
      * Default constructor.
+     * @param data Generic type, data to be stored in node.
      */
     public Node(E data) {
         this.data = data;
