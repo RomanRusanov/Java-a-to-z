@@ -44,7 +44,7 @@ public class SimpleArrayListTest {
      */
     @Test
     public void whenDeleteFirstThenSecondBecomeFirst() {
-        list.delete();
+        assertThat(list.get(0), is(list.delete()));
         assertThat(list.get(0), is(2));
     }
 }

@@ -31,9 +31,9 @@ public class SimpleArrayList<E> {
      * @return deleted element.
      */
     public E delete() {
-        Node<E> wasFirst = first.next;
+        Node<E> wasFirst = first;
         this.first = first.next;
-        return (E) wasFirst;
+        return (E) wasFirst.date;
     }
     /**
      * The method get element using index to find.
