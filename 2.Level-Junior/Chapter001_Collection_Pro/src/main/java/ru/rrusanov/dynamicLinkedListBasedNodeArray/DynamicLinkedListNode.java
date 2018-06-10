@@ -11,11 +11,11 @@ import java.util.Iterator;
  *
  * Dynamic list based on array linked nodes.
  */
-public class DynamicLinkedListNode<E> extends Iterable<E> {
-    /**
-     * The field contain array of nodes with all data.
-     */
-    private Node<E>[] container;
+public class DynamicLinkedListNode<E> implements Iterable<E> {
+//    /**
+//     * The field contain array of nodes with all data.
+//     */
+//    private Node<E>[] container;
     /**
      * The field contain link to last added element in collection.
      */
@@ -23,18 +23,30 @@ public class DynamicLinkedListNode<E> extends Iterable<E> {
     /**
      * The field contain position in array container.
      */
-    private int position = 0;
-    /**
-     * Default constructor.
-     */
-    public DynamicLinkedListNode() {
-        this.container = new Node[1];
-    }
+    private int size;
+//    /**
+//     * Default constructor.
+//     */
+//    public DynamicLinkedListNode() {
+//        this.container = new Node[1];
+//    }
 
     public void add(E node) {
-        if (this.container.length - 1 == this.position) {
-            this.container = Arrays.copyOf(this.container, this.container.length + 1);
+        Node<E> newLink = new Node<>(node);
+        newLink.next = this.first;
+        this.first = newLink;
+        this.size++;
+    }
+
+    public E get(int index) {
+        int position = this.size - index;
+        Node<E> current = first;
+        Node<E> result = first;
+        for (int i = 0; i < position; i++) {
+            result = current.next;
+            current = result;
         }
+        return (E) result.data;
     }
 
     /**
