@@ -32,8 +32,8 @@ public class SimpleArray<T>  implements Iterable<T> {
         if (index > 4) {
             throw new ArrayIndexOutOfBoundsException("Max models = 5");
         }
-        models.add(model);
-        index++;
+        this.models.add(model);
+        this.index++;
     }
     /**
      * The method set element in collection.
@@ -44,7 +44,7 @@ public class SimpleArray<T>  implements Iterable<T> {
         if (index > 4) {
              throw new ArrayIndexOutOfBoundsException("Index model out of range");
         }
-        models.set(index, model);
+        this.models.set(index, model);
     }
     /**
      * The method delete element from collection, replace value to null.
@@ -54,7 +54,8 @@ public class SimpleArray<T>  implements Iterable<T> {
         if (index > 4) {
             throw new ArrayIndexOutOfBoundsException("Index model out of range");
         }
-        models.set(index, null);
+        models.remove(index);
+        this.index--;
     }
     /**
      * The method get value from collection.
@@ -65,7 +66,7 @@ public class SimpleArray<T>  implements Iterable<T> {
         if (index > 4) {
             throw new ArrayIndexOutOfBoundsException("Index model out of range");
         }
-        return models.get(index);
+        return this.models.get(index);
     }
     /**
      * The method return iterator for collection.
