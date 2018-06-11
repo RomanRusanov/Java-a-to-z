@@ -1,0 +1,1 @@
+/** * @author Roman Rusanov * @version 0.1 * @since 11.06.2018 * * SimpleStack.java collection with behavior classic stack LIFO(last in first out). *  T poll() The method return last added element and remove it from collection. *  void push(T value) The method add element in collection. */package ru.rrusanov.simpleStack;
