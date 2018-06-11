@@ -6,7 +6,7 @@ package ru.rrusanov.generic;
  *
  * Collection Role class.
  */
-public class RoleStore extends AbstractStore<Role> implements Store {
+public class RoleStore extends AbstractStore<Role> implements Store<Base> {
     /**
      * Method add model to collection.
      *
@@ -14,7 +14,7 @@ public class RoleStore extends AbstractStore<Role> implements Store {
      */
     @Override
     public void add(Base model) {
-        super.models.add((Role) model);
+        models.add((Role) model);
     }
     /**
      * Method replace new value model to existing id.
@@ -25,7 +25,7 @@ public class RoleStore extends AbstractStore<Role> implements Store {
      */
     @Override
     public boolean replace(String id, Base model) {
-        return super.replace(id, (Role) model);
+        return replace(id, model);
     }
     /**
      * Method find in collection model by id string.
@@ -34,8 +34,8 @@ public class RoleStore extends AbstractStore<Role> implements Store {
      * @return if find return that model.
      */
     @Override
-    public Base findById(String id) throws RoleNotFoundException {
-        return super.findById(id);
+    public Role findById(String id) throws NotFoundException {
+        return (Role) super.findById(id);
     }
 
 }

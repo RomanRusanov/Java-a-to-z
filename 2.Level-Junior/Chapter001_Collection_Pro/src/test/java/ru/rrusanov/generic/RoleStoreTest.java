@@ -28,7 +28,7 @@ public class RoleStoreTest {
     /**
      * Test replace one role to other.
      */
-    @Test (expected = RoleNotFoundException.class)
+    @Test (expected = NotFoundException.class)
     public void thenReplaceRoleWhenOldValueNotExist() {
         roleStore.replace("13", new Role("3"));
         roleStore.findById("13");
@@ -44,7 +44,7 @@ public class RoleStoreTest {
     /**
      * Test if role not found must throw exception.
      */
-    @Test (expected = RoleNotFoundException.class)
+    @Test (expected = NotFoundException.class)
     public void thenRoleNotFoundThrowException()  {
         Role expectForException = new Role("10");
         roleStore.add(expectForException);

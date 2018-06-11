@@ -8,7 +8,7 @@ import ru.rrusanov.simpleArrayT.SimpleArray;
  * Universal store class.
  * @param <T> Role or User type.
  */
-abstract class AbstractStore<T> implements Store {
+abstract class AbstractStore<T> implements Store<Base> {
     /**
      * Field contain collection.
      */
@@ -38,19 +38,15 @@ abstract class AbstractStore<T> implements Store {
      *
      * @param id string to find.
      * @return if find return that model.
-     * @throws UserNotFoundException User not present in collection.
-     * @throws RoleNotFoundException Role not present in collection.
+     * @throws NotFoundException not present in collection.
      */
-    public Base findById(String id) throws UserNotFoundException, RoleNotFoundException {
+    public Base findById(String id) throws NotFoundException {
         for (int i = 0; i < this.models.getSize(); i++) {
             Base base = (Base) this.models.get(i);
             if (base.getId().equals(id)) {
                 return base;
             }
         }
-        if (this.models.get(0).getClass().getName().equals("User")) {
-            throw new UserNotFoundException("User not present in collection!");
-        }
-        throw new RoleNotFoundException("Role not present in collection!");
+        throw new NotFoundException("Role not present in collection!");
     }
 }
