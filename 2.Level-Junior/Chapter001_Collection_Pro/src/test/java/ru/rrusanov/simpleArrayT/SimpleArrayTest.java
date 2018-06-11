@@ -4,6 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import static org.hamcrest.core.Is.is;
+
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -57,7 +60,7 @@ public class SimpleArrayTest {
     @Test
     public void thenElementDeleteWhenReturnNull() {
         simpleArray.delete(4);
-        Assert.assertNull(simpleArray.get(4));
+        Assert.assertThat(simpleArray.getSize(), is(4));
     }
     /**
      * Then get element from collection, when return value at this index.
@@ -88,13 +91,4 @@ public class SimpleArrayTest {
         Assert.assertFalse(iterator.hasNext());
         iterator.next();
     }
-//    /**
-//     * Method check collection size.
-//     */
-//    @Test
-//    public void thenCollectionCreateWhenSizePassToConstructor() {
-//        SimpleArray<Integer> simpleArray = new SimpleArray<>(10);
-//        int result = simpleArray.getSize();
-//        Assert.assertEquals(10, result);
-//    }
 }
