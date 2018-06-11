@@ -33,6 +33,7 @@ public class SimpleArrayList<E> {
     public E delete() {
         Node<E> wasFirst = first;
         this.first = first.next;
+        this.size--;
         return (E) wasFirst.date;
     }
     /**
