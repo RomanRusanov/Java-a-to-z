@@ -17,6 +17,20 @@ public class SimpleArrayList<E> {
      */
     private Node<E> first;
     /**
+     * Default constructor.
+     */
+    public SimpleArrayList() {
+
+    }
+    /**
+     * Constructor add node when instance create.
+     * @param node first node in collection.
+     */
+    public SimpleArrayList(Node<E> node) {
+        this.first = node;
+        this.size++;
+    }
+    /**
      * The method insert data at beginning list.
      * @param date new element to adding in collection.
      */
@@ -34,7 +48,20 @@ public class SimpleArrayList<E> {
         Node<E> wasFirst = first;
         this.first = first.next;
         this.size--;
-        return (E) wasFirst.date;
+        return wasFirst.date;
+    }
+    /**
+     * The method remove node from collection with index.
+     * @param index node to remove.
+     * @return removed node.
+     */
+    public Node<E> delete(int index) {
+        Node<E> previousNode = this.getNode(index - 1);
+        Node<E> deletedNode = this.getNode(index);
+        Node<E> afterNode = this.getNode(index + 1);
+        previousNode.next = afterNode;
+        this.size--;
+        return deletedNode;
     }
     /**
      * The method get element using index to find.
@@ -47,6 +74,18 @@ public class SimpleArrayList<E> {
             result = result.next;
         }
         return result.date;
+    }
+    /**
+     * The method return node from collection.
+     * @param index node to return.
+     * @return node at specific index position.
+     */
+    public Node<E> getNode(int index) {
+        Node<E> result = this.first;
+        for (int i = 0; i < index; i++) {
+            result = result.next;
+        }
+        return result;
     }
     /**
      * The method return size of list.
