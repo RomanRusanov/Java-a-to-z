@@ -53,13 +53,24 @@ public class SimpleArrayList<E> {
     /**
      * The method remove node from collection with index.
      * @param index node to remove.
+     * @return data in removed node.
+     */
+    public E delete(int index) {
+        return this.deleteNode(index).date;
+    }
+    /**
+     * The method remove node from collection with index.
+     * @param index node to remove.
      * @return removed node.
      */
-    public Node<E> delete(int index) {
+    public Node<E> deleteNode(int index) {
         Node<E> previousNode = this.getNode(index - 1);
         Node<E> deletedNode = this.getNode(index);
         Node<E> afterNode = this.getNode(index + 1);
         previousNode.next = afterNode;
+        if (index == 0) {
+            this.first = afterNode;
+        }
         this.size--;
         return deletedNode;
     }

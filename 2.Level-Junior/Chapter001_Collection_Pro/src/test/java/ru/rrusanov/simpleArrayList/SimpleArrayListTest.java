@@ -64,7 +64,11 @@ public class SimpleArrayListTest {
     @Test
     public void whenDeleteByIndexThenElementRemove() {
         assertThat(list.getSize(), is(4));
-        assertThat(list.delete(3), is(zeroNode));
+        assertThat(list.deleteNode(3), is(zeroNode));
         assertThat(list.getSize(), is(3));
+        assertThat(list.delete(0), is(3));
+        assertThat(list.getSize(), is(2));
+        assertThat(list.delete(1), is(1));
+        assertThat(list.getSize(), is(1));
     }
 }
