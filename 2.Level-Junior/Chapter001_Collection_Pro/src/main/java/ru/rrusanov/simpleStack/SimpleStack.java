@@ -1,5 +1,5 @@
 package ru.rrusanov.simpleStack;
-import ru.rrusanov.simpleArrayT.SimpleArray;
+import ru.rrusanov.simpleArrayList.SimpleArrayList;
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -12,15 +12,13 @@ public class SimpleStack<T> {
     /**
      * The field contain all data<T> elements.
      */
-    private SimpleArray<T> collection = new SimpleArray<>();
+    private SimpleArrayList<T> collection = new SimpleArrayList<>();
     /**
      * The method return last added element and remove it from collection.
      * @return T data of deleted element.
      */
     public T poll() {
-        T deletedElement = this.collection.get(this.collection.getSize() - 1);
-        this.collection.delete(this.collection.getSize() - 1);
-        return deletedElement;
+        return this.collection.delete();
     }
     /**
      * The method add element in collection.
