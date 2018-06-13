@@ -1,4 +1,4 @@
-package ru.rrusanov.simpleStack;
+package ru.rrusanov.simpleStackAndQueue;
 import ru.rrusanov.simpleArrayList.SimpleArrayList;
 /**
  * @author Roman Rusanov

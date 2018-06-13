@@ -1,4 +1,4 @@
-package ru.rrusanov.simpleStack;
+package ru.rrusanov.simpleStackAndQueue;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
