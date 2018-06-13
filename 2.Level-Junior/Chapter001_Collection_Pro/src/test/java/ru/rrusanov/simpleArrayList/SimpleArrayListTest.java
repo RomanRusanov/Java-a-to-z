@@ -82,7 +82,7 @@ public class SimpleArrayListTest {
         list.add(4);
         list.getNode(4).next = list.getNode(0);
         assertTrue(list.hasCycle(list.getNode(4)));
-//        list.getNode(0).next = null;
-//        assertFalse(list.hasCycle(list.getNode(4)));
+        list.getNode(4).next = null;
+        assertFalse(list.hasCycle(list.getNode(4)));
     }
 }

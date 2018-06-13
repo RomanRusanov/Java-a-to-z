@@ -85,11 +85,7 @@ public class SimpleArrayList<E> {
      * @return element.
      */
     public E get(int index) {
-        Node<E> result = this.first;
-        for (int i = 0; i < index; i++) {
-            result = result.next;
-        }
-        return result.date;
+        return this.getNode(index).date;
     }
     /**
      * The method return node from collection.
@@ -113,11 +109,7 @@ public class SimpleArrayList<E> {
 
     boolean hasCycle(Node<E> first) {
         boolean result = false;
-        for (int i = first.index; i < this.size; i++) {
-            if (getNode(first.index + i).index < getNode(first.index + i + 1).index) {
-                result = true;
-            }
-        }
+        
         return result;
     }
 }
