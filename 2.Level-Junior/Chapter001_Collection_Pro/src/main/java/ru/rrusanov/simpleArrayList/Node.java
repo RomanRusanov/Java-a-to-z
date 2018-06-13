@@ -16,6 +16,8 @@ public class Node<E> {
      * The field next Node point.
      */
     Node<E> next;
+
+    int index;
     /**
      * Default constructor.
      * @param date to store.

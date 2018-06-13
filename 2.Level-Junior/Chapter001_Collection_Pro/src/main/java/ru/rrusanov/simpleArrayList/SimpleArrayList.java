@@ -16,6 +16,8 @@ public class SimpleArrayList<E> {
      * The field contain link to last added element.
      */
     private Node<E> first;
+
+    private int indexInList;
     /**
      * Default constructor.
      */
@@ -28,6 +30,8 @@ public class SimpleArrayList<E> {
      */
     public SimpleArrayList(Node<E> node) {
         this.first = node;
+        this.first.index = 0;
+        this.indexInList = 0;
         this.size++;
     }
     /**
@@ -37,6 +41,7 @@ public class SimpleArrayList<E> {
     public void add(E date) {
         Node<E> newLink = new Node<>(date);
         newLink.next = this.first;
+        newLink.index = ++this.indexInList;
         this.first = newLink;
         this.size++;
     }
@@ -104,5 +109,15 @@ public class SimpleArrayList<E> {
      */
     public int getSize() {
         return this.size;
+    }
+
+    boolean hasCycle(Node<E> first) {
+        boolean result = false;
+        for (int i = first.index; i < this.size; i++) {
+            if (getNode(first.index + i).index < getNode(first.index + i + 1).index) {
+                result = true;
+            }
+        }
+        return result;
     }
 }

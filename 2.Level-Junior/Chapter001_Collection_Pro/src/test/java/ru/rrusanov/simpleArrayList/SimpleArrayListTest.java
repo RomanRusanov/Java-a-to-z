@@ -2,7 +2,10 @@ package ru.rrusanov.simpleArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -70,5 +73,16 @@ public class SimpleArrayListTest {
         assertThat(list.getSize(), is(2));
         assertThat(list.delete(1), is(1));
         assertThat(list.getSize(), is(1));
+    }
+    /**
+     * Test method hasCycle. Check if collection contain cycling in sequence of nodes.
+     */
+    @Test
+    public void whenHasCyclingThenReturnTrue() {
+        list.add(4);
+        list.getNode(4).next = list.getNode(0);
+        assertTrue(list.hasCycle(list.getNode(4)));
+//        list.getNode(0).next = null;
+//        assertFalse(list.hasCycle(list.getNode(4)));
     }
 }
