@@ -16,7 +16,9 @@ public class SimpleArrayList<E> {
      * The field contain link to last added element.
      */
     private Node<E> first;
-
+    /**
+     * Unique index start from zero, add to each node when create new instance of node.
+     */
     private int indexInList;
     /**
      * Default constructor.
@@ -106,10 +108,28 @@ public class SimpleArrayList<E> {
     public int getSize() {
         return this.size;
     }
-
+    /**
+     * The method check contain collection cycling sequence.
+     * @param first Node to start position to check.
+     * @return True if sequence exist, otherwise return false.
+     */
     boolean hasCycle(Node<E> first) {
         boolean result = false;
-        
+        boolean checkComplete = false;
+        int i = 0;
+        while (!checkComplete) {
+            try {
+                Node<E> current = getNode(first.index + i);
+                Node<E> next = getNode(first.index + i + 1);
+                i++;
+                if (current.index < next.index) {
+                    result = true;
+                    checkComplete = true;
+                }
+            } catch (RuntimeException e) {
+                break;
+            }
+        }
         return result;
     }
 }

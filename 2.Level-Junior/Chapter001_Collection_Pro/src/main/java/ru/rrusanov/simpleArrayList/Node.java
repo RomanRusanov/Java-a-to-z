@@ -16,7 +16,9 @@ public class Node<E> {
      * The field next Node point.
      */
     Node<E> next;
-
+    /**
+     * Index equals position adding node to collection. Zero is first index in new collection of first element.
+     */
     int index;
     /**
      * Default constructor.
