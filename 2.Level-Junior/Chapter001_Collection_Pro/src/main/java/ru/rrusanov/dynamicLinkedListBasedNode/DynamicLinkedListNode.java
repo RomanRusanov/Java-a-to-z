@@ -67,14 +67,10 @@ public class DynamicLinkedListNode<E> implements Iterable<E> {
              */
             @Override
             public boolean hasNext() throws ConcurrentModificationException {
-                boolean result = false;
-                if (positionIt <= size) {
-                    result = true;
-                }
                 if (size != failFast) {
                     throw new ConcurrentModificationException("Collection has been modified!");
                 }
-                return result;
+                return positionIt <= size;
             }
             /**
              * The method return next element in iteration.
