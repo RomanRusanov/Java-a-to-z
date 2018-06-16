@@ -8,7 +8,7 @@ import ru.rrusanov.simpleArrayT.SimpleArray;
  * Universal store class.
  * @param <T> Role or User type.
  */
-abstract class AbstractStore<T> implements Store<Base> {
+abstract class AbstractStore<T extends Base> implements Store<T> {
     /**
      * Field contain collection.
      */
@@ -42,7 +42,7 @@ abstract class AbstractStore<T> implements Store<Base> {
      */
     public Base findById(String id) throws NotFoundException {
         for (int i = 0; i < this.models.getSize(); i++) {
-            Base base = (Base) this.models.get(i);
+            Base base = this.models.get(i);
             if (base.getId().equals(id)) {
                 return base;
             }
