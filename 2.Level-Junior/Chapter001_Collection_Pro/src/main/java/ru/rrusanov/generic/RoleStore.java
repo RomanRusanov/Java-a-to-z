@@ -6,15 +6,15 @@ package ru.rrusanov.generic;
  *
  * Collection Role class.
  */
-public class RoleStore extends AbstractStore<Role> implements Store<Base> {
+public class RoleStore extends AbstractStore<Role> implements Store<Role> {
     /**
      * Method add model to collection.
      *
      * @param model to add.
      */
     @Override
-    public void add(Base model) {
-        models.add((Role) model);
+    public void add(Role model) {
+        models.add(model);
     }
     /**
      * Method replace new value model to existing id.
@@ -24,7 +24,7 @@ public class RoleStore extends AbstractStore<Role> implements Store<Base> {
      * @return if operation success return true, otherwise false.
      */
     @Override
-    public boolean replace(String id, Base model) {
+    public boolean replace(String id, Role model) {
         return replace(id, model);
     }
     /**

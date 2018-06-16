@@ -40,9 +40,9 @@ abstract class AbstractStore<T extends Base> implements Store<T> {
      * @return if find return that model.
      * @throws NotFoundException not present in collection.
      */
-    public Base findById(String id) throws NotFoundException {
+    public T findById(String id) throws NotFoundException {
         for (int i = 0; i < this.models.getSize(); i++) {
-            Base base = this.models.get(i);
+            T base = this.models.get(i);
             if (base.getId().equals(id)) {
                 return base;
             }

@@ -7,7 +7,7 @@ package ru.rrusanov.generic;
  *
  * Collection User class.
  */
-public class UserStore extends AbstractStore<User> implements Store<Base> {
+public class UserStore extends AbstractStore<User> implements Store<User> {
     /**
      * Default constructor.
      */
@@ -20,8 +20,8 @@ public class UserStore extends AbstractStore<User> implements Store<Base> {
      * @param model to add.
      */
     @Override
-    public void add(Base model) {
-        this.models.add((User) model);
+    public void add(User model) {
+        this.models.add(model);
     }
     /**
      * Method replace new value model to existing id.
@@ -31,7 +31,7 @@ public class UserStore extends AbstractStore<User> implements Store<Base> {
      * @return if operation success return true, otherwise false.
      */
     @Override
-    public boolean replace(String id, Base model) {
+    public boolean replace(String id, User model) {
         return replace(id, model);
     }
     /**
@@ -41,7 +41,7 @@ public class UserStore extends AbstractStore<User> implements Store<Base> {
      * @return if find return that model.
      */
     @Override
-    public Base findById(String id) throws NotFoundException {
-        return super.findById(id);
+    public User findById(String id) throws NotFoundException {
+        return (User) super.findById(id);
     }
 }
