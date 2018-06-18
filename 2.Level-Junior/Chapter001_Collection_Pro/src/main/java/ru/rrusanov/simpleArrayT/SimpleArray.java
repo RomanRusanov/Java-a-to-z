@@ -82,7 +82,7 @@ public class SimpleArray<T>  implements Iterable<T> {
      * @return int index.
      */
     public int findIndex(T model) {
-        return models.indexOf(model);
+        return this.models.indexOf(model);
     }
 
     /**
