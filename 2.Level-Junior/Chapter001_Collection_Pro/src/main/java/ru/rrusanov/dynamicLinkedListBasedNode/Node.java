@@ -1,4 +1,7 @@
 package ru.rrusanov.dynamicLinkedListBasedNode;
+
+import java.util.Objects;
+
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -22,5 +25,29 @@ public class Node<E> {
      */
     public Node(E data) {
         this.data = data;
+    }
+    /**
+     * The method compare Node object by field data.
+     * @param o object to compare.
+     * @return boolean result.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        Node<E> node = (Node<E>) o;
+        return this.data.equals(node.data);
+    }
+    /**
+     * The method return hash of that object.
+     * @return int hash.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(data);
     }
 }

@@ -16,6 +16,13 @@ public class DynamicLinkedListNode<E> implements Iterable<E> {
      */
     private Node<E> first;
     /**
+     * Getter for field size.
+     * @return current size collection.
+     */
+    public int getSize() {
+        return this.size;
+    }
+    /**
      * The field counter elements in collection.
      */
     private int size;

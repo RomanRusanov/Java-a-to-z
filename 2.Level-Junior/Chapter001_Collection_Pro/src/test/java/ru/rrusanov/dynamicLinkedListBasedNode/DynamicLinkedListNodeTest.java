@@ -59,4 +59,11 @@ public class DynamicLinkedListNodeTest {
         dynamicLinkedListNode.add(5);
         iterator.hasNext();
     }
+    /**
+     * Test the method getSize().
+     */
+    @Test
+    public void whenCallThenReturnCollectionSize() {
+        Assert.assertThat(this.dynamicLinkedListNode.getSize(), is(4));
+    }
 }
