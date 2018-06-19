@@ -14,7 +14,7 @@ public class RoleStore extends AbstractStore<Role> implements Store<Role> {
      */
     @Override
     public void add(Role model) {
-        models.add(model);
+        super.add(model);
     }
     /**
      * Method replace new value model to existing id.
@@ -25,7 +25,7 @@ public class RoleStore extends AbstractStore<Role> implements Store<Role> {
      */
     @Override
     public boolean replace(String id, Role model) {
-        return replace(id, model);
+        return super.replace(id, model);
     }
     /**
      * Method find in collection model by id string.
@@ -35,7 +35,7 @@ public class RoleStore extends AbstractStore<Role> implements Store<Role> {
      */
     @Override
     public Role findById(String id) throws NotFoundException {
-        return (Role) super.findById(id);
+        return super.findById(id);
     }
 
 }

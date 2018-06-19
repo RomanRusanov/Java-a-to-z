@@ -18,7 +18,7 @@ abstract class AbstractStore<T extends Base> implements Store<T> {
      *
      * @param model to add.
      */
-    void add(T model) {
+    public void add(T model) {
         this.models.add(model);
     }
     /**
@@ -28,7 +28,7 @@ abstract class AbstractStore<T extends Base> implements Store<T> {
      * @param model new model to replace.
      * @return if operation success return true, otherwise false.
      */
-    boolean replace(String id, T model) {
+    public boolean replace(String id, T model) {
         int index = this.models.findIndex((T) this.findById(id));
         this.models.set(index, model);
         return true;

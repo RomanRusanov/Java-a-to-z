@@ -21,7 +21,7 @@ public class UserStore extends AbstractStore<User> implements Store<User> {
      */
     @Override
     public void add(User model) {
-        this.models.add(model);
+        super.add(model);
     }
     /**
      * Method replace new value model to existing id.
@@ -32,7 +32,7 @@ public class UserStore extends AbstractStore<User> implements Store<User> {
      */
     @Override
     public boolean replace(String id, User model) {
-        return replace(id, model);
+        return super.replace(id, model);
     }
     /**
      * Method find in collection model by id string.
@@ -42,6 +42,6 @@ public class UserStore extends AbstractStore<User> implements Store<User> {
      */
     @Override
     public User findById(String id) throws NotFoundException {
-        return (User) super.findById(id);
+        return super.findById(id);
     }
 }
