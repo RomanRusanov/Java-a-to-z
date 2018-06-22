@@ -9,7 +9,7 @@ import java.util.Iterator;
  * Class implements behavior set. Inside use SimpleArray class to store element in collection.
  * @param <T> generic type, that collection be contain.
  */
-public class SimpleSet<T> extends SimpleArray<T> implements Iterable<T> {
+public class SimpleSet<T> implements Iterable<T> {
     /**
      * THe field contain all stored elements.
      */
@@ -18,7 +18,6 @@ public class SimpleSet<T> extends SimpleArray<T> implements Iterable<T> {
      * The method add element in collection if element not exist in that collection.
      * @param model element to add.
      */
-    @Override
     public void add(T model) {
         Integer findIndex = this.collection.findIndex(model);
         if (findIndex.equals(-1)) {
@@ -30,7 +29,6 @@ public class SimpleSet<T> extends SimpleArray<T> implements Iterable<T> {
      * @param index element that return method.
      * @return
      */
-    @Override
     public T get(int index) {
         return this.collection.get(index);
     }
