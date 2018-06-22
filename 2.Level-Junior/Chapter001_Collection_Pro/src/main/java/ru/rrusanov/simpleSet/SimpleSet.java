@@ -27,7 +27,7 @@ public class SimpleSet<T> implements Iterable<T> {
     /**
      * The method return element from collection using index.
      * @param index element that return method.
-     * @return
+     * @return generic type from collection.
      */
     public T get(int index) {
         return this.collection.get(index);
