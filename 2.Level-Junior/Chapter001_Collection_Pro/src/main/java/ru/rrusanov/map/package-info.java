@@ -1,0 +1,1 @@
+/** * @author Roman Rusanov * @version 0.1 * @since 25.06.2018 * * The class User.java describes User model. */package ru.rrusanov.map;
