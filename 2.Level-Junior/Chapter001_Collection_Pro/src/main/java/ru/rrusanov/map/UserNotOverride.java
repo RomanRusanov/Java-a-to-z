@@ -5,9 +5,9 @@ import java.util.Calendar;
  * @version 0.1
  * @since 25.06.2018
  *
- * The class describes User model.
+ * The class describes UserNotOverride model.
  */
-public class User {
+public class UserNotOverride {
     /**
      * The field contain name of user.
      */
@@ -26,7 +26,7 @@ public class User {
      * @param children count children's.
      * @param birthday date of birthday user.
      */
-    public User(String name, int children, Calendar birthday) {
+    public UserNotOverride(String name, int children, Calendar birthday) {
         this.name = name;
         this.children = children;
         this.birthday = birthday;
