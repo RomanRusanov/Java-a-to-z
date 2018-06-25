@@ -13,7 +13,7 @@ public class User {
      */
     private String name;
     /**
-     * The field contain count of children;
+     * The field contain count of children.
      */
     private int children;
     /**
