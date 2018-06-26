@@ -63,4 +63,17 @@ public class UserTest {
         map.put(user2, "user2");
         System.out.println(map);
     }
+    /**
+     * When override hashCode and equals.
+     */
+    @Test
+    public void whenOverrideHashCodeAndEquals() {
+        UserOverrideHashCodeAndEquals user1 = new UserOverrideHashCodeAndEquals("Ivan", 2, calendar);
+        UserOverrideHashCodeAndEquals user2 = new UserOverrideHashCodeAndEquals("Ivan", 2, calendar);
+        System.out.println(user1.equals(user2));
+        Map<UserOverrideHashCodeAndEquals, String> map = new HashMap<>();
+        map.put(user1, "user1");
+        map.put(user2, "user2");
+        System.out.println(map);
+    }
 }
