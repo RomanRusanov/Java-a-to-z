@@ -5,7 +5,7 @@ import java.util.Calendar;
  * @version 0.1
  * @since 25.06.2018
  *
- * The class describes UserNotOverride model.
+ * The class describes UserOverrideHashCode model.
  */
 public class UserOverrideHashCode {
     /**
@@ -33,7 +33,7 @@ public class UserOverrideHashCode {
     }
     @Override
     public int hashCode() {
-        return (this.name == null ? 0 : this.name.hashCode())
+        return 31 * (this.name == null ? 0 : this.name.hashCode())
                 + this.children
                 + (this.birthday == null ? 0 : this.birthday.hashCode());
     }
