@@ -5,7 +5,10 @@ import org.junit.Test;
 import java.util.Iterator;
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -32,7 +35,7 @@ public class HashMapTest {
     @Test
     public void whenNoMoreFreeEntryThenCollectionGrow() {
         this.hashMap.insert("C", 3);
-        Assert.assertThat(this.hashMap.getSize(), is(3));
+        assertThat(this.hashMap.getSize(), is(3));
     }
     /**
      * Test method removeNullsElements.
@@ -51,7 +54,7 @@ public class HashMapTest {
     @Test
     public void whenInsertInMapThenEntryExist() {
         this.hashMap.insert("C", 3);
-        Assert.assertThat(this.hashMap.get("C"), is(3));
+        assertThat(this.hashMap.get("C"), is(3));
 
     }
     /**
@@ -59,20 +62,22 @@ public class HashMapTest {
      */
     @Test
     public void whenCallGetWhenReturnValue() {
-        Assert.assertThat(this.hashMap.get("A"), is(1));
-        Assert.assertThat(this.hashMap.get("B"), is(2));
+        assertThat(this.hashMap.get("A"), is(1));
+        assertThat(this.hashMap.get("B"), is(2));
     }
     /**
-     *
+     * Test method delete.
      */
     @Test
     public void whenEntryDeletedThenItNotExist() {
-        Assert.assertTrue(this.hashMap.delete("A"));
-        Assert.assertFalse(this.hashMap.delete("A"));
+        assertTrue(this.hashMap.delete("A"));
+        assertFalse(this.hashMap.delete("A"));
     }
-
+    /**
+     * Test iterator behavior.
+     */
     @Test
-    public void iterator() {
+    public void whenCallNextThenReturnElement() {
         Iterator<Entry<String, Integer>> it = hashMap.iterator();
         assertTrue(it.hasNext());
         assertThat(it.next().getKey(), anyOf(is("A"), is("B")));

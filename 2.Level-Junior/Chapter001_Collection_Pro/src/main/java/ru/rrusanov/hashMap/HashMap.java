@@ -129,7 +129,7 @@ public class HashMap<K, V> implements Iterable<Entry<K, V>> {
             /**
              * The field contain array elements entry without nulls key values.
              */
-            private Entry<K,V>[] elements = removeNullsElements();
+            private Entry<K, V>[] elements = removeNullsElements();
             /**
              * The field contain counter how many elements iterator return.
              */
