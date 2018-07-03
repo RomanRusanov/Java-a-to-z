@@ -135,8 +135,10 @@ public class HashMap<K, V> implements Iterable<Entry<K, V>> {
              * The field contain counter how many elements iterator return.
              */
             private int counter = 0;
-
-            private int fastFail = this.elements.length;
+            /**
+             * The field contain element in collection when iterator instance create.
+             */
+            private int failFast = this.elements.length;
             /**
              * The method check has more elements to iterate.
              * @return True if exist element, otherwise false.
@@ -153,10 +155,11 @@ public class HashMap<K, V> implements Iterable<Entry<K, V>> {
              * The method return next element.
              * @return Entry<K, V>.
              * @throws NoSuchElementException If no more elements to iterate and call next method.
+             * @throws ConcurrentModificationException If collection mutate.
              */
             @Override
-            public Entry<K, V> next() throws NoSuchElementException {
-                if (fastFail != collection.length) {
+            public Entry<K, V> next() throws NoSuchElementException, ConcurrentModificationException {
+                if (failFast != collection.length) {
                     throw new ConcurrentModificationException("Collection mutate not accepted!");
                 }
                 if (!hasNext()) {
