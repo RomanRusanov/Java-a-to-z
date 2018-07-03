@@ -2,6 +2,8 @@ package ru.rrusanov.hashMap;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.core.Is.is;
@@ -76,7 +78,7 @@ public class HashMapTest {
     /**
      * Test iterator behavior.
      */
-    @Test
+    @Test (expected = ConcurrentModificationException.class)
     public void whenCallNextThenReturnElement() {
         Iterator<Entry<String, Integer>> it = hashMap.iterator();
         assertTrue(it.hasNext());
@@ -84,6 +86,7 @@ public class HashMapTest {
         assertTrue(it.hasNext());
         assertTrue(it.hasNext());
         assertThat(it.next().getKey(), anyOf(is("A"), is("B")));
-        assertFalse(it.hasNext());
+        this.hashMap.insert("C", 3);
+        it.next();
     }
 }

@@ -1,4 +1,5 @@
 package ru.rrusanov.hashMap;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 /**
@@ -112,7 +113,7 @@ public class HashMap<K, V> implements Iterable<Entry<K, V>> {
     boolean delete(K key) {
         boolean result = false;
         int hash = this.hash(key);
-        if (this.collection[hash] != null && this.collection[hash].getKey() == key) {
+        if (this.collection[hash] != null && this.collection[hash].getKey().equals(key)) {
             this.collection[hash] = null;
             this.elementCounter--;
             result = true;
@@ -135,6 +136,10 @@ public class HashMap<K, V> implements Iterable<Entry<K, V>> {
              */
             private int counter = 0;
             /**
+             * The field contain element in collection when iterator instance create.
+             */
+            private int failFast = this.elements.length;
+            /**
              * The method check has more elements to iterate.
              * @return True if exist element, otherwise false.
              */
@@ -150,13 +155,17 @@ public class HashMap<K, V> implements Iterable<Entry<K, V>> {
              * The method return next element.
              * @return Entry<K, V>.
              * @throws NoSuchElementException If no more elements to iterate and call next method.
+             * @throws ConcurrentModificationException If collection mutate.
              */
             @Override
-            public Entry<K, V> next() throws NoSuchElementException {
-                if (hasNext()) {
-                    return this.elements[this.counter++];
+            public Entry<K, V> next() throws NoSuchElementException, ConcurrentModificationException {
+                if (failFast != collection.length) {
+                    throw new ConcurrentModificationException("Collection mutate not accepted!");
                 }
-                throw new NoSuchElementException("No more element to iterate!");
+                if (!hasNext()) {
+                    throw new NoSuchElementException("No more element to iterate!");
+                }
+                return this.elements[this.counter++];
             }
         };
     }
