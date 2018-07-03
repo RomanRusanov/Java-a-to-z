@@ -1,4 +1,5 @@
 package ru.rrusanov.hashMap;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 /**
@@ -112,7 +113,7 @@ public class HashMap<K, V> implements Iterable<Entry<K, V>> {
     boolean delete(K key) {
         boolean result = false;
         int hash = this.hash(key);
-        if (this.collection[hash] != null && this.collection[hash].getKey() == key) {
+        if (this.collection[hash] != null && this.collection[hash].getKey().equals(key)) {
             this.collection[hash] = null;
             this.elementCounter--;
             result = true;
@@ -134,6 +135,8 @@ public class HashMap<K, V> implements Iterable<Entry<K, V>> {
              * The field contain counter how many elements iterator return.
              */
             private int counter = 0;
+
+            private int fastFail = this.elements.length;
             /**
              * The method check has more elements to iterate.
              * @return True if exist element, otherwise false.
@@ -153,10 +156,13 @@ public class HashMap<K, V> implements Iterable<Entry<K, V>> {
              */
             @Override
             public Entry<K, V> next() throws NoSuchElementException {
-                if (hasNext()) {
-                    return this.elements[this.counter++];
+                if (fastFail != collection.length) {
+                    throw new ConcurrentModificationException("Collection mutate not accepted!");
                 }
-                throw new NoSuchElementException("No more element to iterate!");
+                if (!hasNext()) {
+                    throw new NoSuchElementException("No more element to iterate!");
+                }
+                return this.elements[this.counter++];
             }
         };
     }
