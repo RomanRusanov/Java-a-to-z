@@ -10,7 +10,7 @@ import java.util.List;
  *
  *
  */
-public class Node<E extends Comparable<E>> {
+public class Node<E extends Comparable<E>> implements Comparable<E> {
 
     private final List<Node<E>> children = new ArrayList<>();
 
@@ -18,6 +18,10 @@ public class Node<E extends Comparable<E>> {
 
     public Node(final E value) {
         this.value = value;
+    }
+
+    public E getValue() {
+        return value;
     }
 
     public void add(Node<E> child) {
@@ -29,8 +33,8 @@ public class Node<E extends Comparable<E>> {
     }
 
     @Override
-    public int compareTo() {
-        return compareTo();
+    public int compareTo(E value) {
+        return this.value.compareTo(getValue());
     }
 
 

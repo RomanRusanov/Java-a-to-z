@@ -1,5 +1,4 @@
 package ru.rrusanov.tree;
-
 import java.util.Iterator;
 import java.util.Optional;
 /**
@@ -9,7 +8,7 @@ import java.util.Optional;
  *
  *
  */
-public interface SimpleTree<E> extends Iterable<E> {
+public interface SimpleTree<E extends Comparable<E>> extends Iterable<E> {
     /**
      * Added element child in parent.
      * Parent may have list of child.
@@ -26,7 +25,5 @@ public interface SimpleTree<E> extends Iterable<E> {
      * @return an Iterator.
      */
     @Override
-    public Iterator<E> iterator() {
-        return null;
-    }
+    public Iterator<E> iterator();
 }
