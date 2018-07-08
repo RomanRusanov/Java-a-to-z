@@ -96,4 +96,20 @@ public class SimpleTreeTest {
                 is(false)
         );
     }
+    /**
+     * The test check isBinary method.
+     */
+    @Test
+    public void whenAllLeavesHaveTwoChildrenOrLessThenTreeBinary() {
+        Tree<Integer> treeSecond = new Tree<>(new Node<>(1));
+        treeSecond.add(1, 2);
+        treeSecond.add(1, 3);
+        treeSecond.add(2, 4);
+        treeSecond.add(2, 5);
+        treeSecond.add(4, 6);
+        treeSecond.add(5, 7);
+        assertTrue(treeSecond.isBinary());
+        treeSecond.add(1, 8);
+        assertFalse(treeSecond.isBinary());
+    }
 }
