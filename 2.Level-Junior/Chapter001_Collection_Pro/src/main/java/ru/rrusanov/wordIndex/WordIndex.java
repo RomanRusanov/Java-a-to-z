@@ -11,7 +11,6 @@ import java.util.Set;
  */
 public class WordIndex {
 
-    private Node root;
 
     public void loadFile(String filename){
 
