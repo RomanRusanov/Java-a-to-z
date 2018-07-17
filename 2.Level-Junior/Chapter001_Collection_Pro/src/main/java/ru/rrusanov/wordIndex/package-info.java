@@ -1,0 +1,1 @@
+/** * @author Roman Rusanov * @version 0.1 * @since 17.07.2018 * * */package ru.rrusanov.wordIndex;
