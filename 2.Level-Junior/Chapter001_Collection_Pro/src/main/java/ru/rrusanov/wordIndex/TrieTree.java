@@ -1,4 +1,6 @@
 package ru.rrusanov.wordIndex;
+
+
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -10,14 +12,30 @@ public class TrieTree {
 
     private Node root;
 
-    public boolean put(String string) {
+    public TrieTree() {
+        this.root = new Node(' ');
+    }
+    public boolean put(String addWord) {
         boolean result = false;
-        Node current = root;
-        for (Node item: current.getAllChildren()) {
-            if (current.containChildren(item)) {
+        Node currentNode = root;
+        int index = 0;
 
+        for (Character item: addWord.toCharArray()) {
+
+            if (!currentNode.containChildren(item)) {
+                currentNode.addChildren(item);
+
+                if (addWord.length() == index) {
+                    currentNode = currentNode.getChildrenNode(item);
+                    currentNode.addEndOfWordNode();
+                    result = true;
+                    break;
+                }
             }
+            currentNode = currentNode.getChildrenNode(item);
+            index++;
         }
         return result;
     }
+
 }

@@ -12,11 +12,11 @@ import java.util.Set;
 public class WordIndex {
 
 
-    public void loadFile(String filename){
-
-    }
-
-    public Set<Integer> getIndexes4Word(String searchWord) {
-
-    }
+//    public void loadFile(String filename){
+//
+//    }
+//
+//    public Set<Integer> getIndexes4Word(String searchWord) {
+//
+//    }
 }

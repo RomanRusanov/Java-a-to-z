@@ -1,6 +1,7 @@
 package ru.rrusanov.wordIndex;
 
 import java.util.HashSet;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 /**
@@ -20,23 +21,48 @@ public class Node {
 
     private Character character;
 
-    public Node() {
+    public Node(Character character) {
         this.isWord = false;
         this.children = new HashSet<>();
         this.positionInFile = 0;
-        this.character = '0';
+        this.character = character;
     }
 
-    public void addChildren(Node node) {
-        this.children.add(node);
+    public void addEndOfWordNode() {
+        Node nodeToAdd = new Node(' ');
+        nodeToAdd.isWord = true;
+        this.children.add(nodeToAdd);
+    }
+
+    public void addChildren(Character character) {
+        this.children.add(new Node(character));
+    }
+
+    public Node getChildrenNode(Character character) throws NoSuchElementException{
+        Node result = new Node('0');
+        if (!this.containChildren(character)) {
+            throw new NoSuchElementException("Not presented element in children Set!");
+        }
+        for (Node item: this.children) {
+            if (item.character.equals(character)) {
+                result = item;
+            }
+        }
+        return result;
     }
 
     public void removeChildren(Node node) {
         this.children.remove(node);
     }
 
-    public boolean containChildren(Node node) {
-        return this.children.contains(node);
+    public boolean containChildren(Character character) {
+        boolean result = false;
+        for (Node item: this.children) {
+            if (item.character.equals(character)) {
+                result = true;
+            }
+        }
+        return result;
     }
 
     public Set<Node> getAllChildren() {
@@ -64,7 +90,7 @@ public class Node {
 
     @Override
     public int hashCode() {
-        return 31 * (this.isWord ? 1 : this.children.hashCode() + this.positionInFile + this.character.hashCode());
+        return 31 * ((this.isWord ? 1 : 0) + this.children.hashCode() + this.positionInFile + this.character.hashCode());
     }
 
 }
