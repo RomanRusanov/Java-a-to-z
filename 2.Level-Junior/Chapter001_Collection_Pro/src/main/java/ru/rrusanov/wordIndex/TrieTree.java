@@ -15,17 +15,15 @@ public class TrieTree {
     public TrieTree() {
         this.root = new Node(' ');
     }
+
     public boolean put(String addWord) {
         boolean result = false;
-        Node currentNode = root;
-        int index = 0;
-
+        Node currentNode = this.root;
+        int index = 1;
         for (Character item: addWord.toCharArray()) {
-
             if (!currentNode.containChildren(item)) {
                 currentNode.addChildren(item);
-
-                if (addWord.length() == index) {
+                if (addWord.length() == index ) {
                     currentNode = currentNode.getChildrenNode(item);
                     currentNode.addEndOfWordNode();
                     result = true;
@@ -34,6 +32,22 @@ public class TrieTree {
             }
             currentNode = currentNode.getChildrenNode(item);
             index++;
+        }
+        return result;
+    }
+
+    public Node search(String searchWord) {
+        Node currentNode = this.root;
+        Node result = null;
+        for (Character item: searchWord.toCharArray()) {
+            if (!currentNode.containChildren(item)) {
+                return null;
+            }
+            currentNode = currentNode.getChildrenNode(item);
+        }
+        currentNode = currentNode.getChildrenNode(' ');
+        if (currentNode.isWord()) {
+            result = currentNode;
         }
         return result;
     }

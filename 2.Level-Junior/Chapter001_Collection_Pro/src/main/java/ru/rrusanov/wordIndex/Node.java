@@ -17,14 +17,14 @@ public class Node {
 
     private Set<Node> children;
 
-    private Integer positionInFile;
+    private Set<Integer> positionInFile;
 
     private Character character;
 
     public Node(Character character) {
         this.isWord = false;
         this.children = new HashSet<>();
-        this.positionInFile = 0;
+        this.positionInFile = new HashSet<>();
         this.character = character;
     }
 
@@ -49,6 +49,10 @@ public class Node {
             }
         }
         return result;
+    }
+
+    public boolean isWord() {
+        return isWord;
     }
 
     public void removeChildren(Node node) {
@@ -90,7 +94,10 @@ public class Node {
 
     @Override
     public int hashCode() {
-        return 31 * ((this.isWord ? 1 : 0) + this.children.hashCode() + this.positionInFile + this.character.hashCode());
+        return 31 * ((this.isWord ? 1 : 0)
+                + this.children.hashCode()
+                + this.positionInFile.hashCode()
+                + this.character.hashCode());
     }
 
 }
