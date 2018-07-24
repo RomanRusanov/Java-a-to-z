@@ -16,21 +16,30 @@ public class TrieTree {
         this.root = new Node(' ');
     }
 
-    public boolean put(String addWord) {
+    public boolean put(String addWord, int position) {
         boolean result = false;
         Node currentNode = this.root;
         int index = 1;
+        int existChildren = 0;
         for (Character item: addWord.toCharArray()) {
+            if (currentNode.containChildren(item)) {
+                existChildren++;
+            }
             if (!currentNode.containChildren(item)) {
                 currentNode.addChildren(item);
                 if (addWord.length() == index ) {
                     currentNode = currentNode.getChildrenNode(item);
-                    currentNode.addEndOfWordNode();
+                    currentNode.addEndOfWordNode(position);
                     result = true;
                     break;
                 }
             }
+
             currentNode = currentNode.getChildrenNode(item);
+            if (existChildren == addWord.length()) {
+                currentNode = currentNode.getChildrenNode(' ');
+                currentNode.addPositionInFileToNode(position);
+            }
             index++;
         }
         return result;

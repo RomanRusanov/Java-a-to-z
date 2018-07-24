@@ -28,9 +28,10 @@ public class Node {
         this.character = character;
     }
 
-    public void addEndOfWordNode() {
+    public void addEndOfWordNode(int position) {
         Node nodeToAdd = new Node(' ');
         nodeToAdd.isWord = true;
+        nodeToAdd.positionInFile.add(position);
         this.children.add(nodeToAdd);
     }
 
@@ -51,12 +52,15 @@ public class Node {
         return result;
     }
 
-    public boolean isWord() {
-        return isWord;
+    public Set<Integer> getPositionInFile() {
+        return this.positionInFile;
     }
 
-    public void removeChildren(Node node) {
-        this.children.remove(node);
+    public void addPositionInFileToNode(int position) {
+        this.positionInFile.add(position);
+    }
+    public boolean isWord() {
+        return isWord;
     }
 
     public boolean containChildren(Character character) {
@@ -67,14 +71,6 @@ public class Node {
             }
         }
         return result;
-    }
-
-    public Set<Node> getAllChildren() {
-        return this.children;
-    }
-
-    public char getCharacter() {
-        return this.character;
     }
 
     @Override
