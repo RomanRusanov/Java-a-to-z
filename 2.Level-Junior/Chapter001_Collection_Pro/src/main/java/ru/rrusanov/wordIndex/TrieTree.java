@@ -1,21 +1,28 @@
 package ru.rrusanov.wordIndex;
-
-
 /**
  * @author Roman Rusanov
  * @version 0.1
  * @since 17.07.2018
  *
- *
+ * The Class describes classic Trie tree collection.
  */
 public class TrieTree {
-
+    /**
+     * The field contain root reference of tree.
+     */
     private Node root;
-
+    /**
+     * Default constructor. Make root with char ' ' (space)
+     */
     public TrieTree() {
         this.root = new Node(' ');
     }
-
+    /**
+     * The method add word to tree, smashing in to char sequence.
+     * @param addWord word to add.
+     * @param position position in file passed word.
+     * @return true if word added, otherwise false.
+     */
     public boolean put(String addWord, int position) {
         boolean result = false;
         Node currentNode = this.root;
@@ -27,14 +34,13 @@ public class TrieTree {
             }
             if (!currentNode.containChildren(item)) {
                 currentNode.addChildren(item);
-                if (addWord.length() == index ) {
+                if (addWord.length() == index) {
                     currentNode = currentNode.getChildrenNode(item);
                     currentNode.addEndOfWordNode(position);
                     result = true;
                     break;
                 }
             }
-
             currentNode = currentNode.getChildrenNode(item);
             if (existChildren == addWord.length()) {
                 currentNode = currentNode.getChildrenNode(' ');
@@ -44,7 +50,11 @@ public class TrieTree {
         }
         return result;
     }
-
+    /**
+     * The method search  word(char sequence in tree).
+     * @param searchWord word to search.
+     * @return if find return end node, otherwise return null.
+     */
     public Node search(String searchWord) {
         Node currentNode = this.root;
         Node result = null;
@@ -60,5 +70,4 @@ public class TrieTree {
         }
         return result;
     }
-
 }
