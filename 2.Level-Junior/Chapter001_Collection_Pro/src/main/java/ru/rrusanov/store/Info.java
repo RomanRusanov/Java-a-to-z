@@ -1,6 +1,9 @@
 package ru.rrusanov.store;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import ru.rrusanov.store.Store.User;
 /**
  * @author Roman Rusanov
@@ -13,63 +16,63 @@ public class Info {
     /**
      * The field contain Users that be added.
      */
-    private List<User> added;
+    private Map<Integer, User> added;
     /**
      * The field contain Users that be changed.
      */
-    private List<User> changed;
+    private Map<Integer, User> changed;
     /**
      * The field contain Users that be removed.
      */
-    private List<User> removed;
+    private Map<Integer, User> removed;
     /**
      * The default constructor.
      */
     public Info() {
-        this.added = new ArrayList<>();
-        this.changed = new ArrayList<>();
-        this.removed = new ArrayList<>();
+        this.added = new HashMap<>();
+        this.changed = new HashMap<>();
+        this.removed = new HashMap<>();
     }
     /**
      * The method add user to instance added list.
      * @param user was add.
      */
     public void addedAdd(User user) {
-        this.added.add(user);
+        this.added.put(user.getId(), user);
     }
     /**
      * The method add user to instance changed list.
      * @param user was changed.
      */
     public void changedAdd(User user) {
-        this.changed.add(user);
+        this.added.put(user.getId(), user);
     }
     /**
      * The method add user to instance removed list.
      * @param user was removed.
      */
     public void removedAdd(User user) {
-        this.removed.add(user);
+        this.added.put(user.getId(), user);
     }
     /**
      * The getter for added list.
      * @return array list with added Users.
      */
-    public List<User> getAdded() {
+    public Map<Integer, User> getAdded() {
         return this.added;
     }
     /**
      * The getter for changed list.
      * @return array list with changed Users.
      */
-    public List<User> getChanged() {
+    public Map<Integer, User> getChanged() {
         return this.changed;
     }
     /**
      * The getter for removed list.
      * @return array list with removed Users.
      */
-    public List<User> getRemoved() {
+    public Map<Integer, User> getRemoved() {
         return this.removed;
     }
 }

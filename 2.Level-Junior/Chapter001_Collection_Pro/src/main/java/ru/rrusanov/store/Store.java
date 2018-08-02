@@ -1,5 +1,8 @@
 package ru.rrusanov.store;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -16,23 +19,29 @@ public class Store {
      */
     Info diff(List<User> previous, List<User> current) {
         Info result = new Info();
-        addedUser(previous, current, result);
+
+        addedUser(this.listToMap(previous), this.listToMap(current), result);
         changedUser(previous, current, result);
         removedUser(previous, current, result);
         return result;
     }
+
+    HashMap<Integer, User> listToMap(List<User> list) {
+        HashMap<Integer, User> result = new HashMap<>();
+        for (User item : list) {
+            result.put(item.getId(), item);
+        }
+        return result;
+    }
+
     /**
      * The method check what users be added.
      * @param previous previous list state.
      * @param current current list state.
      * @param info instance collected difference.
      */
-    public void addedUser(List<User> previous, List<User> current, Info info) {
-        for (User item: current) {
-            if (!previous.contains(item)) {
-                info.addedAdd(item);
-            }
-        }
+    public void addedUser(Map<Integer, User> previous, Map<Integer, User> current, Info info) {
+        
     }
     /**
      * The method check what users be changed. Changed user must have same id but different name filed.
@@ -69,7 +78,7 @@ public class Store {
      *
      * The inner class describes instance User.
      */
-    class User {
+    static class User {
         /**
          * The field contain unique id.
          */

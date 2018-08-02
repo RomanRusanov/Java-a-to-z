@@ -27,27 +27,27 @@ public class StoreTest {
     /**
      * The field contains user stored previous list.
      */
-    private User user1 = store.new User("Ivan");
+    private User user1 = new User("Ivan");
     /**
      * The field contains user stored previous list.
      */
-    private User user2 = store.new User("Olga");
+    private User user2 = new User("Olga");
     /**
      * The field contains user stored previous list.
      */
-    private User user3 = store.new User("Vladimir");
+    private User user3 = new User("Vladimir");
     /**
      * The field contains user stored current list.
      */
-    private User user4 = store.new User("Dmitri");
+    private User user4 = new User("Dmitri");
     /**
      * The field contains user stored current list.
      */
-    private User user5 = store.new User("Anna");
+    private User user5 = new User("Anna");
     /**
      * The field contains user stored current list. That user be changed name to imitate edited User instance.
      */
-    private User user6 = store.new User("Vika");
+    private User user6 = new User("Vika");
     /**
      * The field contains instance that stored what changes be between current and previous list.
      */
@@ -72,24 +72,24 @@ public class StoreTest {
      */
     @Test
     public void whenUsersNotInPreviousListThenItAddedToCurrent() {
-        Assert.assertTrue(info.getAdded().contains(user4));
-        Assert.assertTrue(info.getAdded().contains(user5));
-        Assert.assertTrue(info.getAdded().contains(user6));
+        Assert.assertTrue(info.getAdded().containsValue(user4));
+        Assert.assertTrue(info.getAdded().containsValue(user5));
+        Assert.assertTrue(info.getAdded().containsValue(user6));
     }
     /**
      * The test check method changedUser().
      */
     @Test
     public void whenIdSameAndNameNotThenUserBeChanged() {
-        Assert.assertTrue(info.getChanged().contains(user6));
+        Assert.assertTrue(info.getChanged().containsValue(user6));
     }
     /**
      * The test check method removedUser().
      */
     @Test
     public void whenUsersNotInCurrentListThenItRemoved() {
-        Assert.assertTrue(info.getRemoved().contains(user1));
-        Assert.assertTrue(info.getRemoved().contains(user2));
-        Assert.assertTrue(info.getRemoved().contains(user3));
+        Assert.assertTrue(info.getRemoved().containsValue(user1));
+        Assert.assertTrue(info.getRemoved().containsValue(user2));
+        Assert.assertTrue(info.getRemoved().containsValue(user3));
     }
 }
