@@ -19,13 +19,18 @@ public class Store {
      */
     Info diff(List<User> previous, List<User> current) {
         Info result = new Info();
-
-        addedUser(this.listToMap(previous), this.listToMap(current), result);
-        changedUser(previous, current, result);
-        removedUser(previous, current, result);
+        HashMap<Integer, User> prevMap = this.listToMap(previous);
+        HashMap<Integer, User> currMap = this.listToMap(current);
+        addedUser(prevMap, currMap, result);
+        changedUser(prevMap, currMap, result);
+        removedUser(prevMap, currMap, result);
         return result;
     }
-
+    /**
+     * The method convert collection from list to hasMap.
+     * @param list list to convert.
+     * @return new hashMap instance
+     */
     HashMap<Integer, User> listToMap(List<User> list) {
         HashMap<Integer, User> result = new HashMap<>();
         for (User item : list) {
@@ -36,38 +41,43 @@ public class Store {
 
     /**
      * The method check what users be added.
-     * @param previous previous list state.
-     * @param current current list state.
+     * @param prevMap previous Map converted from list state.
+     * @param currMap current Map converted from  list state.
      * @param info instance collected difference.
      */
-    public void addedUser(Map<Integer, User> previous, Map<Integer, User> current, Info info) {
-        
+    public void addedUser(Map<Integer, User> prevMap, Map<Integer, User> currMap, Info info) {
+        for (Integer item: currMap.keySet()) {
+            if (!prevMap.containsKey(item)) {
+                info.addedAdd(currMap.get(item));
+            }
+        }
     }
     /**
      * The method check what users be changed. Changed user must have same id but different name filed.
-     * @param previous previous list state.
-     * @param current current list state.
+     * @param prevMap previous Map converted from list state.
+     * @param currMap current Map converted from  list state.
      * @param info instance collected difference.
      */
-    public void changedUser(List<User> previous, List<User> current, Info info) {
-        for (User itemCurrent:current) {
-            for (User itemPrevious:previous) {
-                if (itemCurrent.id == itemPrevious.id && (!itemCurrent.name.equals(itemPrevious.name))) {
-                    info.changedAdd(itemCurrent);
+    public void changedUser(Map<Integer, User> prevMap, Map<Integer, User> currMap, Info info) {
+        for (Integer itemCurr: currMap.keySet()) {
+            for (Integer itemPrev: prevMap.keySet()) {
+                if (itemCurr.equals(itemPrev)
+                        && (!currMap.get(itemCurr).getName().equals(prevMap.get(itemPrev).getName()))) {
+                    info.changedAdd(currMap.get(itemCurr));
                 }
             }
         }
     }
     /**
      * The method check what users be removed.
-     * @param previous previous list state.
-     * @param current current list state.
+     * @param prevMap previous Map converted from list state.
+     * @param currMap current Map converted from  list state.
      * @param info instance collected difference.
      */
-    public void removedUser(List<User> previous, List<User> current, Info info) {
-        for (User item: previous) {
-            if (!current.contains(item)) {
-                info.removedAdd(item);
+    public void removedUser(Map<Integer, User> prevMap, Map<Integer, User> currMap, Info info) {
+        for (Integer item: prevMap.keySet()) {
+            if (!currMap.containsKey(item)) {
+                info.removedAdd(prevMap.get(item));
             }
         }
     }

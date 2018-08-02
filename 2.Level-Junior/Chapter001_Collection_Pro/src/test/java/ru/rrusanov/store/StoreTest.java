@@ -65,7 +65,6 @@ public class StoreTest {
         this.currentList.add(user6);
         this.user6.setId(user2.getId());
         info = store.diff(previousList, currentList);
-
     }
     /**
      * The test check method addUser().
@@ -74,7 +73,6 @@ public class StoreTest {
     public void whenUsersNotInPreviousListThenItAddedToCurrent() {
         Assert.assertTrue(info.getAdded().containsValue(user4));
         Assert.assertTrue(info.getAdded().containsValue(user5));
-        Assert.assertTrue(info.getAdded().containsValue(user6));
     }
     /**
      * The test check method changedUser().
@@ -89,7 +87,6 @@ public class StoreTest {
     @Test
     public void whenUsersNotInCurrentListThenItRemoved() {
         Assert.assertTrue(info.getRemoved().containsValue(user1));
-        Assert.assertTrue(info.getRemoved().containsValue(user2));
         Assert.assertTrue(info.getRemoved().containsValue(user3));
     }
 }

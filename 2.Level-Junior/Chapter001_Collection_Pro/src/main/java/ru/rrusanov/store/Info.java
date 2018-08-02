@@ -1,16 +1,13 @@
 package ru.rrusanov.store;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 import ru.rrusanov.store.Store.User;
 /**
  * @author Roman Rusanov
  * @version 0.1
  * @since 26.07.2018
  *
- * The class contain list with users that be added, changed or removed.
+ * The class contain map with users that be added, changed or removed.
  */
 public class Info {
     /**
@@ -34,43 +31,43 @@ public class Info {
         this.removed = new HashMap<>();
     }
     /**
-     * The method add user to instance added list.
+     * The method add user to instance added map.
      * @param user was add.
      */
     public void addedAdd(User user) {
         this.added.put(user.getId(), user);
     }
     /**
-     * The method add user to instance changed list.
+     * The method add user to instance changed map.
      * @param user was changed.
      */
     public void changedAdd(User user) {
-        this.added.put(user.getId(), user);
+        this.changed.put(user.getId(), user);
     }
     /**
-     * The method add user to instance removed list.
+     * The method add user to instance removed map.
      * @param user was removed.
      */
     public void removedAdd(User user) {
-        this.added.put(user.getId(), user);
+        this.removed.put(user.getId(), user);
     }
     /**
-     * The getter for added list.
-     * @return array list with added Users.
+     * The getter for added map.
+     * @return map with added Users.
      */
     public Map<Integer, User> getAdded() {
         return this.added;
     }
     /**
-     * The getter for changed list.
-     * @return array list with changed Users.
+     * The getter for changed map.
+     * @return map with changed Users.
      */
     public Map<Integer, User> getChanged() {
         return this.changed;
     }
     /**
-     * The getter for removed list.
-     * @return array list with removed Users.
+     * The getter for removed map.
+     * @return map with removed Users.
      */
     public Map<Integer, User> getRemoved() {
         return this.removed;
