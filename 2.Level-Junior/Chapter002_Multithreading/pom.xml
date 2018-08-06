@@ -10,6 +10,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>Chapter002_Multithreading</artifactId>
-
-
+    <dependencies>
+        <dependency>
+            <groupId>ru.rrusanov</groupId>
+            <artifactId>2.Level-Junior</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
 </project>
