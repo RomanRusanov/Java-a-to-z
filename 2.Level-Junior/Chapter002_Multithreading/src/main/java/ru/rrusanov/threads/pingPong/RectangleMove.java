@@ -12,6 +12,8 @@ public class RectangleMove implements Runnable {
      * The field contain instance of rectangle.
      */
     private final Rectangle rect;
+
+    private boolean interruptFlag;
     /**
      * The field contain direction to move.
      */
@@ -22,6 +24,7 @@ public class RectangleMove implements Runnable {
      */
     public RectangleMove(Rectangle rect) {
         this.rect = rect;
+        this.interruptFlag = false;
     }
     /**
      * The method implements run method inherit from interface Runnable.
@@ -49,6 +52,13 @@ public class RectangleMove implements Runnable {
             if (this.rect.getY() > 290) {
                 this.direction = moveUpAndRight;
             }
+            if (this.interruptFlag) {
+                break;
+            }
         }
+    }
+
+    public void setInterruptFlag(boolean interruptFlag) {
+        this.interruptFlag = interruptFlag;
     }
 }
