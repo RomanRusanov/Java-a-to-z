@@ -12,7 +12,9 @@ public class RectangleMove implements Runnable {
      * The field contain instance of rectangle.
      */
     private final Rectangle rect;
-
+    /**
+     * The field contain state closed program or not.
+     */
     private boolean interruptFlag;
     /**
      * The field contain direction to move.
@@ -57,7 +59,10 @@ public class RectangleMove implements Runnable {
             }
         }
     }
-
+    /**
+     * The setter for filed. boolean value closed program and need break cycle in method run.
+     * @param interruptFlag True then need break cycle, otherwise false.
+     */
     public void setInterruptFlag(boolean interruptFlag) {
         this.interruptFlag = interruptFlag;
     }
