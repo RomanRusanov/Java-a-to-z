@@ -21,9 +21,9 @@ public class Store {
         Info result = new Info();
         HashMap<Integer, User> prevMap = this.listToMap(previous);
         HashMap<Integer, User> currMap = this.listToMap(current);
-        addedUser(prevMap, currMap, result);
-        changedUser(prevMap, currMap, result);
-        removedUser(prevMap, currMap, result);
+        this.addedUser(prevMap, currMap, result);
+        this.changedUser(prevMap, currMap, result);
+        this.removedUser(prevMap, currMap, result);
         return result;
     }
     /**
@@ -38,7 +38,6 @@ public class Store {
         }
         return result;
     }
-
     /**
      * The method check what users be added.
      * @param prevMap previous Map converted from list state.
@@ -60,11 +59,8 @@ public class Store {
      */
     public void changedUser(Map<Integer, User> prevMap, Map<Integer, User> currMap, Info info) {
         for (Integer itemCurr: currMap.keySet()) {
-            for (Integer itemPrev: prevMap.keySet()) {
-                if (itemCurr.equals(itemPrev)
-                        && (!currMap.get(itemCurr).getName().equals(prevMap.get(itemPrev).getName()))) {
-                    info.changedAdd(currMap.get(itemCurr));
-                }
+            if (prevMap.containsKey(itemCurr) && (!prevMap.get(itemCurr).name.equals(currMap.get(itemCurr).name))) {
+               info.changedAdd(currMap.get(itemCurr));
             }
         }
     }
