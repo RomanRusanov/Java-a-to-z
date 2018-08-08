@@ -18,7 +18,8 @@ public class MoveToRight implements Direction {
         try {
             Thread.sleep(50);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("Sleep interrupted");
+            System.out.println("MoveToRight " + Thread.currentThread().isInterrupted());
         }
     }
 }

@@ -13,10 +13,6 @@ public class RectangleMove implements Runnable {
      */
     private final Rectangle rect;
     /**
-     * The field contain state closed program or not.
-     */
-    private boolean interruptFlag;
-    /**
      * The field contain direction to move.
      */
     private Direction direction;
@@ -26,7 +22,6 @@ public class RectangleMove implements Runnable {
      */
     public RectangleMove(Rectangle rect) {
         this.rect = rect;
-        this.interruptFlag = false;
     }
     /**
      * The method implements run method inherit from interface Runnable.
@@ -54,16 +49,10 @@ public class RectangleMove implements Runnable {
             if (this.rect.getY() > 290) {
                 this.direction = moveUpAndRight;
             }
-            if (this.interruptFlag) {
+            System.out.println("RectangleMove " + Thread.currentThread().isInterrupted());
+            if (Thread.currentThread().isInterrupted()) {
                 break;
             }
         }
-    }
-    /**
-     * The setter for filed. boolean value closed program and need break cycle in method run.
-     * @param interruptFlag True then need break cycle, otherwise false.
-     */
-    public void setInterruptFlag(boolean interruptFlag) {
-        this.interruptFlag = interruptFlag;
     }
 }

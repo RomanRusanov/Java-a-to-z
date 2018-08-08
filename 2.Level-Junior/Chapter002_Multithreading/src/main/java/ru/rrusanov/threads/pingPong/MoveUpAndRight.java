@@ -19,7 +19,7 @@ public class MoveUpAndRight implements Direction {
         try {
             Thread.sleep(50);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("Sleep interrupted");
         }
     }
 }
