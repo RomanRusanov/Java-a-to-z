@@ -13,6 +13,10 @@ public class RectangleMove implements Runnable {
      */
     private final Rectangle rect;
     /**
+     * The field contain flag that break infinite cycle.
+     */
+    private boolean interrupted;
+    /**
      * The field contain direction to move.
      */
     private Direction direction;
@@ -49,10 +53,16 @@ public class RectangleMove implements Runnable {
             if (this.rect.getY() > 290) {
                 this.direction = moveUpAndRight;
             }
-            System.out.println("RectangleMove " + Thread.currentThread().isInterrupted());
-            if (Thread.currentThread().isInterrupted()) {
+            if (this.interrupted) {
                 break;
             }
         }
+    }
+    /**
+     * The method set field value.
+     * @param interrupted boolean value. If thread was interrupted then true. Otherwise false.
+     */
+    public void setInterrupted(boolean interrupted) {
+        this.interrupted = interrupted;
     }
 }

@@ -36,7 +36,9 @@ public class PingPong extends Application {
         stage.setOnCloseRequest(
                 event -> {
                     t.interrupt();
-                    System.out.println("PingPong " + t.isInterrupted());
+                    if (t.isInterrupted()) {
+                        rectangleMove.setInterrupted(true);
+                    }
                 }
         );
         stage.show();
