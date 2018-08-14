@@ -1,0 +1,1 @@
+/** * @author Roman Rusanov * @version 0.1 * @since 06.08.2018 * * Count.java The class describe counter with increment. *  synchronized void increment() The method set field value = value + 1. *  synchronized int getValue() The method getter for field value. */package ru.rrusanov.threads.countIncrement;
