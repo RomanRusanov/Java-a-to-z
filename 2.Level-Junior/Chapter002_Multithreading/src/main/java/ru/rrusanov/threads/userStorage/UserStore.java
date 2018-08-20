@@ -1,26 +1,32 @@
 package ru.rrusanov.threads.userStorage;
-
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
 import java.util.Map;
 import java.util.TreeMap;
-
 /**
  * @author Roman Rusanov
  * @version 0.1
  * @since 14.08.2018
  *
- *
+ * The UserStore.java class contain thread safe method transfer.
  */
 @ThreadSafe
 public class UserStore {
-
+    /**
+     * The field contain collection of users instance.
+     */
     private Map<Integer, User> collection;
-
+    /**
+     * Default constructor.
+     */
     public UserStore() {
         this.collection = new TreeMap<>();
     }
-
+    /**
+     * The method add user to collection.
+     * @param user to add.
+     * @return if user not present add and return true, otherwise false.
+     */
     public boolean add(User user) {
         boolean result = false;
         if (!this.collection.containsKey(user.getId())) {
@@ -29,21 +35,43 @@ public class UserStore {
         }
         return result;
     }
-
+    /**
+     * The method update.
+     * @param user user
+     * @return boolean.
+     */
     public boolean update(User user) {
         boolean result = false;
         return result;
     }
-
+    /**
+     * The method remove user from collection.
+     * @param user to remove.
+     * @return if user present when remove and return true, otherwise false.
+     */
     public boolean delete(User user) {
         boolean result = false;
-        if (!this.collection.containsKey(user.getId())) {
+        if (this.collection.containsKey(user.getId())) {
             this.collection.remove(user.getId());
             result = true;
         }
         return result;
     }
-
+    /**
+     * The method find user in collection.
+     * @param user to find.
+     * @return if user present when return true, otherwise false.
+     */
+    public boolean find(User user) {
+        return this.collection.containsKey(user.getId());
+    }
+    /**
+     * The method transfer amount value from user to user.
+     * @param fromId id user to take amount value.
+     * @param toId id user to give amount value.
+     * @param amount value.
+     * @return if transfer successful true, otherwise false.
+     */
     @GuardedBy("this")
     public synchronized boolean transfer(int fromId, int toId, int amount) {
         boolean result = false;
