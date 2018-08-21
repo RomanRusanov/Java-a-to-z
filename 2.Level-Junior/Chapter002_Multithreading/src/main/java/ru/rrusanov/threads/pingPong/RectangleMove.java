@@ -53,9 +53,6 @@ public class RectangleMove implements Runnable {
             if (this.rect.getY() > 290) {
                 this.direction = moveUpAndRight;
             }
-            if (this.interrupted) {
-                break;
-            }
         }
     }
     /**
