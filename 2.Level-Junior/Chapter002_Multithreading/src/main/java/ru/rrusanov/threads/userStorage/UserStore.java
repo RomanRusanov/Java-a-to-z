@@ -27,7 +27,8 @@ public class UserStore {
      * @param user to add.
      * @return if user not present add and return true, otherwise false.
      */
-    public boolean add(User user) {
+    @GuardedBy("this")
+    public synchronized boolean add(User user) {
         boolean result = false;
         if (!this.collection.containsKey(user.getId())) {
             this.collection.put(user.getId(), user);
@@ -40,6 +41,7 @@ public class UserStore {
      * @param user user
      * @return boolean.
      */
+    @GuardedBy("this")
     public boolean update(User user) {
         boolean result = false;
         return result;
@@ -49,7 +51,8 @@ public class UserStore {
      * @param user to remove.
      * @return if user present when remove and return true, otherwise false.
      */
-    public boolean delete(User user) {
+    @GuardedBy("this")
+    public synchronized boolean delete(User user) {
         boolean result = false;
         if (this.collection.containsKey(user.getId())) {
             this.collection.remove(user.getId());
@@ -62,7 +65,8 @@ public class UserStore {
      * @param user to find.
      * @return if user present when return true, otherwise false.
      */
-    public boolean find(User user) {
+    @GuardedBy("this")
+    public synchronized boolean find(User user) {
         return this.collection.containsKey(user.getId());
     }
     /**
