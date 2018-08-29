@@ -7,6 +7,7 @@ import static org.junit.Assert.assertThat;
  * @version 0.1
  * @since 29.08.2018
  *
+ * The class check simple blocking queue.
  */
 public class SimpleBlockingQueueTest {
     /**
