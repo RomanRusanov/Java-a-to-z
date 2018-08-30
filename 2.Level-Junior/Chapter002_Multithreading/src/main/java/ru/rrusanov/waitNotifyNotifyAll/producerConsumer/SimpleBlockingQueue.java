@@ -1,7 +1,6 @@
 package ru.rrusanov.waitNotifyNotifyAll.producerConsumer;
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 /**
@@ -28,27 +27,13 @@ public class SimpleBlockingQueue<T> {
      */
     private static final int SIZE_QUEUE = 3;
     /**
-     * The method count not nulls values in collection.
-     * @return int numbers of elements.
-     */
-    public int getNumberOfElements() {
-        int result = 0;
-        Iterator<T> iterator = this.queue.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next() != null) {
-                result++;
-            }
-        }
-        return result;
-    }
-    /**
      * The method add value in queue.
      * @param value to add.
      * @throws InterruptedException method wait() may be interrupted.
      */
     public void offer(T value) throws InterruptedException {
         synchronized (lock) {
-            while (getNumberOfElements() == SIZE_QUEUE) {
+            while (this.queue.size() == SIZE_QUEUE) {
                 lock.wait();
             }
             this.queue.add(value);
@@ -60,9 +45,9 @@ public class SimpleBlockingQueue<T> {
      * @return next element in head of list.
      * @throws InterruptedException method wait() may be interrupted.
      */
-    public T pool() throws InterruptedException {
+    public T poll() throws InterruptedException {
         synchronized (lock) {
-            while (getNumberOfElements() == 0) {
+            while (this.queue.size() == 0) {
                 lock.wait();
             }
             lock.notify();

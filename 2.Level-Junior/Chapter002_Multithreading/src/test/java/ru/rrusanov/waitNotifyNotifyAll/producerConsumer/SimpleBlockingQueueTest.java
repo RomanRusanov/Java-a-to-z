@@ -45,11 +45,11 @@ public class SimpleBlockingQueueTest {
             @Override
             public void run() {
                 try {
-                    assertThat(simpleBlockingQueue.pool(), is(1));
-                    assertThat(simpleBlockingQueue.pool(), is(2));
-                    assertThat(simpleBlockingQueue.pool(), is(3));
-                    assertThat(simpleBlockingQueue.pool(), is(4));
-                    assertThat(simpleBlockingQueue.pool(), is(5));
+                    assertThat(simpleBlockingQueue.poll(), is(1));
+                    assertThat(simpleBlockingQueue.poll(), is(2));
+                    assertThat(simpleBlockingQueue.poll(), is(3));
+                    assertThat(simpleBlockingQueue.poll(), is(4));
+                    assertThat(simpleBlockingQueue.poll(), is(5));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
