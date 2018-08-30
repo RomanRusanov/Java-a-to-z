@@ -35,6 +35,7 @@ public class PingPong extends Application {
         stage.setResizable(false);
         stage.setOnCloseRequest(
                 event -> {
+                    rectangleMove.setInterrupted(true);
                     t.interrupt();
                 }
         );
