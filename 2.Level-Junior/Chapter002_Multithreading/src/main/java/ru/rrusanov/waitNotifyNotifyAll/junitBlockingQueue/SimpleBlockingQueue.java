@@ -31,10 +31,15 @@ public class SimpleBlockingQueue<T> {
      * @param value to add.
      * @throws InterruptedException method wait() may be interrupted.
      */
-    public void offer(T value) throws InterruptedException {
+    public void offer(T value) {
         synchronized (lock) {
             while (this.queue.size() == SIZE_QUEUE) {
-                lock.wait();
+                try {
+                    lock.wait();
+                } catch (InterruptedException e) {
+                   e.printStackTrace();
+                   Thread.currentThread().interrupt();
+                }
             }
             this.queue.add(value);
             lock.notify();
