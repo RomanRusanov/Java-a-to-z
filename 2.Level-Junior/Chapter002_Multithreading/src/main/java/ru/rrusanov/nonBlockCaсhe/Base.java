@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 package ru.rrusanov.nonBlockCaсhe;
+=======
+package ru.rrusanov.nonBlockCash;
+>>>>>>> 149b6c7713e34eeb14a6f4ad670a8acd4926d204
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -14,6 +18,7 @@ public class Base {
 
     private String name;
 
+<<<<<<< HEAD
     public int getId() {
         return id;
     }
