@@ -10,9 +10,15 @@ public class Base {
 
     private int id;
 
-    private int version;
+    private volatile int version;
 
     private String name;
+
+    public Base(String name) {
+        this.id = this.name.hashCode() + this.name.length();
+        this.version = 0;
+        this.name = name;
+    }
 
     public int getId() {
         return id;
