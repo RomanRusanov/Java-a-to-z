@@ -1,11 +1,6 @@
 package ru.rrusanov.nonBlockCaсhe;
-
-import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
-import ru.rrusanov.nonBlockCaсhe.Base;
-
 import java.util.concurrent.ConcurrentHashMap;
-
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -17,6 +12,18 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Cache {
 
     private ConcurrentHashMap<Integer, Base> cache = new ConcurrentHashMap<>();
+
+    public boolean add(Base model) {
+        return ;
+    }
+
+    public boolean update(Base model) {
+        return false;
+    }
+
+    public boolean delete(Base model) {
+        return false;
+    }
 
 
 }
