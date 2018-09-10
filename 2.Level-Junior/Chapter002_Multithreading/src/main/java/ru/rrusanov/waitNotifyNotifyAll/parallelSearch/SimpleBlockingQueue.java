@@ -19,57 +19,41 @@ public class SimpleBlockingQueue<T> {
     @GuardedBy("this")
     private Queue<T> queue = new LinkedList<>();
     /**
-     * The field contain monitor for blocking thread entrance.
-     */
-    private Object lock = new Object();
-    /**
      * The constant contain limit size of queue.
      */
     private static final int MAX_SIZE_QUEUE = 2;
-    /**
-     * The field contain state when producer must self terminate.
-     */
-    private boolean isProducerStop = false;
-    /**
-     * The method setter.
-     * @param value boolean
-     */
-    public void setProducerStop(boolean value) {
-        this.isProducerStop = value;
-    }
-    /**
-     * The method getter.
-     * @return boolean.
-     */
-    public boolean getProducerStop() {
-        return this.isProducerStop;
-    }
     /**
      * The method add value in queue.
      * @param value to add.
      * @throws InterruptedException method wait() may be interrupted.
      */
-    public void offer(T value) throws InterruptedException {
-        synchronized (lock) {
-            while (this.queue.size() == MAX_SIZE_QUEUE) {
-                lock.wait();
-            }
-            this.queue.add(value);
-            lock.notify();
+    @GuardedBy("this")
+    public synchronized void offer(T value) throws InterruptedException {
+        while (this.queue.size() == MAX_SIZE_QUEUE) {
+            this.wait();
         }
+        this.queue.add(value);
+        this.notify();
     }
     /**
      * The method retire element from queue, and return them.
      * @return next element in head of list.
      * @throws InterruptedException method wait() may be interrupted.
      */
-    public T poll() throws InterruptedException {
-        synchronized (lock) {
-            while (this.queue.size() == 0) {
-                lock.wait();
-            }
-            lock.notify();
-            return this.queue.remove();
+    @GuardedBy("this")
+    public synchronized T poll() throws InterruptedException {
+        while (this.queue.size() == 0) {
+            this.wait();
         }
+        this.notify();
+        return this.queue.remove();
+    }
+    /**
+     * The method check has collection elements.
+     * @return boolean
+     */
+    @GuardedBy("this")
+    public synchronized boolean isEmpty() {
+        return this.queue.isEmpty();
     }
 }

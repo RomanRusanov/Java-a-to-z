@@ -21,9 +21,13 @@ public class ParallelSearch {
          */
         final Thread consumer = new Thread(
             () -> {
-                while (!queue.getProducerStop()) {
+                while (!Thread.interrupted()) {
                     try {
                         System.out.println(queue.poll());
+                        Thread.sleep(550);
+                        if (queue.isEmpty()) {
+                            Thread.currentThread().interrupt();
+                        }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                         Thread.currentThread().interrupt();
@@ -40,9 +44,6 @@ public class ParallelSearch {
                 for (int index = 0; index != 3; index++) {
                     try {
                         queue.offer(index);
-                        if (index == 2) {
-                            queue.setProducerStop(true);
-                        }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
