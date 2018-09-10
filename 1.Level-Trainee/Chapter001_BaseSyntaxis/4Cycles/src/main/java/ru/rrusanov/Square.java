@@ -31,7 +31,7 @@ public class Square {
 	 */
 	public void show(int start, int finish, int step) {
 		while (start < finish) {
-			String stringOut = String.format("y = %f  x value = %d", calculate(start), start);
+			String stringOut = String.format("y = %.0f  x value = %d", calculate(start), start);
 			System.out.println(stringOut);
 			start += step;
 		}

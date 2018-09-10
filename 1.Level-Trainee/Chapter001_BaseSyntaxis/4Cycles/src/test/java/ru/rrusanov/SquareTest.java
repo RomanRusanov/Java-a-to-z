@@ -49,6 +49,6 @@ public class SquareTest {
         System.setOut(ps);
         square.show(1, 3, 1);
         System.setOut(old);
-        assertThat(baos.toString(), is("y = 9,000000  x value = 1" + NEW_LINE + "y = 18,000000  x value = 2" + NEW_LINE));
+        assertThat(baos.toString(), is("y = 9  x value = 1" + NEW_LINE + "y = 18  x value = 2" + NEW_LINE));
     }
 }
