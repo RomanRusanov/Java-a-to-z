@@ -1,13 +1,9 @@
 package ru.rrusanov.sortDepartment;
-
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.hamcrest.core.Is.is;
-
 /**
  * Class test methods Sort.java.
  *

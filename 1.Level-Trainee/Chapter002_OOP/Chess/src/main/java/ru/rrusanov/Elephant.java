@@ -45,7 +45,7 @@ public class Elephant extends Figure {
         // up and rigth.
         int x = position.getX();
         int y = position.getY();
-        while (!oneWayCheck && !destinationFinded) {
+        while (!(destinationFinded || oneWayCheck)) {
             x++;
             y++;
             if (x <= EIGHT && y <= EIGHT) {
@@ -59,7 +59,7 @@ public class Elephant extends Figure {
                 oneWayCheck = true;
             }
         }
-        // down and rigth.
+        // down and right.
         x = position.getX();
         y = position.getY();
         oneWayCheck = false;
@@ -133,7 +133,7 @@ public class Elephant extends Figure {
      * @param dest cell for new position.
      */
     @Override
-    Figure clone(Cell dest) throws ImpossibleCreateCellException {
+    Figure clone(Cell dest) {
         return new Elephant(dest, this.id);
     }
 }

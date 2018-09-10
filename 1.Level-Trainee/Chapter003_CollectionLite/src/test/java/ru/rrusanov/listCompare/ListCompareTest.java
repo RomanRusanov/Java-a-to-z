@@ -1,7 +1,8 @@
 package ru.rrusanov.listCompare;
-
 import org.junit.Test;
 import java.util.Arrays;
+import java.util.Collections;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 /**
@@ -12,7 +13,6 @@ import static org.junit.Assert.assertThat;
  * @since 22.01.2018
  */
 public class ListCompareTest {
-
     /**
      * When all equals return 0.
      */
@@ -33,7 +33,7 @@ public class ListCompareTest {
     public void whenLeftLessRightThenMinis() {
         ListCompare compare = new ListCompare();
         int rst = compare.compare(
-                Arrays.asList(1),
+                Collections.singletonList(1),
                 Arrays.asList(1, 2, 3)
         );
         assertThat(rst, is(-1));

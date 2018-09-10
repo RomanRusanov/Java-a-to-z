@@ -21,7 +21,7 @@ public class Bank {
      * Default constructor.
      */
     public Bank() {
-        this.customers = new HashMap<User, ArrayList<Account>>();
+        this.customers = new HashMap<>();
     }
     /**
      * Getter for customers field.
@@ -77,7 +77,7 @@ public class Bank {
      * @return List of accounts user by matching passport field.
      */
     public List<Account> getUserAccounts(String passport) {
-        ArrayList<Account> result = new ArrayList<>();
+        ArrayList<Account> result;
         User currentUser = this.findUser(passport);
         result = customers.get(currentUser);
         return result;

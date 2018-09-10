@@ -31,7 +31,7 @@ public class PingPong extends Application {
         Thread t = new Thread(rectangleMove);
         t.start();
         stage.setScene(new Scene(group, limitX, limitY));
-        stage.setTitle(this.JOB4J);
+        stage.setTitle(JOB4J);
         stage.setResizable(false);
         stage.setOnCloseRequest(
                 event -> {

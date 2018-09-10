@@ -31,4 +31,25 @@ public class UserNotOverride {
         this.children = children;
         this.birthday = birthday;
     }
+    /**
+     * The method getter for name field.
+     * @return String.
+     */
+    public String getName() {
+        return name;
+    }
+    /**
+     * The method getter for children field.
+     * @return int.
+     */
+    public int getChildren() {
+        return children;
+    }
+    /**
+     * The method getter for birthday field.
+     * @return Calendar.
+     */
+    public Calendar getBirthday() {
+        return birthday;
+    }
 }

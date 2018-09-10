@@ -21,8 +21,7 @@ public class Board {
      * @return figure.
      */
     public Figure lastAddedFigure() {
-        Figure result = figures[figures.length - 1];
-        return result;
+        return figures[figures.length - 1];
     }
     /**
      * Method return figure if it is present on the cell.
@@ -71,11 +70,9 @@ public class Board {
         // Check move is correct
         Figure figureToMove = getFigureFromCell(source);
         Cell[] wayToMove = figureToMove.way(dest);
-        boolean pathOccupied = false;
         for (Cell occupied:occupiedCells) {
             for (Cell way:wayToMove) {
                 if (way.equals(occupied)) {
-                    pathOccupied = true;
                     throw new OccupiedWayException("The path of the figure is occupied by another figure!");
                 }
             }
@@ -84,22 +81,19 @@ public class Board {
             throw new ImpossibleMoveException("Destination cell not correct for this figure!");
         }
         // Clone figure
-        if (!pathOccupied) {
             for (int i = 0; i < figures.length; i++) {
                 if (figures[i].equals(figureToMove)) {
                     figures[i] = figureToMove.clone(dest);
                     result = true;
                 }
             }
-        }
         return result;
     }
     /**
      * Add new figure at board.
      * @param figure type of figure.
-     * @throws ImpossibleCreateCellException Possibly wrong value x,y for create cell.
      */
-    public void addNewFigure(Figure figure) throws ImpossibleCreateCellException {
+    public void addNewFigure(Figure figure) {
         Cell[] occupiedCells = this.getOccupiedCells();
         for (Cell occupied:occupiedCells) {
             if (figure.position.equals(occupied)) {

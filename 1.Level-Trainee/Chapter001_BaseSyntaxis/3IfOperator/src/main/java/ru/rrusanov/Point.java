@@ -1,18 +1,12 @@
-/**
- * Class set point by coordinate system, calculate triangle side
- * @author Rusanov
- * @param x,y (point)
- * @param distanceTo (calculate distance point to point)
- * @since 02.06.2016
- * @version 0.1
- **/
-
 package ru.rrusanov;
 import static java.lang.Math.sqrt;
 import static java.lang.Math.pow;
 /**
- * Class build point by two coordinates, and calculate distance between two points.
-**/
+ * Class set point by coordinate system, calculate triangle side.
+ * @author Rusanov Roman
+ * @since 02.06.2016
+ * @version 0.1
+ **/
 public class Point {
 	/**
 	 * value for coordinates.

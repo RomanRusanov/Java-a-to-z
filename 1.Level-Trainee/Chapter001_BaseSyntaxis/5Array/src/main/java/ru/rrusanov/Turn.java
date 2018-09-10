@@ -8,16 +8,16 @@ public class Turn {
 	/**
 	 * Turn back each elements of array.
 	 * @param array - (int[]) for turn.
-	 * @{value} i - (int) index for loop.
-	 * @{value} leftIndex - (int) first element in array. Each iteration ++.
-	 * @{value} rightIndex - (int) last element in array.Each iteration --.
-	 * @{value} bufferValue - (int) temp value for rotation of elements.
+	 *  i - (int) index for loop.
+	 *  leftIndex - (int) first element in array. Each iteration ++.
+	 *  rightIndex - (int) last element in array.Each iteration --.
+	 *  bufferValue - (int) temp value for rotation of elements.
 	 * @return array - (int[]) turned array.
 	**/
 	public int[] back(int[] array) {
-		/**
-		 * Declaration of value.
-		**/
+		/*
+		  Declaration of value.
+		*/
 		int leftIndex;
 		int rightIndex = array.length - 1;
 		int bufferValue;

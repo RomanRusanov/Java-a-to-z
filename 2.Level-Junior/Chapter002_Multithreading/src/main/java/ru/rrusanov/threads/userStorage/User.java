@@ -38,13 +38,6 @@ public class User {
         return amount;
     }
     /**
-     * The method setter for id field.
-     * @param id value.
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-    /**
      * The method setter for amount field.
      * @param amount value.
      */

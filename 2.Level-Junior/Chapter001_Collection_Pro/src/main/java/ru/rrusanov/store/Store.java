@@ -109,25 +109,11 @@ public class Store {
             return id;
         }
         /**
-         * The method get name.
-         * @return int id.
-         */
-        public String getName() {
-            return name;
-        }
-        /**
          * The method set id.
          * @param id unique id.
          */
         public void setId(int id) {
             this.id = id;
-        }
-        /**
-         * The method set id.
-         * @param name User name.
-         */
-        public void setName(String name) {
-            this.name = name;
         }
         /**
          * The method override method from Object class.

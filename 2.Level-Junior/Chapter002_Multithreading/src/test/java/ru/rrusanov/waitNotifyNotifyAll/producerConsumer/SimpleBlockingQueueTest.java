@@ -22,7 +22,7 @@ public class SimpleBlockingQueueTest {
     @Test
     public void whenQueueFullThenWait() throws InterruptedException {
         /**
-         * The inner class describe behavior producer thread.
+          The inner class describe behavior producer thread.
          */
         class Producer extends Thread {
             @Override
@@ -39,7 +39,7 @@ public class SimpleBlockingQueueTest {
             }
         }
         /**
-         * The inner class describe behavior consumer thread.
+          The inner class describe behavior consumer thread.
          */
         class Consumer extends Thread {
             @Override

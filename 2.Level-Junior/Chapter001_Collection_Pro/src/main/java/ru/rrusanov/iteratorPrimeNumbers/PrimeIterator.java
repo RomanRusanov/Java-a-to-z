@@ -91,11 +91,11 @@ public class PrimeIterator implements Iterator<Integer> {
         return result;
     }
 }
-/**
- * Пример от ментора.
- * Как альтернативный вариант без дублирования кода:
- *
- * @Override
+/*
+  Пример от ментора.
+  Как альтернативный вариант без дублирования кода:
+
+  @Override
  * public boolean hasNext () {
  *     for (int i = index; i < array.length; i++) {
  *         if(isPrime(array[i])){

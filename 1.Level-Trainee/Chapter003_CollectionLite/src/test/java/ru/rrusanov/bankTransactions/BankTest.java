@@ -21,7 +21,6 @@ public class BankTest {
     @Test
     public void thenBankInstantiateWhenReferenceCustomersNotNull() {
         Bank bank = new Bank();
-        HashMap<User, ArrayList<Account>> customers = bank.getCustomers();
         Assert.assertNotNull(bank.getCustomers());
     }
     /**
@@ -94,7 +93,6 @@ public class BankTest {
         bank.addUser(user1);
         bank.addAccountToUser("IvanPassport", account1);
         bank.addAccountToUser("IvanPassport", account2);
-        HashMap<User, ArrayList<Account>> customers = bank.getCustomers();
         List<Account> result = bank.getUserAccounts("IvanPassport");
         List<Account> expect = Arrays.asList(account1, account2);
         Assert.assertThat(result, is(expect));

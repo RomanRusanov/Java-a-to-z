@@ -3,11 +3,9 @@ import static java.lang.Math.sqrt;
 /**
  * Class bild trianle by 3 point, calulate half perimetr, calculate area of triangle.
  * @author Rusanov
- * @param Point a (x,y coordinates values for point a)
- * @param Point b (x,y coordinates values for point b)
- * @param Point c (x,y coordinates values for point c)
- * @param Area (calculate Area of triangle)
- * @param Triangle (disigner with aruments (Point a,b,c))
+ * Point a (x,y coordinates values for point a)
+ * Area (calculate Area of triangle)
+ * Triangle (disigner with aruments (Point a,b,c))
  * @since 02.06.2016
  * @version 0.1
 **/
@@ -29,11 +27,11 @@ public class Triangle {
 	}
 	/**
 	 * Calculate area of triangle.
-	 * @{value} ab ( distance by Points A B)
- 	 * @{value} bc ( distance by Points B C)
- 	 * @{value} ca ( distance by Points C A)
- 	 * @{value} halfPerimetr (calculate half perimetr)
-	 * @return double AreaTriangle or -1 if triangle dosn't exist
+	 *  ab ( distance by Points A B)
+ 	 *  bc ( distance by Points B C)
+ 	 *  ca ( distance by Points C A)
+ 	 *  halfPerimeter (calculate half perimeter)
+	 * @return double AreaTriangle or -1 if triangle doesn't exist
 	**/
 	public double area() {
 		double ab = a.distanceTo(b);

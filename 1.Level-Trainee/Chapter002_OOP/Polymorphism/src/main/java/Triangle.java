@@ -14,12 +14,8 @@ public class Triangle implements Shape {
      * @return String with square.
      */
     public String pic() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("  *");
-        stringBuilder.append(END_STRING);
-        stringBuilder.append(" * *");
-        stringBuilder.append(END_STRING);
-        stringBuilder.append("*   *");
-        return stringBuilder.toString();
+        return    "  *" + END_STRING
+                + " * *" + END_STRING
+                + "*   *";
     }
 }

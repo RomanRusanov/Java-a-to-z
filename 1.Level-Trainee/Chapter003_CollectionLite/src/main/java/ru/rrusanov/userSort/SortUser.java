@@ -1,12 +1,9 @@
 package ru.rrusanov.userSort;
-
 import ru.rrusanov.userSort.model.User;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-
 /**
  * @author Roman Rusanov
  * @version 0.1

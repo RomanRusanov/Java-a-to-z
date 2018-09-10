@@ -39,18 +39,12 @@ public class UserStoreTest {
         Assert.assertTrue(this.userStore.find(user2));
     }
     /**
-     * Test method update.
-     */
-    @Test
-    public void update() {
-    }
-    /**
      * Test method delete.
      */
     @Test
     public void whenUserDeleteThenNotPresentedInCollection() {
-        this.userStore.delete(user1);
-        this.userStore.delete(user2);
+        Assert.assertTrue(this.userStore.delete(user1));
+        Assert.assertTrue(this.userStore.delete(user2));
         Assert.assertFalse(this.userStore.find(user1));
         Assert.assertFalse(this.userStore.find(user2));
     }
@@ -61,7 +55,7 @@ public class UserStoreTest {
     @Test
     public void transfer() throws InterruptedException {
         /**
-         * The inner class simulate first thread.
+          The inner class simulate first thread.
          */
         class TransferThreadUser1ToUser2 extends Thread {
             /**
@@ -69,11 +63,11 @@ public class UserStoreTest {
              */
             @Override
             public void run() {
-                userStore.transfer(user1.getId(), user2.getId(), 70);
+                Assert.assertTrue(userStore.transfer(user1.getId(), user2.getId(), 70));
             }
         }
         /**
-         * The inner class simulate second thread.
+          The inner class simulate second thread.
          */
         class TransferThreadUser2ToUser1 extends Thread {
             /**
@@ -93,8 +87,8 @@ public class UserStoreTest {
             // join section.
             transferThread1.join();
             transferThread2.join();
-            Assert.assertTrue(this.user1.getAmount() == 100);
-            Assert.assertTrue(this.user2.getAmount() == 150);
+            Assert.assertEquals(100, this.user1.getAmount());
+            Assert.assertEquals(150, this.user2.getAmount());
         }
     }
 }

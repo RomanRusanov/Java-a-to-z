@@ -19,57 +19,49 @@ public class SimpleBlockingQueue<T> {
     @GuardedBy("this")
     private Queue<T> queue = new LinkedList<>();
     /**
-     * The field contain monitor for blocking thread entrance.
-     */
-    private Object lock = new Object();
-    /**
      * The constant contain limit size of queue.
      */
     private static final int SIZE_QUEUE = 3;
     /**
      * The method add value in queue.
      * @param value to add.
-     * @throws InterruptedException method wait() may be interrupted.
      */
-    public void offer(T value) {
-        synchronized (lock) {
-            while (this.queue.size() == SIZE_QUEUE) {
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                   e.printStackTrace();
-                   Thread.currentThread().interrupt();
-                }
+    @GuardedBy("this")
+    public synchronized void offer(T value) {
+        while (this.queue.size() == SIZE_QUEUE) {
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+               e.printStackTrace();
+               Thread.currentThread().interrupt();
             }
-            this.queue.add(value);
-            lock.notify();
         }
+        this.queue.add(value);
+        this.notify();
     }
     /**
      * The method retire element from queue, and return them.
      * @return next element in head of list.
      * @throws InterruptedException method wait() may be interrupted.
      */
-    public T poll() throws InterruptedException {
-        synchronized (lock) {
-            while (this.queue.size() == 0) {
-                lock.wait();
-            }
-            lock.notify();
-            return this.queue.remove();
+    @GuardedBy("this")
+    public synchronized T poll() throws InterruptedException {
+        while (this.queue.size() == 0) {
+            this.wait();
         }
+        this.notify();
+        return this.queue.remove();
     }
     /**
      * The method return true if queue empty, otherwise false.
      * @return boolean.
      */
-    public boolean isEmpty() {
-        synchronized (lock) {
-            boolean result = false;
-            if (this.queue.size() == 0) {
-                result = true;
-            }
-            return result;
+    @GuardedBy("this")
+    public synchronized boolean isEmpty() {
+        boolean result = false;
+        if (this.queue.size() == 0) {
+            result = true;
         }
+        return result;
     }
 }

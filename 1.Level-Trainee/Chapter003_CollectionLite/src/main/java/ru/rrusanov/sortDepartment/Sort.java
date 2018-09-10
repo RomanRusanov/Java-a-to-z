@@ -1,10 +1,8 @@
 package ru.rrusanov.sortDepartment;
-
 import java.util.List;
 import java.util.Comparator;
 import java.util.TreeSet;
 import java.util.Iterator;
-
 /**
  * The class sorts departments in flowing order.
  * K 1...n, SK 1...n, SSK 1...n. - Natural ordering
@@ -112,21 +110,21 @@ public class Sort {
      * @return true - data contain passed string record, false - not.
      */
     public boolean find(String record) {
-        String dataValue = "";
+        StringBuilder dataValue = new StringBuilder();
         String recordValue = "";
         boolean result = false;
         recordValue += String.valueOf(this.number(record, 1));
         recordValue += String.valueOf(this.number(record, 2));
         recordValue += String.valueOf(this.number(record, 3));
         for (String item:this.data) {
-            dataValue += String.valueOf(this.number(item, 1));
-            dataValue += String.valueOf(this.number(item, 2));
-            dataValue += String.valueOf(this.number(item, 3));
-            if (dataValue.equals(recordValue)) {
+            dataValue.append(String.valueOf(this.number(item, 1)));
+            dataValue.append(String.valueOf(this.number(item, 2)));
+            dataValue.append(String.valueOf(this.number(item, 3)));
+            if (dataValue.toString().equals(recordValue)) {
                 result = true;
                 break;
             }
-            dataValue = "";
+            dataValue = new StringBuilder();
         }
         return result;
     }

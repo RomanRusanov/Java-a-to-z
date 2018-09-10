@@ -41,12 +41,12 @@ public class CacheTest {
      */
     @Test
     public void whenUpdateBySecondThreadThenThrowException() throws InterruptedException {
-        /**
-         * The field contain container for handled exception.
+        /*
+          The field contain container for handled exception.
          */
         AtomicReference<Exception> exception = new AtomicReference<>();
-        /**
-         * Thread first.
+        /*
+          Thread first.
          */
         Thread thread1 = new Thread(
             () -> {
@@ -55,8 +55,8 @@ public class CacheTest {
                 this.cache.update(modelToUpdate);
             }
         );
-        /**
-         * Thread second.
+        /*
+          Thread second.
          */
         Thread thread2 = new Thread(
             () -> {

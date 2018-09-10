@@ -39,7 +39,7 @@ public class RectangleMove implements Runnable {
         MoveUpAndRight moveUpAndRight = new MoveUpAndRight();
         this.direction = new MoveToRight();
         // rectangle moved.
-        while (true) {
+        do {
             this.direction.move(this.rect);
             if (this.rect.getX() > 290) {
                 this.direction = moveUpAndLeft;
@@ -53,10 +53,7 @@ public class RectangleMove implements Runnable {
             if (this.rect.getY() > 290) {
                 this.direction = moveUpAndRight;
             }
-            if (this.interrupted) {
-                break;
-            }
-        }
+        } while (!this.interrupted);
     }
     /**
      * The method set field value.

@@ -37,16 +37,6 @@ public class UserStore {
         return result;
     }
     /**
-     * The method update.
-     * @param user user
-     * @return boolean.
-     */
-    @GuardedBy("this")
-    public boolean update(User user) {
-        boolean result = false;
-        return result;
-    }
-    /**
      * The method remove user from collection.
      * @param user to remove.
      * @return if user present when remove and return true, otherwise false.

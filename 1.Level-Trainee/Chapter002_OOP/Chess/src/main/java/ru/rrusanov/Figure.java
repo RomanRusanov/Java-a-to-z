@@ -37,8 +37,7 @@ public abstract class Figure {
      */
     public long getId() {
         Date date = new Date();
-        long result = date.getTime() + position.getX() + position.getY();
-        return result;
+        return date.getTime() + position.getX() + position.getY();
     }
     /**
      * assign id for figure.
@@ -65,7 +64,10 @@ public abstract class Figure {
         if (this == otherObject) {
             return true;
         }
-        if (this == null || !(this instanceof Figure)) {
+        if (otherObject == null) {
+            return false;
+        }
+        if (!(otherObject instanceof Figure)) {
             return false;
         }
         Figure figure = (Figure) otherObject;

@@ -8,10 +8,6 @@ package ru.rrusanov;
  */
 public class Calculator {
 	/**
-	 * values to operation.
-	 */
-    private int first, second;
-	/**
 	 * value result.
 	 */
     private double result = 0;

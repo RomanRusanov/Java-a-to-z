@@ -32,5 +32,6 @@ public class UserConvertTest {
         int expect = list.get(0).getId();
         User result = hashMap.get(expect);
         Assert.assertThat(result.getId(), is(expect));
+        Assert.assertThat(new User("Ivan", "Tombov").getCity(), is("Tombov"));
     }
 }

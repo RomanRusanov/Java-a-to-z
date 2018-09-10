@@ -1,9 +1,7 @@
 package ru.rrusanov.testCollectionPerformance;
-
 import org.junit.Assert;
 import org.junit.Test;
 import java.util.LinkedList;
-
 import static org.junit.Assert.assertNotSame;
 
 /**
@@ -22,7 +20,7 @@ public class TestCollectionPerformanceTest {
         TestCollectionPerformance testCollectionPerformance = new TestCollectionPerformance();
         LinkedList<String> linkedList = new LinkedList<>();
         testCollectionPerformance.add(linkedList, THREE);
-        Assert.assertTrue(linkedList.size() == THREE);
+        Assert.assertEquals(linkedList.size(), THREE);
     }
     /**
      * Check if three elements delete from collection then size of collection zero.
@@ -33,7 +31,7 @@ public class TestCollectionPerformanceTest {
         LinkedList<String> linkedList = new LinkedList<>();
         testCollectionPerformance.add(linkedList, THREE);
         testCollectionPerformance.delete(linkedList, THREE);
-        Assert.assertTrue(linkedList.size() == 0);
+        Assert.assertEquals(0, linkedList.size());
     }
     /**
      * Check random generated string.

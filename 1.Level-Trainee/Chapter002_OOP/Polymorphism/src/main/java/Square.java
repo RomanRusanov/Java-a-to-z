@@ -14,13 +14,11 @@ public class Square implements Shape {
      * @return String with square.
      */
     public String pic() {
-        StringBuilder stringBuilder = new StringBuilder("____");
-        stringBuilder.append(END_STRING);
-        stringBuilder.append("|  |");
-        stringBuilder.append(END_STRING);
-        stringBuilder.append("|  |");
-        stringBuilder.append(END_STRING);
-        stringBuilder.append("----");
-        return stringBuilder.toString();
+        String stringBuilder;
+        stringBuilder = "____" + END_STRING
+                      + "|  |" + END_STRING
+                      + "|  |" + END_STRING
+                      + "----";
+        return stringBuilder;
     }
 }

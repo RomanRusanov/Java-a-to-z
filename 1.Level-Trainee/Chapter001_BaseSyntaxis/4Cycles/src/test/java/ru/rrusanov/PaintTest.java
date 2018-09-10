@@ -12,10 +12,10 @@ public class PaintTest {
 	 * Then height of pyramid 1 return single string.
 	 */
 	@Test
-	public void thenHeghtPiramid1ReturnSingleString() {
+	public void thenHeightPyramid1ReturnSingleString() {
 		Paint paint = new Paint();
 		final String expect = " ^\n";
-		final String result = paint.piramid(1);
+		final String result = paint.pyramid(1);
 		assertThat(result, is(expect));
 	}
 }

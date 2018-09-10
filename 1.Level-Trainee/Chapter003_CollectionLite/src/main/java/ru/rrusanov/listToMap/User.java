@@ -34,8 +34,7 @@ public class User {
      */
     public int generateId() {
         Random random = new Random();
-        int result = random.nextInt(100000);
-        return result;
+        return random.nextInt(100000);
     }
     /**
      * Getter for id field.
@@ -43,5 +42,19 @@ public class User {
      */
     public int getId() {
         return this.id;
+    }
+    /**
+     * Getter for name field.
+     * @return Id of user.
+     */
+    public String getName() {
+        return name;
+    }
+    /**
+     * Getter for city field.
+     * @return Id of user.
+     */
+    public String getCity() {
+        return city;
     }
 }

@@ -22,7 +22,7 @@ public class PhoneDictionary {
     /**
      * Dictionary collection.
      */
-    private List<Person> persons = new ArrayList<Person>();
+    private List<Person> persons = new ArrayList<>();
     /**
      * Add person to dictionary.
      * @param person to add.

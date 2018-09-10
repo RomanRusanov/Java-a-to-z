@@ -29,7 +29,7 @@ abstract class AbstractStore<T extends Base> implements Store<T> {
      * @return if operation success return true, otherwise false.
      */
     public boolean replace(String id, T model) {
-        int index = this.models.findIndex((T) this.findById(id));
+        int index = this.models.findIndex(this.findById(id));
         this.models.set(index, model);
         return true;
     }

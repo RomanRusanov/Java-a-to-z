@@ -23,17 +23,17 @@ public class WordIndex {
     public void loadFile(String filename) {
         int position = 0;
         int i;
-        String currentWord = "";
+        StringBuilder currentWord = new StringBuilder();
         try (FileInputStream fin = new FileInputStream(filename)) {
             do {
                 i = fin.read();
                 // -1 end of file, 32 space symbol, 10 new line, 13 carriage return
                 if (i != -1 && i != 32 && i != 10 && i != 13) {
-                    currentWord += Character.toString((char) i);
+                    currentWord.append(Character.toString((char) i));
                 }
                 if (i == 32 || i == -1) {
-                    trieTree.put(currentWord, position - currentWord.length());
-                    currentWord = "";
+                    trieTree.put(currentWord.toString(), position - currentWord.length());
+                    currentWord = new StringBuilder();
                 }
                 position++;
             } while (i != -1);

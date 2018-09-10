@@ -1,8 +1,6 @@
 package ru.rrusanov.listCompare;
-
 import java.util.Comparator;
 import java.util.List;
-
 /**
  * Class compare to List<Integer> by each element..
  *
@@ -29,7 +27,7 @@ public class ListCompare implements Comparator<List<Integer>> {
             result = -1;
         } else if (leftSize > rightSize) {
             result = 1;
-        } else if (leftSize == rightSize) {
+        } else {
             for (int i = 0; i < leftSize; i++) {
                 if (left.get(i) < right.get(i)) {
                     result = -1;

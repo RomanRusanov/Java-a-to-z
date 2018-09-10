@@ -9,7 +9,7 @@ public class SumTwoArray {
 	 * Get merge two sorted arrays.
 	 * @param firstArray - (int[]).
 	 * @param secondArray - (int[]).
-	 * @{value} a, b - (int) index position for array.
+	 *  a, b - (int) index position for array.
 	 * @return array - (int[]) Merged first and second arrays elements.
 	**/
 	public int[] merge(int[] firstArray, int[] secondArray) {

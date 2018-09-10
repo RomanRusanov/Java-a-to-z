@@ -9,8 +9,8 @@ public class FindAndDelete {
 	/**
 	 * Find in array duplicated elements.
 	 * @param array - (String[]) for rotate.
-	 * @{value} i,j,i1 - (int) index for loop.
-	 * @{value} duplicateCount - (int) count duplicate elements in array.
+	 *  i,j,i1 - (int) index for loop.
+	 *  duplicateCount - (int) count duplicate elements in array.
 	 * @return array - (String[]) array without duplicate.
 	**/
 	public String[] stringArray(String[] array) {
@@ -18,8 +18,8 @@ public class FindAndDelete {
 		for (int i = 0; i < array.length - 1; i++) {
 			for (int j = i + 1; j < array.length - 1 - duplicateCount; j++) {
 				while (array[i].equals(array[j])) {
-					for (int i1 = j; i1 < array.length - 1; i1++) {
-						array[i1] = array[i1 + 1];
+					if (array.length - 1 - j >= 0) {
+						System.arraycopy(array, j + 1, array, j, array.length - 1 - j);
 					}
 					duplicateCount++;
 				}

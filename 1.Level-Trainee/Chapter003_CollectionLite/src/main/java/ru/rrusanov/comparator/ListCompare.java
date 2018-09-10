@@ -44,9 +44,9 @@ public class ListCompare implements Comparator<String> {
         return result;
     }
 }
-/**
- * Mentor better example.
- *
+/*
+  Mentor better example.
+
 @Override
 public int compare (String left, String right) {
     int result = 0;                                                   //--> по умолчанию будем считать что все символы совпадают

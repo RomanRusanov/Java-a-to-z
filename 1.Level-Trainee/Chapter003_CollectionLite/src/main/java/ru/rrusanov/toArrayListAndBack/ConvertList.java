@@ -1,9 +1,7 @@
 package ru.rrusanov.toArrayListAndBack;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 /**
  * Class convert two dimension array to list and back.
  *
@@ -38,7 +36,7 @@ public class ConvertList {
         int i = 0;
             for (int[] item:result) {
                 int j = 0;
-                for (int itemIn:item) {
+                for (int ignored :item) {
                     if (iterator.hasNext()) {
                         result[i][j] = iterator.next();
                     } else {

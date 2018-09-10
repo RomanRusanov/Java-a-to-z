@@ -26,10 +26,9 @@ public class Cache {
      * The method update entry in collection if version not equals with updated when entry be update other thread
      * and need throws exception.
      * @param model Model that be read early, now need update.
-     * @return true, if update success.
      * @throws OptimisticException throw if version not equals.
      */
-    public boolean update(Base model) throws OptimisticException {
+    public void update(Base model) throws OptimisticException {
         Base modelInCacheToUpdate = this.cache.get(model.getId());
         if (modelInCacheToUpdate.getVersion() != model.getVersion()) {
             throw new OptimisticException("Data all ready updated!");
@@ -40,15 +39,13 @@ public class Cache {
             modelInCache.setVersion(modelInCache.getVersion() + 1);
             return modelInCache;
         });
-        return true;
     }
     /**
      * The method remove model from collection.
      * @param model to delete.
-     * @return true if success, otherwise false.
      */
-    public boolean delete(Base model) {
-        return this.cache.remove(model.getId(), model);
+    public void delete(Base model) {
+        this.cache.remove(model.getId(), model);
     }
     /**
      * The method get model from collection.

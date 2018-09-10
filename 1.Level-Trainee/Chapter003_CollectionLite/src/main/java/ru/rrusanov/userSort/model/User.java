@@ -1,7 +1,5 @@
 package ru.rrusanov.userSort.model;
-
 import java.util.Objects;
-
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -11,11 +9,11 @@ import java.util.Objects;
  */
 public class User implements Comparable<User> {
     /**
-     * @{value} User name.
+     * User name.
      */
     private String name;
     /**
-     * @{value} User age.
+     * User age.
      */
     private Integer age;
     /**
@@ -27,7 +25,6 @@ public class User implements Comparable<User> {
         this.name = name;
         this.age = age;
     }
-
     /**
      * Compares this object with the specified object for order.  Returns a
      * negative integer, zero, or a positive integer as this object is less
@@ -70,7 +67,6 @@ public class User implements Comparable<User> {
     public int compareTo(User o) {
         return this.age.compareTo(o.age);
     }
-
     /**
      * Getter for age value.
      * @return Integer age;
@@ -85,7 +81,6 @@ public class User implements Comparable<User> {
     public String getName() {
         return this.name;
     }
-
     /**
      * Compare users.
      * @param o Other user.
@@ -102,7 +97,6 @@ public class User implements Comparable<User> {
         User user = (User) o;
         return Objects.equals(name, user.name) && Objects.equals(age, user.age);
     }
-
     /**
      * Generate hashcode of user.
      * @return int hashcode.

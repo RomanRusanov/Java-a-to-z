@@ -12,19 +12,16 @@ public class ParallelSearch {
      * @param args params for program.
      */
     public static void main(String[] args) {
-        /**
-         * The field contain collection(queue) two threads work together.
+        /*
+          The field contain collection(queue) two threads work together.
          */
         SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
-        /**
-         * The consumer thread.
+        /*
+          The consumer thread.
          */
         final Thread consumer = new Thread(
             () -> {
-                while (true) {
-                    if (queue.getProducerStop()) {
-                        break;
-                    }
+                while (!queue.getProducerStop()) {
                     try {
                         System.out.println(queue.poll());
                     } catch (InterruptedException e) {
@@ -35,8 +32,8 @@ public class ParallelSearch {
             }
         );
         consumer.start();
-        /**
-         * The producer thread.
+        /*
+          The producer thread.
          */
         new Thread(
             () -> {
