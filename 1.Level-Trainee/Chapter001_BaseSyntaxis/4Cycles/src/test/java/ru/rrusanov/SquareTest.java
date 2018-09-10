@@ -16,6 +16,10 @@ public class SquareTest {
      * The instance the tested class.
      */
     private Square square = new Square();
+    /**
+     * The constant new line.
+     */
+    private static final String NEW_LINE = System.getProperty("line.separator");
 	/**
      * Then x=0 When calculate return 4.
 	*/
@@ -45,6 +49,6 @@ public class SquareTest {
         System.setOut(ps);
         square.show(1, 3, 1);
         System.setOut(old);
-        assertThat(baos.toString(), is("y = 9,000000  x value = 1\r\ny = 18,000000  x value = 2\r\n"));
+        assertThat(baos.toString(), is("y = 9,000000  x value = 1" + NEW_LINE + "y = 18,000000  x value = 2" + NEW_LINE));
     }
 }
