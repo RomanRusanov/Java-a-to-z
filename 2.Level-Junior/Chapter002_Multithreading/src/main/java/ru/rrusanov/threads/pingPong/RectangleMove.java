@@ -13,15 +13,8 @@ public class RectangleMove implements Runnable {
      */
     private final Rectangle rect;
     /**
-     * The field contain flag that break infinite cycle.
-     */
-    private boolean interrupted;
-    /**
-     * The field contain direction to move.
-     */
-    private Direction direction;
-    /**
      * The default constructor.
+     *
      * @param rect rectangle to be moved.
      */
     public RectangleMove(Rectangle rect) {
@@ -37,29 +30,25 @@ public class RectangleMove implements Runnable {
         MoveDownAndRight moveDownAndRight = new MoveDownAndRight();
         MoveUpAndLeft moveUpAndLeft = new MoveUpAndLeft();
         MoveUpAndRight moveUpAndRight = new MoveUpAndRight();
-        this.direction = new MoveToRight();
+        /*
+          The field contain direction to move.
+         */
+        Direction direction = new MoveToRight();
         // rectangle moved.
         do {
-            this.direction.move(this.rect);
+            direction.move(this.rect);
             if (this.rect.getX() > 290) {
-                this.direction = moveUpAndLeft;
+                direction = moveUpAndLeft;
             }
             if (this.rect.getY() < 0) {
-                this.direction = moveDownAndLeft;
+                direction = moveDownAndLeft;
             }
             if (this.rect.getX() < 0) {
-                this.direction = moveDownAndRight;
+                direction = moveDownAndRight;
             }
             if (this.rect.getY() > 290) {
-                this.direction = moveUpAndRight;
+                direction = moveUpAndRight;
             }
-        } while (!this.interrupted);
-    }
-    /**
-     * The method set field value.
-     * @param interrupted boolean value. If thread was interrupted then true. Otherwise false.
-     */
-    public void setInterrupted(boolean interrupted) {
-        this.interrupted = interrupted;
+        } while (!Thread.interrupted());
     }
 }
