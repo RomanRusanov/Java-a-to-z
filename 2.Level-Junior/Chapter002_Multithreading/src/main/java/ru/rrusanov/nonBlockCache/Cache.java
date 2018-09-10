@@ -30,10 +30,10 @@ public class Cache {
      */
     public void update(Base model) throws OptimisticException {
         Base modelInCacheToUpdate = this.cache.get(model.getId());
-        if (modelInCacheToUpdate.getVersion() != model.getVersion()) {
-            throw new OptimisticException("Data all ready updated!");
-        }
         this.cache.computeIfPresent(model.getId(), (modelUpdated, modelInCache) -> {
+            if (modelInCacheToUpdate.getVersion() != model.getVersion()) {
+                throw new OptimisticException("Data all ready updated!");
+            }
             modelInCache = modelInCacheToUpdate;
             modelInCache.setName(model.getName());
             modelInCache.setVersion(modelInCache.getVersion() + 1);
