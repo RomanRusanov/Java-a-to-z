@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
  * Dynamic List based on object array.
  * @param <E> generic type.
  */
-public class DynamicList<E> implements Iterable<E> , CollectionDecorator<E> {
+public class DynamicList<E> implements Iterable<E>, CollectionDecorator<E> {
     /**
      * The field contain all collection data.
      */
