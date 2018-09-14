@@ -12,5 +12,6 @@
 		<module>Chapter001_BaseSyntaxis</module>
         <module>Chapter002_OOP</module>
         <module>Chapter003_CollectionLite</module>
-	</modules>
+        <module>Chapter004_FP_Labmda_StreamAPI</module>
+    </modules>
 </project>
