@@ -1,13 +1,17 @@
-package lambda;
-import lambda.example.Calculator;
+package lambda.example;
 import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-
+/**
+ * The Example.
+ */
 public class CalculatorTest {
+    /**
+     * test.
+     */
     @Test
     public void whenAdd1Until3() {
         Calculator calc = new Calculator();
