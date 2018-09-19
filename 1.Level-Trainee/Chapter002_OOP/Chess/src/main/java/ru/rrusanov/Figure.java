@@ -36,8 +36,7 @@ public abstract class Figure {
      * @return int id.
      */
     public long getId() {
-        Date date = new Date();
-        return date.getTime() + position.getX() + position.getY();
+        return new Date().getTime() + position.getX() + position.getY();
     }
     /**
      * assign id for figure.

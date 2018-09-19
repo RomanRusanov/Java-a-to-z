@@ -28,7 +28,7 @@ public class Cell {
         }
     }
     /**
-     * x - horizontall cells.
+     * x - horizontal cells.
      */
     private int x;
     /**
@@ -78,9 +78,6 @@ public class Cell {
      * @return int value of hashcode cell (x + y).
      */
     public int hashCode() {
-        int result = 1;
-        result *= this.x;
-        result *= this.y;
-        return result;
+        return 13 * (this.x + this.y);
     }
 }

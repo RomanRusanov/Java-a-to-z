@@ -1,4 +1,6 @@
 package ru.rrusanov;
+import java.util.function.Predicate;
+
 import static java.util.Arrays.copyOf;
 /** Class contains chess board and all figures.
  * @author Roman Rusanov
@@ -28,21 +30,22 @@ public class Board {
      * @param cell chosen.
      * @return figure.
      * @throws ImpossibleCreateCellException Possibly wrong value x,y for create cell.
+     * @throws FigureNotFoundException throw if on passed coordinates figure not present.
      */
-    public Figure getFigureFromCell(Cell cell) throws ImpossibleCreateCellException {
+    public Figure getFigureFromCell(Cell cell) throws ImpossibleCreateCellException, FigureNotFoundException {
         Figure result = new Elephant(new Cell(1, 1));
         boolean finded = false;
+        Predicate<Cell> isPositionEquals = (c) -> c.equals(cell);
         for (Figure figure:figures) {
-            if (figure.position.equals(cell)) {
+            if (isPositionEquals.test(figure.position)) {
                 result = figure;
                 finded = true;
             }
         }
-        if (finded) {
-            return result;
-        } else {
+        if (!finded) {
             throw new FigureNotFoundException("No Figure in this cell!");
         }
+        return result;
     }
     /**
      * Method check what destination cell have figure, if no throw exception (FigureNotFoundException).
@@ -106,7 +109,6 @@ public class Board {
             this.figures = copyOf(figures, figures.length + 1);
             figures[figures.length - 1] = figure;
         }
-
     }
     /**
      * Contain all occupied cells.
@@ -114,13 +116,12 @@ public class Board {
      * @throws FigureNotFoundException If source cell not have figure exist.
      */
     public Cell[] getOccupiedCells() throws FigureNotFoundException {
-        int length = figures.length;
-        if (length >= 1) {
-            Cell[] result = new Cell[length];
+        Predicate<Figure[]> isOnBoardPresentFigures = (x) -> x.length >= 1;
+        if (isOnBoardPresentFigures.test(this.figures)) {
+            Cell[] result = new Cell[this.figures.length];
             int index = 0;
             for (Figure f : figures) {
-                result[index] = f.position;
-                index++;
+                result[index++] = f.position;
             }
             return result;
         } else {
