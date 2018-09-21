@@ -1,9 +1,7 @@
 package ru.rrusanov;
-
 import org.junit.Assert;
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
-
 /** Class contains tests for Board class.
  * @author Roman Rusanov
  * @since 29.11.2017
@@ -82,5 +80,4 @@ public class BoardTest {
         Cell[] expect = new Cell[] {cell};
         Assert.assertThat(result, is(expect));
     }
-
 }

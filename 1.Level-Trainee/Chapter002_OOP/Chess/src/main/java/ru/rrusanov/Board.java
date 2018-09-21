@@ -84,12 +84,13 @@ public class Board {
             throw new ImpossibleMoveException("Destination cell not correct for this figure!");
         }
         // Clone figure
-            for (int i = 0; i < figures.length; i++) {
-                if (figures[i].equals(figureToMove)) {
-                    figures[i] = figureToMove.clone(dest);
-                    result = true;
-                }
+        Predicate<Figure> figureEquals = (x) -> x.equals(figureToMove);
+        for (int i = 0; i < figures.length; i++) {
+            if (figureEquals.test(figures[i])) {
+                figures[i] = figureToMove.clone(dest);
+                result = true;
             }
+        }
         return result;
     }
     /**
