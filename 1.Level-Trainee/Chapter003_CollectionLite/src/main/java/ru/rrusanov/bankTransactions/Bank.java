@@ -4,6 +4,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author Roman Rusanov
@@ -51,14 +56,26 @@ public class Bank {
      * @param account Account to adding user by matching passport field.
      */
     public void addAccountToUser(String passport, Account account) {
-        User currentUser = this.findUser(passport);
-        ArrayList<Account> accountArrayList = customers.get(currentUser);
-        if (accountArrayList == null) {
-            accountArrayList = new ArrayList<>();
-        }
-        accountArrayList.add(account);
-        customers.putIfAbsent(currentUser, accountArrayList);
+//        User currentUser = this.findUser(passport);
+//        ArrayList<Account> accountArrayList = customers.get(currentUser);
+//        if (accountArrayList == null) {
+//            accountArrayList = new ArrayList<>();
+//        }
+//        accountArrayList.add(account);
+//        customers.putIfAbsent(currentUser, accountArrayList);
+
+
+        this.customers.keySet().stream()
+                .filter(key -> key.getPassport().equals(passport)) //get User
+                .map(key -> this.customers.get(key))               //get Account
+                .map()
+        );
+
     }
+
+    BiFunction<ArrayList<Account>, Account, ArrayList<Account>> update = ((list, account) ->
+        list == null ? new ArrayList<>().add(account) : list.add(account);
+
 
     /**
      * Method delete account from specific user.
