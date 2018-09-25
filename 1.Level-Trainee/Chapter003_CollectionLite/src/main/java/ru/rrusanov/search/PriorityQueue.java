@@ -19,15 +19,11 @@ public class PriorityQueue {
      * @param task задача
      */
     public void put(Task task) {
-        boolean positionFind = false;
-        for (int i = 0; i < this.tasks.size(); i++) {
-            if (task.getPriority() < this.tasks.get(i).getPriority()) {
-                this.tasks.add(i, task);
-                positionFind = true;
-                break;
-            }
-        }
-        if (!positionFind) {
+        this.tasks.stream()
+                .filter(item -> task.getPriority() < item.getPriority())
+                .findFirst().ifPresent(first -> this.tasks.add(this.tasks.indexOf(first), task));
+
+        if (this.tasks.stream().noneMatch(item -> item.equals(task))) {
             this.tasks.add(this.tasks.size(), task);
         }
     }

@@ -1,7 +1,6 @@
 package ru.rrusanov.search;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -37,18 +36,12 @@ public class PhoneDictionary {
      */
     public List<Person> find(String key) {
         List<Person> result = new ArrayList<>();
-        Iterator<Person> iterator = this.persons.iterator();
-        Person current;
-        while (iterator.hasNext()) {
-            current = iterator.next();
-            if (
-                      current.getName().contains(key)
+        this.persons.stream()
+                .filter(current -> current.getName().contains(key)
                     | current.getSurname().contains(key)
                     | current.getPhone().contains(key)
-                    | current.getAddress().contains(key)) {
-                        result.add(current);
-            }
-        }
+                    | current.getAddress().contains(key))
+                .forEach(result::add);
         return result;
     }
 }
