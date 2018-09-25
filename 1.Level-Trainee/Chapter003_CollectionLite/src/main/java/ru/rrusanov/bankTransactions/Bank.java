@@ -1,14 +1,8 @@
 package ru.rrusanov.bankTransactions;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
 import java.util.List;
 import java.util.function.BiFunction;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
 
 /**
  * @author Roman Rusanov
@@ -56,36 +50,40 @@ public class Bank {
      * @param account Account to adding user by matching passport field.
      */
     public void addAccountToUser(String passport, Account account) {
-//        User currentUser = this.findUser(passport);
-//        ArrayList<Account> accountArrayList = customers.get(currentUser);
-//        if (accountArrayList == null) {
-//            accountArrayList = new ArrayList<>();
-//        }
-//        accountArrayList.add(account);
-//        customers.putIfAbsent(currentUser, accountArrayList);
-
-
         this.customers.keySet().stream()
-                .filter(key -> key.getPassport().equals(passport)) //get User
-                .map(key -> this.customers.get(key))               //get Account
-                .map()
+            .filter(key -> key.getPassport().equals(passport))  // get User
+            .map(key -> this.customers.get(key))                // get ArrayList<Account>
+            .forEach(arrListAcc ->                              // add in collection
+                this.customers.putIfAbsent(this.findUser(passport), update.apply(arrListAcc, account)
+            )
         );
-
     }
-
-    BiFunction<ArrayList<Account>, Account, ArrayList<Account>> update = ((list, account) ->
-        list == null ? new ArrayList<>().add(account) : list.add(account);
-
-
+    /**
+     * Function use in addAccountToUser method.
+     */
+    BiFunction<ArrayList<Account>, Account, ArrayList<Account>> update = ((list, account) -> {
+        /**
+         * Function check if ArrayList<Account> equals null, then create new instance ArrayList<Account> and when add
+         * account instance in ArrayList. Otherwise add instance account in existing ArrayList.
+         */
+        ArrayList<Account> result;
+        result = new ArrayList<>();
+        if (list != null) {
+            result = list;
+        }
+        result.add(account);
+        return result;
+    });
     /**
      * Method delete account from specific user.
      * @param passport Specific user to find.
      * @param account Account to deleting user by matching passport field.
      */
     public void deleteAccountFromUser(String passport, Account account) {
-        User currentUser = this.findUser(passport);
-        ArrayList<Account> accountArrayList = customers.get(currentUser);
-        accountArrayList.remove(account);
+        this.customers.keySet().stream()
+                .filter(key -> key.getPassport().equals(passport))  // get User
+                .map(key -> this.customers.get(key))                // get AccountArrayList<Account>
+                .forEach(acc -> acc.remove(account));               // delete in collection
     }
 
     /**
@@ -94,10 +92,10 @@ public class Bank {
      * @return List of accounts user by matching passport field.
      */
     public List<Account> getUserAccounts(String passport) {
-        ArrayList<Account> result;
-        User currentUser = this.findUser(passport);
-        result = customers.get(currentUser);
-        return result;
+        return this.customers.keySet().stream()
+                .filter(key -> key.getPassport().equals(passport))  // get User
+                .map(key -> this.customers.get(key))                // get ArrayList<Account>
+                .findFirst().get();                                 // return ArrayList<Account>
     }
 
     /**
@@ -133,16 +131,9 @@ public class Bank {
      * @return User if exist, otherwise return User(name"-1", passport"-1").
      */
     public User findUser(String passport) {
-        Set<User> keySet = this.customers.keySet();
-        Iterator<User> iterator = keySet.iterator();
-        User result = new User("-1", "-1");
-        while (iterator.hasNext()) {
-            User item = iterator.next();
-            if (item.getPassport().equals(passport)) {
-                result = item;
-            }
-        }
-        return result;
+        return this.customers.keySet().stream()
+                .filter(key -> key.getPassport().equals(passport))  // get User
+                .findFirst().get();                                 // return User
     }
 
     /**
@@ -152,6 +143,8 @@ public class Bank {
      * @return math account.
      */
     public Account findAccount(List<Account> accountList, String requisite) {
-       return accountList.get(accountList.indexOf(new Account(0, requisite)));
+        return accountList.stream()
+                .filter(acc -> acc.getRequisites().equals(requisite))   // get Account
+                .findFirst().get();                                     // return Account
     }
 }
