@@ -55,12 +55,11 @@ public class ConvertList {
      */
     public List<Integer> convert(List<int[]> list) {
         List<Integer> result = new ArrayList<>();
-        Iterator<int[]> iterator = list.iterator();
-        while (iterator.hasNext()) {
-            for (int item:iterator.next()) {
+        list.stream().forEach(array -> {
+            for (int item:array) {
                 result.add(item);
             }
-        }
+        });
         return result;
     }
 }
