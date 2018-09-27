@@ -1,8 +1,7 @@
 package ru.rrusanov.collection.store;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.stream.Collectors;
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -19,8 +18,8 @@ public class Store {
      */
     Info diff(List<User> previous, List<User> current) {
         Info result = new Info();
-        HashMap<Integer, User> prevMap = this.listToMap(previous);
-        HashMap<Integer, User> currMap = this.listToMap(current);
+        Map<Integer, User> prevMap = this.listToMap(previous);
+        Map<Integer, User> currMap = this.listToMap(current);
         this.addedUser(prevMap, currMap, result);
         this.changedUser(prevMap, currMap, result);
         this.removedUser(prevMap, currMap, result);
@@ -31,12 +30,8 @@ public class Store {
      * @param list list to convert.
      * @return new hashMap instance
      */
-    HashMap<Integer, User> listToMap(List<User> list) {
-        HashMap<Integer, User> result = new HashMap<>();
-        for (User item : list) {
-            result.put(item.getId(), item);
-        }
-        return result;
+    Map<Integer, User> listToMap(List<User> list) {
+        return list.stream().collect(Collectors.toMap(User::getId, user -> user));
     }
     /**
      * The method check what users be added.
@@ -45,11 +40,10 @@ public class Store {
      * @param info instance collected difference.
      */
     public void addedUser(Map<Integer, User> prevMap, Map<Integer, User> currMap, Info info) {
-        for (Integer item: currMap.keySet()) {
-            if (!prevMap.containsKey(item)) {
-                info.addedAdd(currMap.get(item));
-            }
-        }
+        currMap.keySet().stream()
+                .filter(key -> !prevMap.containsKey(key))
+                .forEach(key -> info.addedAdd(currMap.get(key))
+                );
     }
     /**
      * The method check what users be changed. Changed user must have same id but different name filed.
@@ -58,11 +52,11 @@ public class Store {
      * @param info instance collected difference.
      */
     public void changedUser(Map<Integer, User> prevMap, Map<Integer, User> currMap, Info info) {
-        for (Integer itemCurr: currMap.keySet()) {
-            if (prevMap.containsKey(itemCurr) && (!prevMap.get(itemCurr).name.equals(currMap.get(itemCurr).name))) {
-               info.changedAdd(currMap.get(itemCurr));
-            }
-        }
+        currMap.keySet().stream()
+                .filter(key -> prevMap.containsKey(key)
+                        && (!prevMap.get(key).name.equals(currMap.get(key).name)))
+                .forEach(key -> info.changedAdd(currMap.get(key))
+                );
     }
     /**
      * The method check what users be removed.
@@ -71,11 +65,9 @@ public class Store {
      * @param info instance collected difference.
      */
     public void removedUser(Map<Integer, User> prevMap, Map<Integer, User> currMap, Info info) {
-        for (Integer item: prevMap.keySet()) {
-            if (!currMap.containsKey(item)) {
-                info.removedAdd(prevMap.get(item));
-            }
-        }
+        prevMap.keySet().stream()
+                .filter(key -> !currMap.containsKey(key))
+                .forEach(key -> info.removedAdd(prevMap.get(key)));
     }
     /**
      * @author Roman Rusanov
