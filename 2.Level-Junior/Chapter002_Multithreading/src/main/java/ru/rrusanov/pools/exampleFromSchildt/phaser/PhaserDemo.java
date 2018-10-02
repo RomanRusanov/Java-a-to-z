@@ -4,7 +4,8 @@ import java.util.concurrent.Phaser;
 
 class PhaserDemo {
     public static void main(String args[]) {
-        Phaser phsr = new Phaser(2);
+        // One parties main Thread.
+        Phaser phsr = new Phaser(1);
         int curPhase;
 
         System.out.println("Starting");
@@ -15,22 +16,25 @@ class PhaserDemo {
 
         // Wait for all threads to complete phase one.
         curPhase = phsr.getPhase();
-        phsr.arriveAndAwaitAdvance();
+        System.out.println(phsr.arriveAndAwaitAdvance());
+
         System.out.println("Phase " + curPhase + " Complete");
 
         // Wait for all threads to complete phase two.
         curPhase =  phsr.getPhase();
-        phsr.arriveAndAwaitAdvance();
+        System.out.println(phsr.arriveAndAwaitAdvance());
         System.out.println("Phase " + curPhase + " Complete");
 
         curPhase =  phsr.getPhase();
-        phsr.arriveAndAwaitAdvance();
+        System.out.println(phsr.arriveAndAwaitAdvance());
         System.out.println("Phase " + curPhase + " Complete");
 
         // Deregister the main thread.
         phsr.arriveAndDeregister();
 
-        if(phsr.isTerminated())
+        if(phsr.isTerminated()) {
             System.out.println("The Phaser is terminated");
+            System.out.println(phsr.getPhase());
+        }
     }
 }  

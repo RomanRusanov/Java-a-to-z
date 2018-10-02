@@ -39,10 +39,10 @@ public class Transform extends RecursiveAction {
 
 class FJExperiment {
     public static void main(String[] args) {
-        int pLevel = 45; // number cpu(core)
+//        int pLevel = 45; // number cpu(core)
         int threshold = 1000;
         long beginT, endT;
-        ForkJoinPool fjp = new ForkJoinPool(pLevel);
+//        ForkJoinPool fjp = new ForkJoinPool();
 
         double[] nums = new double[10000000];
         for(int i = 0; i < nums.length; i++) {
@@ -50,9 +50,9 @@ class FJExperiment {
         }
         Transform task = new Transform(nums, 0, nums.length, threshold);
         beginT = System.nanoTime();
-        fjp.invoke(task);
+        task.invoke();
         endT = System.nanoTime();
-        System.out.println("Level of parallelism: " + pLevel);
+        System.out.println("Level of parallelism: " + ForkJoinPool.getCommonPoolParallelism());
         System.out.println("Sequential threshold: " + threshold);
         System.out.println("Elapsed time: " + (endT - beginT) + " ns");
         System.out.println();

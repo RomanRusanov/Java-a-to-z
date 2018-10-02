@@ -8,6 +8,8 @@ class MyThread implements Runnable {
     MyThread(Phaser p, String n) {
         phsr = p;
         name = n;
+        // Add this thread(parties) to phaser. If comment next line need psvm method in phaser constructor
+        // change 1 to 4 and explicit indicate, we use 4 thread in this phaser.
         phsr.register();
     }
 
@@ -15,7 +17,6 @@ class MyThread implements Runnable {
 
         System.out.println("Thread " + name + " Beginning Phase One");
         phsr.arriveAndAwaitAdvance(); // Signal arrival.
-
         // Pause a bit to prevent jumbled output. This is for illustration
         // only. It is not required for the proper opration of the phaser.
         try {
