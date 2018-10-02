@@ -34,7 +34,7 @@ public class SqrtTransform extends RecursiveAction {
 
 class ForkJoinDemo {
     public static void main(String[] args) {
-        ForkJoinPool fjp = new ForkJoinPool();
+        ForkJoinPool fjp = new ForkJoinPool(); //or use reference to common pool ForkJoinPool.commonPool();
         double[] nums = new double[100000];
         for(int i = 0; i < nums.length; i++) {
             nums[i] = (double) i;
