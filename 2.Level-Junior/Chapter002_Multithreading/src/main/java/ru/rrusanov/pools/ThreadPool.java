@@ -39,7 +39,7 @@ public class ThreadPool {
      * If queue is empty when thread wait until in queue be added new task element, and when all threads wakeup.
      */
     public void initPool() {
-        for(int i = 0; i < Runtime.getRuntime().availableProcessors(); i++) {
+        for (int i = 0; i < Runtime.getRuntime().availableProcessors(); i++) {
             this.threads.add(new Thread(() -> {
                 while (!Thread.currentThread().isInterrupted()) {
                     if (this.tasks.isEmpty()) {
@@ -53,7 +53,6 @@ public class ThreadPool {
                     }
                     try {
                         this.tasks.poll().run();
-                        System.out.println("pool obj thread name: " + Thread.currentThread().getName());
                     } catch (InterruptedException exc) {
                         Thread.currentThread().interrupt();
                     }
@@ -66,6 +65,20 @@ public class ThreadPool {
      * The method terminate all thread in pool. Without wait until thread complete tasks in queue.
      */
     public void shutdown() {
-        this.threads.forEach(Thread::interrupt);
+        this.threads.forEach(thread -> {
+            try {
+                thread.interrupt();
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    /**
+     * The getter for field.
+     * @return instance with collection of threads.
+     */
+    public List<Thread> getThreads() {
+        return this.threads;
     }
 }
