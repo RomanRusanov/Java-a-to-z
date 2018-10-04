@@ -9,6 +9,12 @@ public class Cell {
      * y - vertical cells.
      */
     private int y;
+
+    public Cell(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
     /**
      * getter for x coordinate.
      * @return x coordinate.
