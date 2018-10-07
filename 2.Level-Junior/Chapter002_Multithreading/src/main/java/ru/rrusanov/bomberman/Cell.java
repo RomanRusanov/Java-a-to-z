@@ -15,6 +15,11 @@ public class Cell {
         this.y = y;
     }
 
+    public Cell(Cell position) {
+        this.x = position.x;
+        this.y = position.y;
+    }
+
     public void setX(int x) {
         this.x = x;
     }

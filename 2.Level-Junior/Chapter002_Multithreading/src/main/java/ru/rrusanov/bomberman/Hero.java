@@ -45,7 +45,7 @@ public class Hero {
             }
         }
         // move to top side.
-        if (this.direction == 0) {
+        if (this.direction == 3) {
             if(result.getY() + 1 <= 9) {
                 result.setY(result.getY() + 1);
             } else {
@@ -57,20 +57,10 @@ public class Hero {
 
     public void applyChangeDirection() {
         // move to right side.
-        if (this.direction == 0) {
-            this.direction = 1;
-        }
-        // move to down side.
-        if (this.direction == 1) {
-            this.direction = 2;
-        }
-        // move to left side.
-        if (this.direction == 2) {
-            this.direction = 3;
-        }
-        // move to top side.
         if (this.direction == 3) {
             this.direction = 0;
+        } else {
+            this.direction++;
         }
     }
 }
