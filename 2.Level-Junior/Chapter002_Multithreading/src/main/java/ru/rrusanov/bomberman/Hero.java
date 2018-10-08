@@ -1,23 +1,53 @@
 package ru.rrusanov.bomberman;
-
+import java.util.Random;
+/**
+ * @author Roman Rusanov
+ * @version 0.1
+ * @since 7.10.2018
+ *
+ * The class describe Hero behavior.
+ */
 public class Hero {
-
+    /**
+     * The filed instance contain position on board.
+     */
     private Cell position;
-
+    /**
+     * The filed contain current direction to move
+     */
     private int direction = 0;
-
+    /**
+     * The default constructor create hero on position.
+     * @param position start position.
+     */
     public Hero(Cell position) {
         this.position = position;
     }
-
+    /**
+     * The setter for position field.
+     * @param position cell
+     */
     public void setPosition(Cell position) {
         this.position = position;
     }
-
+    /**
+     * The getter method.
+     * @return cell
+     */
     public Cell getPosition() {
         return position;
     }
-
+    /**
+     * The getter method.
+     * @return
+     */
+    public int getDirection() {
+        return direction;
+    }
+    /**
+     * The method implements move behavior.
+     * @return next cell to go.
+     */
     public Cell move() {
         Cell result = position;
         // move to right side.
@@ -54,13 +84,10 @@ public class Hero {
         }
         return result;
     }
-
+    /**
+     * The method change direction to new random side(0 - 3 possible direction).
+     */
     public void applyChangeDirection() {
-        // move to right side.
-        if (this.direction == 3) {
-            this.direction = 0;
-        } else {
-            this.direction++;
-        }
+        this.direction = new Random().nextInt(4);
     }
 }

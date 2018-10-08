@@ -1,5 +1,11 @@
 package ru.rrusanov.bomberman;
-
+/**
+ * @author Roman Rusanov
+ * @version 0.1
+ * @since 4.10.2018
+ *
+ * The class describe cell implementation.
+ */
 public class Cell {
     /**
      * x - horizontal cells.
@@ -73,6 +79,4 @@ public class Cell {
     public int hashCode() {
         return 13 * (this.x + this.y);
     }
-
-
 }
