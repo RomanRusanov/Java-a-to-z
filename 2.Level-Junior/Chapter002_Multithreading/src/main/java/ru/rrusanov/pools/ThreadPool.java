@@ -30,9 +30,6 @@ public class ThreadPool {
      */
     public void work(Runnable job) {
         this.tasks.offer(job);
-        synchronized (this) {
-            this.notifyAll();
-        }
     }
     /**
      * The method initiate thread pool. Number of thread use all available core on CPU.
@@ -42,19 +39,12 @@ public class ThreadPool {
         for (int i = 0; i < Runtime.getRuntime().availableProcessors(); i++) {
             this.threads.add(new Thread(() -> {
                 while (!Thread.currentThread().isInterrupted()) {
-                    if (this.tasks.isEmpty()) {
+                    if (!this.tasks.isEmpty()) {
                         try {
-                            synchronized (this) {
-                                this.wait();
-                            }
-                        } catch (InterruptedException e) {
+                            this.tasks.poll().run();
+                        } catch (InterruptedException exc) {
                             Thread.currentThread().interrupt();
                         }
-                    }
-                    try {
-                        this.tasks.poll().run();
-                    } catch (InterruptedException exc) {
-                        Thread.currentThread().interrupt();
                     }
                 }
             }));
