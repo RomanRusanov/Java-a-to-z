@@ -15,25 +15,37 @@ public class Cell {
      * y - vertical cells.
      */
     private int y;
-
+    /**
+     * Constructor take two int coordinate for position new cell.
+     * @param x coordinate.
+     * @param y coordinate.
+     */
     public Cell(int x, int y) {
         this.x = x;
         this.y = y;
     }
-
+    /**
+     * Constructor take cell value for position new cell.
+     * @param position Cell
+     */
     public Cell(Cell position) {
         this.x = position.x;
         this.y = position.y;
     }
-
+    /**
+     * The method setter field.
+     * @param x coordinate value.
+     */
     public void setX(int x) {
         this.x = x;
     }
-
+    /**
+     * The method setter field.
+     * @param y coordinate value.
+     */
     public void setY(int y) {
         this.y = y;
     }
-
     /**
      * getter for x coordinate.
      * @return x coordinate.

@@ -8,7 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  * The class describe board implementation and players on it.
  */
-public class Board implements Runnable{
+public class Board implements Runnable {
     /**
      * The instance contain lock array. If players on cell then element locked.
      */
@@ -29,10 +29,10 @@ public class Board implements Runnable{
      * @param dist cell
      * @return true if dist cell empty then lock it and unlock source, otherwise return false and source stay locked.
      */
-    public synchronized boolean move(Cell source, Cell dist) {
+    public boolean move(Cell source, Cell dist) {
         boolean result = false;
-        if (!this.board[dist.getX()][dist.getY()].isLocked() &&
-                this.board[dist.getX()][dist.getY()].tryLock()
+        if (!this.board[dist.getX()][dist.getY()].isLocked()
+                && this.board[dist.getX()][dist.getY()].tryLock()
         ) {
             this.board[source.getX()][source.getY()].unlock();
             result = true;
@@ -43,27 +43,33 @@ public class Board implements Runnable{
      * The method move hero.
      * @param hero to move.
      */
-    public synchronized void heroGo(Hero hero) {
+    public void heroGo(Hero hero) {
         Cell positionHero = new Cell(hero.getPosition());
         Cell positionTryCell = this.hero.move();
         boolean turnSuccess = false;
         if (this.move(positionHero, positionTryCell)) {
             this.hero.setPosition(positionTryCell);
+            //wait one second.
             try {
-                this.wait(1000);
+                this.board[this.hero.getPosition().getX()][this.hero.getPosition().getY()].newCondition().await(1000, TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         } else {
             try {
                 while (!turnSuccess) {
-                    if (!this.board[positionTryCell.getX()][positionTryCell.getY()].isLocked() &&
-                            this.board[positionTryCell.getX()][positionTryCell.getY()].tryLock(500, TimeUnit.MILLISECONDS)
+                    if (!this.board[positionTryCell.getX()][positionTryCell.getY()].isLocked()
+                            && this.board[positionTryCell.getX()][positionTryCell.getY()].tryLock(500, TimeUnit.MILLISECONDS)
                     ) {
                         this.board[positionHero.getX()][positionHero.getY()].unlock();
                         this.hero.setPosition(positionTryCell);
                         turnSuccess = true;
-                        this.wait(1000);
+                        //wait one second.
+                        try {
+                            this.board[this.hero.getPosition().getX()][this.hero.getPosition().getY()].newCondition().await(1000, TimeUnit.MILLISECONDS);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     } else {
                         this.hero.applyChangeDirection();
                         positionTryCell = this.hero.move();
@@ -91,7 +97,7 @@ public class Board implements Runnable{
     public void run() {
         // place hero on board
         this.board[this.hero.getPosition().getX()][this.hero.getPosition().getY()].lock();
-        while(true) {
+        while (true) {
             //Turn hero.
             this.heroGo(this.hero);
             //Show current position hero.

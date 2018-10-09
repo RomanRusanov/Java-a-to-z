@@ -13,7 +13,7 @@ public class Hero {
      */
     private Cell position;
     /**
-     * The filed contain current direction to move
+     * The filed contain current direction to move.
      */
     private int direction = 0;
     /**
@@ -39,7 +39,8 @@ public class Hero {
     }
     /**
      * The getter method.
-     * @return
+     * Direction move on x,y coordinates: (0 - right, 1 - down, 2 - left, 3 - top)
+     * @return int value
      */
     public int getDirection() {
         return direction;
@@ -52,7 +53,7 @@ public class Hero {
         Cell result = position;
         // move to right side.
         if (this.direction == 0) {
-            if(result.getX() + 1 <= 9) {
+            if (result.getX() + 1 <= 9) {
                 result.setX(result.getX() + 1);
             } else {
                 this.applyChangeDirection();
@@ -60,7 +61,7 @@ public class Hero {
         }
         // move to down side.
         if (this.direction == 1) {
-            if(result.getY() - 1 >= 0) {
+            if (result.getY() - 1 >= 0) {
                 result.setY(result.getY() - 1);
             } else {
                 this.applyChangeDirection();
@@ -68,7 +69,7 @@ public class Hero {
         }
         // move to left side.
         if (this.direction == 2) {
-            if(result.getX() - 1 >= 0) {
+            if (result.getX() - 1 >= 0) {
                 result.setX(result.getX() - 1);
             } else {
                 this.applyChangeDirection();
@@ -76,7 +77,7 @@ public class Hero {
         }
         // move to top side.
         if (this.direction == 3) {
-            if(result.getY() + 1 <= 9) {
+            if (result.getY() + 1 <= 9) {
                 result.setY(result.getY() + 1);
             } else {
                 this.applyChangeDirection();
