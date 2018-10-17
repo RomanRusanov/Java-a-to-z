@@ -18,10 +18,15 @@ public class Board implements Runnable {
      */
     private final Hero hero = new Hero(new Cell(0, 0));
     /**
+     * The instance of beast.
+     */
+    private final Beast beast = new Beast(new Cell(9, 9));
+    /**
      * Default constructor.
      */
     public Board() {
         this.initBoard();
+        this.placeWalls();
     }
     /**
      * The method check can move from source cell to dest cell. Check ReentrantLock array.
@@ -43,25 +48,25 @@ public class Board implements Runnable {
     }
     /**
      * The method move hero.
-     * @param hero to move.
+     * @param player to move.
      */
-    public void heroGo(Hero hero) {
-        Cell positionHero = new Cell(hero.getPosition());
-        Cell positionTryCell = this.hero.move();
+    public void playerGo(Player player) {
+        Cell positionHero = new Cell(player.getPosition());
+        Cell positionTryCell = player.move();
         boolean turnSuccess = false;
         while (!turnSuccess) {
             if (this.move(positionHero, positionTryCell)) {
-                this.hero.setPosition(positionTryCell);
+                player.setPosition(positionTryCell);
                 turnSuccess = true;
                 //wait one second.
                 try {
-                    this.board[this.hero.getPosition().getX()][this.hero.getPosition().getY()].newCondition().await(1000, TimeUnit.MILLISECONDS);
+                    this.board[player.getPosition().getX()][player.getPosition().getY()].newCondition().await(100, TimeUnit.MILLISECONDS);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             } else {
-                this.hero.applyChangeDirection();
-                positionTryCell = this.hero.move();
+                player.applyChangeDirection();
+                positionTryCell = player.move();
             }
         }
     }
@@ -76,19 +81,65 @@ public class Board implements Runnable {
         }
     }
     /**
-     * Thread with players(hero or beast) on board.
+     * The method place walls on board. A player can't take this position.
+     */
+    public void placeWalls() {
+        this.board[1][0].lock();
+        this.board[2][0].lock();
+        this.board[3][0].lock();
+        this.board[4][0].lock();
+        this.board[6][1].lock();
+        this.board[8][1].lock();
+        this.board[0][2].lock();
+        this.board[1][2].lock();
+        this.board[2][2].lock();
+        this.board[4][2].lock();
+        this.board[6][2].lock();
+        this.board[8][2].lock();
+        this.board[4][3].lock();
+        this.board[5][3].lock();
+        this.board[6][3].lock();
+        this.board[8][3].lock();
+        this.board[1][4].lock();
+        this.board[2][4].lock();
+        this.board[4][4].lock();
+        this.board[6][4].lock();
+        this.board[2][5].lock();
+        this.board[8][5].lock();
+        this.board[1][6].lock();
+        this.board[2][6].lock();
+        this.board[4][6].lock();
+        this.board[5][6].lock();
+        this.board[6][6].lock();
+        this.board[8][6].lock();
+        this.board[1][8].lock();
+        this.board[2][8].lock();
+        this.board[3][8].lock();
+        this.board[5][8].lock();
+        this.board[6][8].lock();
+        this.board[7][8].lock();
+        this.board[9][8].lock();
+    }
+    /**
+     * Thread with players(player or beast) on board.
      */
     @Override
     public void run() {
-        // place hero on board
+        // place players on board
         this.board[this.hero.getPosition().getX()][this.hero.getPosition().getY()].lock();
+        this.board[this.beast.getPosition().getX()][this.beast.getPosition().getY()].lock();
         while (true) {
-            //Turn hero.
-            this.heroGo(this.hero);
-            //Show current position hero.
-            System.out.println(this.hero.getPosition());
-            //Show current direction hero.
-            System.out.println(this.hero.getDirection());
+            //Turn player.
+            this.playerGo(this.hero);
+            this.playerGo(this.beast);
+            //Show current position player, and direction.
+            System.out.println("Hero:" + this.hero.getPosition() + "Direction:" + this.hero.getDirection());
+            System.out.println("Beast:" + this.beast.getPosition() + "Direction:" + this.beast.getDirection());
+            //Check Hero lose?
+            if (this.hero.getPosition().equals(this.beast.getPosition())) {
+                System.out.println("The Hero lose!");
+                break;
+            }
         }
     }
 }
