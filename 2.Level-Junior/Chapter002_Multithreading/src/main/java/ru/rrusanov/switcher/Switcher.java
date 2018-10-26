@@ -18,11 +18,12 @@ public class Switcher {
     public static void main(String[] args) {
         Container container = new Container();
 
-        ReentrantLock lock = new ReentrantLock(true);
+        ReentrantLock lock = new ReentrantLock();
 
         new Thread(new Creator(lock, container, 1)).start();
 
         new Thread(new Creator(lock, container, 2)).start();
+
         try {
             Thread.currentThread().sleep(1000);
         } catch (InterruptedException e) {

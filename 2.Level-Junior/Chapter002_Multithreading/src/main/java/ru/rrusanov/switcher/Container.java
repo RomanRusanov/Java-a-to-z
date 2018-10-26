@@ -18,4 +18,11 @@ public class Container {
     public StringBuilder getStoredString() {
         return storedString;
     }
+
+    public boolean isSame(char valueToCompare) {
+        if (this.storedString.length() == 0) {
+            return false;
+        }
+        return this.storedString.codePointAt(this.storedString.length() - 1) == valueToCompare;
+    }
 }
