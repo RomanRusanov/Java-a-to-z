@@ -17,6 +17,7 @@ public class DeadLock {
      */
     public static void main(String[] args) {
         CountDownLatch lock = new CountDownLatch(1);
+        // Queue fixed size 1 element. Thread A try insert two elements sequent. Thread B await infinitive.
         ArrayBlockingQueue queue = new ArrayBlockingQueue(1);
         new Thread(new A(lock, queue)).start();
         new Thread(new B(lock, queue)).start();

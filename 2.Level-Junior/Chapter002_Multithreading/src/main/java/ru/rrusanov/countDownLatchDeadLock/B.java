@@ -33,6 +33,7 @@ public class B implements Runnable {
     public void run() {
         try {
             System.out.println("work B before await");
+            // await be infinitive, because thread A put one element and wait when thread B take it, and A insert second.
             lock.await();
             System.out.println("work B after await");
             System.out.println("take from queue " + queue.take());

@@ -33,7 +33,9 @@ public class A implements Runnable {
     public void run() {
         try {
             queue.put(1);
+            // Entering to deadlock;
             queue.put(2);
+            // deadlock accepted
             System.out.println("work A before release lock");
             lock.countDown();
             System.out.println("work A after release lock");
