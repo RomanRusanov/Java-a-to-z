@@ -31,7 +31,7 @@ values
 ('Мороженое Сникерс', 1, '2019-06-10', 120.12);
 
 --1
-select * from product as p where p.type_id = 2;
+select p.name from product as p inner join type as t on t.id = p.type_id and p.type_id = 2;
 --2
 select * from product as p where p.name like '%Мороженое%';
 --3
@@ -43,6 +43,6 @@ select count(*) as "product_type = 1" from product as p where p.type_id = 1;
 --6
 select * from product as p where p.type_id = 1 or p.type_id = 2;
 --7
-select count(p) from product as p where p.type_id < 10 group by p.type_id;
+select t.name, count(p.name) as "items left" from product as p inner join type as t on p.type_id = t.id group by t.name having count(p.name) < 10;
 --8
 select p.name, t.name from product as p inner join type as t on p.type_id = t.id;
