@@ -16,8 +16,7 @@ create table engine
   id   serial primary key,
   name varchar(100),
   en_type varchar(100),
-  horse_power int,
-  car_id int not null
+  horse_power int
 );
 
 create table transmission
@@ -25,8 +24,7 @@ create table transmission
   id   serial primary key,
   name varchar(100),
   tr_type varchar(100),
-  num_speed int,
-  car_id int not null
+  num_speed int
 );
 
 create table car
@@ -92,4 +90,6 @@ select c.name, b.body_type as "body", e.en_type as "engine", t.tr_type as "trans
       left join transmission as t on c.transmission_id = t.id
       order by c.name;
 
-select b.body_type as "body type not used" from body as b left join car as c on b.id = c.body_id where c.body_id is null;
+select b.* from body as b left join car as c on b.id = c.body_id where c.body_id is null;
+select e.* from engine as e left join car as c on e.id = c.engine_id where c.body_id is null;
+select t.* from transmission as t left join car as c on t.id = c.transmission_id where c.transmission_id is null;
