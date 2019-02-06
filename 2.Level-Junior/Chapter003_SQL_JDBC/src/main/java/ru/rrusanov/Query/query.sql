@@ -37,7 +37,7 @@ select * from product as p where p.name like '%Мороженое%';
 --3
 select * from product as p where p.expired_date < '2019-01-29';
 --4
-select p.name, max(p.price) from product as p group by p.name order by max(p.price) desc limit 1
+select p.name, max(p.price) from product as p group by p.name order by max(p.price) desc limit 1;
 --5
 select count(*) as "product_type = 1" from product as p where p.type_id = 1;
 --6
