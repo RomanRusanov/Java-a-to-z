@@ -1,7 +1,8 @@
 /**
  * @author Roman Rusanov
  * @version 0.1
- * @since 4.10.2018
+ * @since 07.02.2019
  *
+ * UsageLog4j2.java This class demonstrate logger behavior.
  */
 package ru.rrusanov.log4j2;

@@ -5,12 +5,12 @@ import org.apache.logging.log4j.LogManager;
  * @author Roman Rusanov
  * @version 0.1
  * @since 07.02.2019
- * <p>
- * The class .
+ *
+ * The class demonstrate logger behavior.
  */
 public class UsageLog4j2 {
     /**
-     * comment.
+     * Logger.
      */
     private static final Logger LOG = LogManager.getLogger(UsageLog4j2.class.getName());
 
