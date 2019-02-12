@@ -31,7 +31,7 @@ values
 ('Мороженое Сникерс', 1, '2019-06-10', 120.12);
 
 --1
-select p.name from product as p inner join type as t on t.id = p.type_id and p.type_id = 2;
+select p.name from product as p inner join type as t on t.id = p.type_id and t.name = 'Сыр';
 --2
 select * from product as p where p.name like '%Мороженое%';
 --3
