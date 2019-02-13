@@ -6,6 +6,7 @@
 	<modules>
 		<module>Polymorphism</module>
 		<module>Chess</module>
+		<module>tracker</module>
 	</modules>
 	<packaging>pom</packaging>
 	<parent>
