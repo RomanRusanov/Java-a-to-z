@@ -63,7 +63,7 @@ public class MenuTrackerTest {
      */
     @Test
     public void thenItemAddedWhenTrackerNotEmpty() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new Tracker();
         MenuTracker menuTracker = new MenuTracker(tracker, new StubInput(new String[] {"Test Name!", "1", "1"}));
         menuTracker.fillActions();
         menuTracker.select(0);
@@ -78,7 +78,7 @@ public class MenuTrackerTest {
      */
     @Test
     public void thenItemEditedWhenItemsFieldsChange() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new Tracker();
         MenuTracker menuTrackerAddAction = new MenuTracker(tracker, new StubInput(new String[] {"Added Name!", "1", "1"}));
         menuTrackerAddAction.fillActions();
         menuTrackerAddAction.select(0);
@@ -99,7 +99,7 @@ public class MenuTrackerTest {
      */
     @Test
     public void thenItemToEditEnterIncorrectWhenPrintMessage() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new Tracker();
         tracker.add(new Item("Correct"));
         final String END_LINE = System.getProperty("line.separator");
 
@@ -120,7 +120,7 @@ public class MenuTrackerTest {
      */
     @Test
     public void thenNameToSearchWhenReturnItemIfExist() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new Tracker();
         MenuTracker menuTrackerAddAction = new MenuTracker(tracker, new StubInput(new String[] {"Find Name!", "1", "1"}));
         menuTrackerAddAction.fillActions();
         menuTrackerAddAction.select(0);
@@ -138,7 +138,7 @@ public class MenuTrackerTest {
      */
     @Test
     public void thenItemDeleteWhenItemNotExist() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new Tracker();
         tracker.add(new Item("Must be deleted"));
 
         Item itemBeforeDelete = tracker.findById("Must be deleted");
@@ -155,7 +155,7 @@ public class MenuTrackerTest {
      */
     @Test
     public void thenItemToDeleteEnterIncorrectWhenPrintMessage() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new Tracker();
         tracker.add(new Item("Correct"));
         final String END_LINE = System.getProperty("line.separator");
 
@@ -194,7 +194,7 @@ public class MenuTrackerTest {
              * @param tracker Main container.
              */
             @Override
-            public void execute(Input input, Tracker tracker) {
+            public void execute(Input input, ITracker tracker) {
                 System.out.print("NewAction");
             }
         }

@@ -11,9 +11,9 @@ import java.util.ArrayList;
  */
 public class MenuTracker {
     /**
-     * Base class Tracker.
+     * Base class ITracker.
      */
-    private Tracker tracker;
+    private ITracker tracker;
     /**
      * Input interface get data.
      */
@@ -24,10 +24,10 @@ public class MenuTracker {
     private ArrayList<UserActions> actions = new ArrayList<>();
     /**
      * Constructor encapsulate tracker and input.
-     * @param tracker Base class Tracker.
+     * @param tracker Base class ITracker.
      * @param input Input interface get data.
      */
-    public MenuTracker(Tracker tracker, Input input) {
+    public MenuTracker(ITracker tracker, Input input) {
         this.tracker = tracker;
         this.input = input;
     }
@@ -95,7 +95,7 @@ public class MenuTracker {
          * @param input Input from user
          * @param tracker Main container.
          */
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             String name = input.ask("Enter the task name for new item:");
             String desc = input.ask("Enter the description for new item:");
             String comm = input.ask("Enter the comment for new item:");
@@ -121,7 +121,7 @@ public class MenuTracker {
          * @param input Input from user
          * @param tracker Main container.
          */
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             tracker.printToConsoleItem(tracker.findAll());
         }
     }
@@ -146,7 +146,7 @@ public class MenuTracker {
          * @param input   Input from user
          * @param tracker Main container.
          */
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             String itemEditID = input.ask("Enter ID item to edit:");
             Item editItem = tracker.findById(itemEditID);
             if (editItem != null) {
@@ -174,7 +174,7 @@ public class MenuTracker {
          * @param input Input from user
          * @param tracker Main container.
          */
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             String itemDeleteID = input.ask("Enter ID item to delete:");
             Item deleteItem = tracker.findById(itemDeleteID);
             if (deleteItem != null) {
@@ -203,7 +203,7 @@ public class MenuTracker {
          * @param input Input from user
          * @param tracker Main container.
          */
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             ArrayList<Item> searchItem = tracker.findByName(input.ask("Enter name the item to search:"));
             tracker.printToConsoleItem(searchItem);
         }

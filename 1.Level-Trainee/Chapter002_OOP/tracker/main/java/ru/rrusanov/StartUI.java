@@ -14,13 +14,13 @@ public class StartUI {
     /**
      * Tracker instance contain all items.
      */
-    private Tracker tracker;
+    private ITracker tracker;
     /**
      * Constructor encapsulate tracker and input.
      * @param input Input interface get data.
      * @param tracker Tracker inatance contain items.
      */
-    public StartUI(Input input, Tracker tracker) {
+    public StartUI(Input input, ITracker tracker) {
         this.input = input;
         this.tracker = tracker;
     }
