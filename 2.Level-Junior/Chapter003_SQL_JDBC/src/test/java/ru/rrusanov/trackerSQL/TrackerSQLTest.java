@@ -38,12 +38,9 @@ public class TrackerSQLTest {
      */
     @Test
     public void tableExist() {
-        try {
-            assertTrue(trackerSQL.tableExist("role"));
-            assertTrue(trackerSQL.tableExist("attached"));
-            assertTrue(trackerSQL.tableExist("state"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        assertTrue(trackerSQL.tableExist("role"));
+        assertTrue(trackerSQL.tableExist("attached"));
+        assertTrue(trackerSQL.tableExist("state"));
+
     }
 }
