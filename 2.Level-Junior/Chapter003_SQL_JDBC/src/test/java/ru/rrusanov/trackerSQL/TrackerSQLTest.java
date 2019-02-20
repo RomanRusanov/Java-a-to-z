@@ -2,11 +2,8 @@ package ru.rrusanov.trackerSQL;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import java.sql.SQLException;
-
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  *
@@ -33,14 +30,4 @@ public class TrackerSQLTest {
         assertThat(sql.init(), is(true));
     }
 
-    /**
-     *
-     */
-    @Test
-    public void tableExist() {
-        assertTrue(trackerSQL.tableExist("role"));
-        assertTrue(trackerSQL.tableExist("attached"));
-        assertTrue(trackerSQL.tableExist("state"));
-
-    }
 }
