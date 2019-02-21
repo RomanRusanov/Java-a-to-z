@@ -10,8 +10,10 @@ import ru.rrusanov.models.Item;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Properties;
 
 /**
@@ -25,11 +27,14 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     /**
      *
      */
-    private HashMap<String, String> tables;
+    private static final Logger LOG = LogManager.getLogger(UsageLog4j2.class.getName());
+
     /**
      *
      */
-    private static final Logger LOG = LogManager.getLogger(UsageLog4j2.class.getName());
+    public TrackerSQL() {
+        this.init();
+    }
 
     /**
      * The method check connection to db.
@@ -54,47 +59,37 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      * Closes this resource, relinquishing any underlying resources.
      * This method is invoked automatically on objects managed by the
      * {try}-with-resources statement.
-     *
-     * @throws Exception if this resource cannot be closed
      */
     @Override
-    public void close() throws Exception {
-        this.connection.close();
+    public void close() {
+        try {
+            this.connection.close();
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
     }
-
-//    /**
-//     * The method check exist table in database.
-//     * @param tableName
-//     * @return
-//     * @throws SQLException
-//     */
-//    public boolean tableExist(String tableName) {
-//        boolean tExists = false;
-//        if (this.init()) {
-//            try (ResultSet rs = this.connection.getMetaData().getTables(null, null, tableName, null)) {
-//                while (rs.next()) {
-//                    String tName = rs.getString("TABLE_NAME");
-//                    if (tName != null && tName.equals(tableName)) {
-//                        tExists = true;
-//                        break;
-//                    }
-//                }
-//            } catch (Exception e) {
-//                LOG.error(e.getMessage(), e);
-//            } finally {
-//                try {
-//                    this.close();
-//                } catch (Exception e) {
-//                    LOG.error(e.getMessage(), e);
-//                }
-//            }
-//        }
-//        return tExists;
-//    }
 
     @Override
     public Item add(Item item) {
-        return null;
+        try (PreparedStatement ps = this.connection.prepareStatement(
+                "insert into item (item_id, title, description, state_id, category_id) values (?, ?, ?, ?, ?);"
+        )
+        ) {
+            ps.setInt(1, 1);
+            ps.setString(2, item.getName());
+            ps.setString(3, item.getDescription());
+            ps.setInt(4, 1);
+            ps.setInt(5, 1);
+            try (ResultSet rs = ps.executeQuery()) {
+                //checkstyle
+                System.out.println();
+            } catch (Exception e) {
+                LOG.error(e.getMessage(), e);
+            }
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return item;
     }
 
     @Override

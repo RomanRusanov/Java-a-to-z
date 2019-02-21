@@ -10,7 +10,7 @@ create table ruls(
 );
 --Create table Users
 create table users(
-	user_id serial primary key,
+	user_id bigserial primary key,
 	last_name varchar(50) not null,
 	first_name varchar(50) not null,
 	midle_name varchar(50) not null,
@@ -42,7 +42,7 @@ create table category(
 );
 --Create table Item
 create table item(
-	item_id serial primary key,
+	item_id bigserial primary key,
 	title varchar(100),
 	description text,
 	state_id int not null,
@@ -52,11 +52,18 @@ create table item(
 	category_id int not null,
 	constraint category_category_id_fk
 	foreign key (category_id)
-	references category (category_id),
-	--relation 1to1 (user_id <-> item_id)
-	constraint item_item_id_fk
-	foreign key (item_id)
-	references users (user_id)
+	references category (category_id)
+);
+--create table Users_Item
+create table Users_Item(
+  user_id bigint not null,
+  constraint users_user_id
+  foreign key (user_id)
+  references users(user_id),
+  item_id bigint not null,
+  constraint item_item_id
+  foreign key (item_id)
+  references item(item_id)
 );
 --Create table Attached
 create table attached(
