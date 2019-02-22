@@ -4,17 +4,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.rrusanov.ITracker;
 import ru.rrusanov.Input;
-//import ru.rrusanov.Tracker;
 import ru.rrusanov.log4j2.UsageLog4j2;
 import ru.rrusanov.models.Item;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Properties;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  *
@@ -72,14 +67,13 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public Item add(Item item) {
         try (PreparedStatement ps = this.connection.prepareStatement(
-                "insert into item (item_id, title, description, state_id, category_id) values (?, ?, ?, ?, ?);"
-        )
-        ) {
-            ps.setInt(1, 1);
+                "insert into item (item_id, title, description, state_id, category_id, date_create) values (?, ?, ?, ?, ?, ?);")) {
+            ps.setDouble(1, Double.parseDouble(item.getId()));
             ps.setString(2, item.getName());
             ps.setString(3, item.getDescription());
             ps.setInt(4, 1);
             ps.setInt(5, 1);
+            ps.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
             try (ResultSet rs = ps.executeQuery()) {
                 //checkstyle
                 System.out.println();
@@ -102,16 +96,61 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public ArrayList<Item> findAll() {
-        return null;
+        ArrayList<Item> result = new ArrayList<>();
+        try (PreparedStatement ps = this.connection.prepareStatement(
+                "select * from item;")) {
+            result = this.sqlToItem(ps);
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return result;
     }
 
+    /**
+     *
+     * @param key String for find in array
+     * @return
+     */
     @Override
     public ArrayList<Item> findByName(String key) {
-        return null;
+        ArrayList<Item> result = new ArrayList<>();
+        try (PreparedStatement ps = this.connection.prepareStatement(
+                "select * from item where title = ?;")) {
+            ps.setString(1, key);
+            result = this.sqlToItem(ps);
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return result;
     }
 
+    /**
+     *
+     * @param ps
+     * @return
+     */
+    public ArrayList<Item> sqlToItem(PreparedStatement ps) {
+        ArrayList<Item> result = new ArrayList<>();
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Item item = new Item(String.valueOf(rs.getBigDecimal("item_id")));
+                item.setName(rs.getString("title"));
+                item.setDescription(rs.getString("description"));
+                item.setCreate(rs.getTimestamp("date_create").getTime());
+                result.add(item);
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return result;
+    }
+    
     @Override
     public Item findById(String id) {
         return null;
@@ -119,7 +158,30 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     @Override
     public void printToConsoleItem(ArrayList<Item> item) {
-
+        for (Item i:item) {
+            System.out.printf("---------------------------------------%n "
+                            + "ID: %s%n "
+                            + "name: %s%n "
+                            + "date: %s%n "
+                            + "description: %s%n "
+                            + "---------------------------------------%n",
+                    i.getId(),
+                    i.getName(),
+                    this.convert(i.getCreate()),
+                    i.getDescription()
+            );
+        }
+    }
+    /**
+     * Convert value millisecond to string date and time example (31.12.1970 23:59:59).
+     * @param millis vaule in milliseconds
+     * @return string date and time "31.12.1970 23:59:59"
+     */
+    public String convert(long millis) {
+        final Calendar cal = Calendar.getInstance();
+        cal.setTimeZone(TimeZone.getTimeZone("Russia/Moscow"));
+        cal.setTimeInMillis(millis);
+        return new SimpleDateFormat("dd.MM.yy HH:mm:ss").format(cal.getTime());
     }
 
     @Override

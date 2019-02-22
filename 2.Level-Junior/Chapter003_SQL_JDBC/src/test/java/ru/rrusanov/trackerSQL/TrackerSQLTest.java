@@ -34,11 +34,24 @@ public class TrackerSQLTest {
     }
 
     /**
-     *
+     * test not complete! Need check get item that be added.
      */
     @Test
     public void add() {
         Item item = new Item("add1", "Description1", System.currentTimeMillis(), "Comment1");
         this.trackerSQL.add(item);
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void findAll() {
+        this.trackerSQL.printToConsoleItem(this.trackerSQL.findAll());
+    }
+
+    @Test
+    public void findByName() {
+        this.trackerSQL.printToConsoleItem(this.trackerSQL.findByName("add1"));
     }
 }
