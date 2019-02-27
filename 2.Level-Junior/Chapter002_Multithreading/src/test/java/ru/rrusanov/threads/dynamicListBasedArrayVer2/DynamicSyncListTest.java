@@ -2,7 +2,6 @@ package ru.rrusanov.threads.dynamicListBasedArrayVer2;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import ru.rrusanov.collection.dynamicListBasedArray.DynamicList;
 import java.util.Iterator;
 import static org.hamcrest.core.Is.is;
 /**

@@ -1,9 +1,9 @@
-package ru.rrusanov.collection.dynamicListBasedArray;
-
+package ru.rrusanov.threads.dynamicListBasedArrayVer2;
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
  * Dynamic List based on object array.
  * @param <E> generic type.
  */
-public class DynamicList<E> implements Iterable<E> {
+public class DynamicList<E> implements Iterable<E>, CollectionDecorator<E> {
     /**
      * The field contain all collection data.
      */
