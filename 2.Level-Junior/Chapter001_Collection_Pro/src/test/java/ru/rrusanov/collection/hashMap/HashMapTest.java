@@ -44,7 +44,7 @@ public class HashMapTest {
      */
     @Test
     public void whenCallRemoveNullsElementThenCollectionsWithoutNulls() {
-        this.hashMap.delete("A");
+        this.hashMap.delete("A\n");
         this.hashMap.removeNullsElements();
         for (Entry<String, Integer> item : this.hashMap) {
             Assert.assertNotNull(item);

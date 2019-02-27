@@ -2,7 +2,6 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>Chapter003_SQL_JDBC</artifactId>
     <version>1.0</version>
-    <packaging>pom</packaging>
     <parent>
         <groupId>ru.rrusanov</groupId>
         <artifactId>2.Level-Junior</artifactId>
@@ -10,49 +9,17 @@
     </parent>
 
     <dependencies>
-        <dependency>
-            <groupId>ru.rrusanov</groupId>
-            <artifactId>tracker</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>9.1-901-1.jdbc4</version>
-        </dependency>
+
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>2.11.1</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.11.1</version>
+            <groupId>ru.rrusanov</groupId>
+            <artifactId>tracker</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.liquibase</groupId>
-                <artifactId>liquibase-maven-plugin</artifactId>
-                <version>3.6.3</version>
-                <configuration>
-                    <changeLogFile>${basedir}/db/master.xml</changeLogFile>
-                    <url>${db.url}</url>
-                    <driver>${db.driver}</driver>
-                    <username>${db.username}</username>
-                    <password>${db.password}</password>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>update</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>

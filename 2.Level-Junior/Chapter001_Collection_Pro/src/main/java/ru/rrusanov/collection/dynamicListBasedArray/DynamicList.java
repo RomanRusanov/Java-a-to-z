@@ -1,4 +1,5 @@
 package ru.rrusanov.collection.dynamicListBasedArray;
+
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
