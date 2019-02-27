@@ -2,7 +2,6 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>Chapter003_SQL_JDBC</artifactId>
     <version>1.0</version>
-    <packaging>pom</packaging>
     <parent>
         <groupId>ru.rrusanov</groupId>
         <artifactId>2.Level-Junior</artifactId>
@@ -10,20 +9,17 @@
     </parent>
 
     <dependencies>
-        <dependency>
-            <groupId>postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>9.1-901-1.jdbc4</version>
-        </dependency>
+
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>2.11.1</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.11.1</version>
+            <groupId>ru.rrusanov</groupId>
+            <artifactId>tracker</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
