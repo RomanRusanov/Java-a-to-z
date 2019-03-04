@@ -45,7 +45,10 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     public TrackerSQL() {
         this.init();
     }
-
+    /**
+     * The field contain version for logger.
+     */
+    private int version = 1;
     /**
      * The method check connection to db.
      * @return true if connection exist, otherwise false.
@@ -75,7 +78,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         try {
             this.connection.close();
         } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
+            LOG.error("Connection to DB not closed", version);
         }
     }
     /**
@@ -96,7 +99,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             ps.setTimestamp(6, new Timestamp(item.getCreate()));
             LOG.info("To item table row added: " + ps.executeUpdate());
         } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
+            LOG.error("SQL query insert into(Added element item table)", version);
         }
         //insert comments table.
         try (PreparedStatement ps = this.connection.prepareStatement(
@@ -105,7 +108,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             ps.setString(2, item.getComment());
             LOG.info("To comments table row added: " + ps.executeUpdate());
         } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
+            LOG.error("SQL query insert into(Added element comments table)", version);
         }
         return item;
     }
@@ -115,37 +118,30 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      * @param item source data to insert.
      */
     public void replace(String id, Item item) {
-        try (PreparedStatement ps = this.connection.prepareStatement(
-                "select * from item as i where i.item_id = ?;")) {
-            ps.setDouble(1, Double.parseDouble(id));
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    // update item table
-                    try (PreparedStatement psUpdateItem = this.connection.prepareStatement(
-                            "update item as i set title = ?, description = ?, date_create = ? where i.item_id = ?;")) {
-                        psUpdateItem.setString(1, item.getName());
-                        psUpdateItem.setString(2, item.getDescription());
-                        psUpdateItem.setTimestamp(3, new Timestamp(item.getCreate()));
-                        psUpdateItem.setDouble(4, Double.valueOf(id));
-                        LOG.info("To item table row replaced: " + psUpdateItem.executeUpdate());
-                    } catch (SQLException e) {
-                        LOG.error(e.getMessage(), e);
-                    }
-                    // update comments table
-                    try (PreparedStatement psUpdateComments = this.connection.prepareStatement(
-                            "update comments as c set comments = ? where c.item_id = ?;")) {
-                        psUpdateComments.setString(1, item.getComment());
-                        psUpdateComments.setDouble(2, Double.parseDouble(id));
-                        LOG.info("To comments table row replaced: " + psUpdateComments.executeUpdate());
-                    } catch (SQLException e) {
-                        LOG.error(e.getMessage(), e);
-                    }
-                }
-            } catch (Exception e) {
-                LOG.error(e.getMessage(), e);
-            }
+        // update item table
+        int numReplacedRows = 0;
+        try (PreparedStatement psUpdateItem = this.connection.prepareStatement(
+                "update item as i set title = ?, description = ?, date_create = ? where i.item_id = ?;")) {
+            psUpdateItem.setString(1, item.getName());
+            psUpdateItem.setString(2, item.getDescription());
+            psUpdateItem.setTimestamp(3, new Timestamp(item.getCreate()));
+            psUpdateItem.setDouble(4, Double.valueOf(id));
+            numReplacedRows = psUpdateItem.executeUpdate();
+            LOG.info("To item table row replaced: " + numReplacedRows);
         } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
+            LOG.error("SQL query update(replace element item table)", version);
+        }
+        // Check exist passed id in DB.
+        if (numReplacedRows != 0) {
+            // update comments table
+            try (PreparedStatement psUpdateComments = this.connection.prepareStatement(
+                    "update comments as c set comments = ? where c.item_id = ?;")) {
+                psUpdateComments.setString(1, item.getComment());
+                psUpdateComments.setDouble(2, Double.parseDouble(id));
+                LOG.info("To comments table row replaced: " + psUpdateComments.executeUpdate());
+            } catch (SQLException e) {
+                LOG.error("SQL query update(replace element comments table)", version);
+            }
         }
     }
     /**
@@ -160,7 +156,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             ps.setDouble(1, Double.valueOf(item.getId()));
             LOG.info("Rows deleted from comments table: " + ps.executeUpdate());
         } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
+            LOG.error("SQL query delete(remove element from item table)", version);
         }
         // delete item
         try (PreparedStatement ps = this.connection.prepareStatement(
@@ -168,7 +164,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             ps.setDouble(1, Double.valueOf(item.getId()));
             LOG.info("Rows deleted from item table: " + ps.executeUpdate());
         } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
+            LOG.error("SQL query delete(remove element from comments table)", version);
         }
     }
     /**
@@ -183,14 +179,14 @@ public class TrackerSQL implements ITracker, AutoCloseable {
                 "select * from item;")) {
             result = this.sqlToItem(ps);
         } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
+            LOG.error("SQL query (select all element from item table)", version);
         }
         // get from comments table.
         try (PreparedStatement ps = this.connection.prepareStatement(
                 "select c.comments,c.item_id from comments as c inner join item i  on c.item_id = i.item_id;")) {
             result = this.sqlToComments(ps, result);
         } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
+            LOG.error("SQL query (select all element from comments table)", version);
         }
         return result;
     }
@@ -208,7 +204,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             ps.setString(1, key);
             result = this.sqlToItem(ps);
         } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
+            LOG.error("SQL query (select element by specific name from item table)", version);
         }
         // get from comments table.
         try (PreparedStatement ps = this.connection.prepareStatement(
@@ -216,7 +212,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             ps.setString(1, key);
             result = this.sqlToComments(ps, result);
         } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
+            LOG.error("SQL query (select element by specific id from comments table)", version);
         }
         return result;
     }
@@ -239,7 +235,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
                 }
             }
         } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
+            LOG.error("SQL query (passed to method preparedStatement)", version);
         }
         return result;
     }
@@ -261,7 +257,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
                 result.add(item);
             }
         } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
+            LOG.error("SQL query (passed to method preparedStatement)", version);
         }
         return result;
     }
@@ -285,10 +281,10 @@ public class TrackerSQL implements ITracker, AutoCloseable {
                     result.setCreate(rs.getTimestamp("date_create").getTime());
                 }
             } catch (Exception e) {
-                LOG.error(e.getMessage(), e);
+                LOG.error("Result set (get data from item table)", version);
             }
         } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
+            LOG.error("SQL query (select element by specific id from item table)", version);
         }
         // get from comments table.
         try (PreparedStatement ps = this.connection.prepareStatement(
@@ -298,10 +294,10 @@ public class TrackerSQL implements ITracker, AutoCloseable {
                 rs.next();
                 result.setComment(rs.getString("comments"));
             } catch (Exception e) {
-                LOG.error(e.getMessage(), e);
+                LOG.error("Result set (get data from comments table)", version);
             }
         } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
+            LOG.error("SQL query (select element by specific id from comments table)", version);
         }
         return result;
     }

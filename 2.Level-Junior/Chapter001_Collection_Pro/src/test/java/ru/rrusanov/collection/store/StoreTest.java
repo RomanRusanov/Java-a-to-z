@@ -27,7 +27,7 @@ public class StoreTest {
     /**
      * The field contains user stored previous list.
      */
-    private User user1 = new User("Ivan");
+    private User user1 = new User("Ivan\n");
     /**
      * The field contains user stored previous list.
      */
@@ -35,7 +35,7 @@ public class StoreTest {
     /**
      * The field contains user stored previous list.
      */
-    private User user3 = new User("Vladimir");
+    private User user3 = new User("Vladimir\n");
     /**
      * The field contains user stored current list.
      */
