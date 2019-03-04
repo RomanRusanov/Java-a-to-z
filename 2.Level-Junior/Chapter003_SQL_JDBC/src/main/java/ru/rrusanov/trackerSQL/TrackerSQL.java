@@ -174,19 +174,12 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public ArrayList<Item> findAll() {
         ArrayList<Item> result = new ArrayList<>();
-        // get from item table.
         try (PreparedStatement ps = this.connection.prepareStatement(
-                "select * from item;")) {
+                "select i.title, i.description, i.date_create, c.comments,c.item_id from comments as c inner join item i  on c.item_id = i.item_id;")) {
             result = this.sqlToItem(ps);
-        } catch (SQLException e) {
-            LOG.error("SQL query (select all element from item table)", version);
-        }
-        // get from comments table.
-        try (PreparedStatement ps = this.connection.prepareStatement(
-                "select c.comments,c.item_id from comments as c inner join item i  on c.item_id = i.item_id;")) {
             result = this.sqlToComments(ps, result);
         } catch (SQLException e) {
-            LOG.error("SQL query (select all element from comments table)", version);
+            LOG.error("SQL query (select all element from item and comments table)", version);
         }
         return result;
     }
@@ -198,21 +191,13 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public ArrayList<Item> findByName(String key) {
         ArrayList<Item> result = new ArrayList<>();
-        // get from item table.
         try (PreparedStatement ps = this.connection.prepareStatement(
-                "select * from item where title = ?;")) {
+                "select i.title, i.description, i.date_create, c.comments,c.item_id from comments as c inner join item i  on c.item_id = i.item_id where i.title = ?;")) {
             ps.setString(1, key);
             result = this.sqlToItem(ps);
-        } catch (SQLException e) {
-            LOG.error("SQL query (select element by specific name from item table)", version);
-        }
-        // get from comments table.
-        try (PreparedStatement ps = this.connection.prepareStatement(
-                "select c.comments,c.item_id from comments as c inner join item i  on c.item_id = i.item_id where i.title = ?;")) {
-            ps.setString(1, key);
             result = this.sqlToComments(ps, result);
         } catch (SQLException e) {
-            LOG.error("SQL query (select element by specific id from comments table)", version);
+            LOG.error("SQL query (select element by specific name from item and comments table)", version);
         }
         return result;
     }
@@ -270,34 +255,21 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public Item findById(String id) {
         Item result = new Item(id);
-        // get from item table.
         try (PreparedStatement ps = this.connection.prepareStatement(
-                "select * from item where item_id = ?;")) {
+                "select i.title, i.description, i.date_create, c.comments from comments as c inner join item i  on c.item_id = i.item_id where i.item_id = ?;")) {
             ps.setDouble(1, Double.valueOf(id));
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     result.setName(rs.getString("title"));
                     result.setDescription(rs.getString("description"));
                     result.setCreate(rs.getTimestamp("date_create").getTime());
+                    result.setComment(rs.getString("comments"));
                 }
             } catch (Exception e) {
-                LOG.error("Result set (get data from item table)", version);
+                LOG.error("Result set (get data from item and comments table)", version);
             }
         } catch (SQLException e) {
-            LOG.error("SQL query (select element by specific id from item table)", version);
-        }
-        // get from comments table.
-        try (PreparedStatement ps = this.connection.prepareStatement(
-                "select c.comments,c.item_id from comments as c inner join item i  on c.item_id = i.item_id where i.item_id = ?;")) {
-            ps.setDouble(1, Double.valueOf(id));
-            try (ResultSet rs = ps.executeQuery()) {
-                rs.next();
-                result.setComment(rs.getString("comments"));
-            } catch (Exception e) {
-                LOG.error("Result set (get data from comments table)", version);
-            }
-        } catch (SQLException e) {
-            LOG.error("SQL query (select element by specific id from comments table)", version);
+            LOG.error("SQL query (select element by specific id from item and comments table)", version);
         }
         return result;
     }
