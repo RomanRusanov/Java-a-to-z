@@ -2,11 +2,15 @@
 language: java
 # используем режим обычного пользователя для сборки проекта.
 sudo: false
-
+# JDBC
+services:
+  postgresql
 # Изменяет текущую временную зону.
 before_install:
-- export TZ=Europe/Moscow
-- date
+  - export TZ=Europe/Moscow
+  - date
+  # JDBC создание базы данных
+  - psql -c 'create database tracker;' -U postgres
 
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
 # Здесь используется сторонни сервис https://codecov.io/
