@@ -80,7 +80,7 @@ create table attached(
 --Create table Comments
 create table comments(
 											 coment_id serial primary key,
-											 item_id int not null,
+											 item_id bigint not null,
 											 comments text,
 											 constraint item_item_id_fk
 												 foreign key (item_id)
