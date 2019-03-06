@@ -1,0 +1,5 @@
+fileDB = sqlite.db
+pathToDB = ./db/
+url = jdbc:sqlite:
+username=user
+password=password
