@@ -83,7 +83,7 @@ values ('Lada Granta', 1, 1, 2),
        ('Volkswagen Tiguan', 5, 4, 1),
        ('Renault Kaptur', 5, 5, 3)
 ;
---Query
+--query
 select c.name, b.body_type as "body", e.en_type as "engine", t.tr_type as "transmission" from car as c
       left join body as b on c.body_id = b.id
       left join engine as e on c.engine_id = e.id
