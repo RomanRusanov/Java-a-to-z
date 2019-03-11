@@ -2,8 +2,6 @@ package ru.rrusanov.xml_xslt_jdbc;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +25,31 @@ public class StoreSQL implements AutoCloseable {
     }
 
     public void generate(int size) {
+        this.createTable();
+        try (PreparedStatement ps = this.connect.prepareStatement("insert into entry (field) values (?);")) {
+            this.connect.setAutoCommit(false);
+            for (int i = 0; i < size; i++){
+                ps.setInt(1, i);
+                ps.execute();
+            }
+            this.connect.commit();
+            this.connect.setAutoCommit(true);
+        } catch (SQLException e) {
+            LOG.error(String.format(
+                    "Error generate sequence rows in entry table. Version:%d%n SQL Exception:%s", version, e.toString())
+            );
+        }
+    }
 
+    public void clearTable() {
+        try (PreparedStatement ps = this.connect.prepareStatement("delete from entry where field;")) {
+                ps.executeUpdate();
+        } catch (SQLException e) {
+            LOG.error(String.format(
+                    "Error clear entry table. Delete all rows in table. Version:%d%n SQL Exception:%s", version, e.toString())
+            );
+            e.printStackTrace();
+        }
     }
 
     public List<Entry> load() {
@@ -43,22 +65,28 @@ public class StoreSQL implements AutoCloseable {
                 }
             }
         } catch (SQLException e) {
-            LOG.error(String.format("Error checking exist table in db. Version:%d", version));
+            LOG.error(String.format(
+                    "Error checking exist table in db. Version:%d%n SQL Exception:%s", version, e.toString())
+            );
         }
         return result;
     }
 
     public void createTable() {
         try (PreparedStatement ps = this.connect.prepareStatement(
-                "create table entry (integer field);")) {
+                "create table if not exists entry (field integer);")) {
             try {
                 ps.execute();
             } catch (SQLException e) {
-                LOG.error("Error executing ps with create table. Version:%d", version);
+                LOG.error(String.format(
+                        "Error executing ps with create table. Version:%d%n SQL Exception:%s", version, e.toString())
+                );
             }
 
         } catch (SQLException e) {
-            LOG.error("Error get ps from connection for create table. Version:%d", version);
+            LOG.error(String.format(
+                    "Error get ps from connection for create table. Version:%d%n SQL Exception:%s", version, e.toString())
+            );
         }
     }
 
@@ -68,11 +96,15 @@ public class StoreSQL implements AutoCloseable {
             try {
                 ps.execute();
             } catch (SQLException e) {
-                LOG.error("Error executing ps with drop table. Version:%d", version);
+                LOG.error(String.format(
+                        "Error executing ps with drop table. Version:%d%n SQL Exception:%s", version, e.toString())
+                );
             }
 
         } catch (SQLException e) {
-            LOG.error("Error get ps from connection for drop table. Version:%d", version);
+            LOG.error(String.format(
+                    "Error get ps from connection for drop table. Version:%d%n SQL Exception:%s", version, e.toString())
+            );
         }
     }
     /**

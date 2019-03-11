@@ -22,12 +22,8 @@ public class StoreSQLTest {
     }
 
     @After
-    public void closeConnection() {
-        try {
-            this.config.getConnection().close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void closeConnection() throws SQLException{
+        this.config.getConnection().close();
     }
 
     @Test
@@ -42,5 +38,13 @@ public class StoreSQLTest {
         Assert.assertFalse(this.storeSQL.tableExist("entry"));
         this.storeSQL.createTable();
         assertTrue(this.storeSQL.tableExist("entry"));
+    }
+
+    @Test
+    public void generate() {
+        Long time = System.currentTimeMillis();
+        this.storeSQL.generate(1000000);
+        System.out.println(time = System.currentTimeMillis() - time);
+        this.storeSQL.clearTable();
     }
 }
