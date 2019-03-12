@@ -4,9 +4,9 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import static org.junit.Assert.*;
 
 public class StoreSQLTest {
@@ -40,11 +40,20 @@ public class StoreSQLTest {
         assertTrue(this.storeSQL.tableExist("entry"));
     }
 
+    @Test(timeout = 2000)
+    public void generate() throws SQLException {
+        int expect = 1000000;
+        this.storeSQL.generate(expect);
+        PreparedStatement ps = this.config.getConnection().prepareStatement("select count(*) from entry;");
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        int rowCount = rs.getInt(1);
+        assertEquals(rowCount, expect);
+    }
+
     @Test
-    public void generate() {
-        Long time = System.currentTimeMillis();
-        this.storeSQL.generate(1000000);
-        System.out.println(time = System.currentTimeMillis() - time);
-        this.storeSQL.clearTable();
+    public void load() {
+        this.storeSQL.generate(10);
+        assertEquals(this.storeSQL.load().size(), 10);
     }
 }

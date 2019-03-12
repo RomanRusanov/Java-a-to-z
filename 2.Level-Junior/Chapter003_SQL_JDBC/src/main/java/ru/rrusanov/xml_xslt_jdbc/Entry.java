@@ -1,16 +1,24 @@
 package ru.rrusanov.xml_xslt_jdbc;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
+@XmlRootElement
 public class Entry {
 
     private int field;
 
+    public Entry(int field) {
+        this.field = field;
+    }
+    public Entry() {
+    }
 
     public int getField() {
         return field;
     }
-
+    @XmlElement
     public void setField(int field) {
         this.field = field;
     }
