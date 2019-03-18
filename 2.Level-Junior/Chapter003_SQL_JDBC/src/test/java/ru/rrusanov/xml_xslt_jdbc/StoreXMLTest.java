@@ -1,27 +1,43 @@
 package ru.rrusanov.xml_xslt_jdbc;
-
-import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
+import java.sql.SQLException;
 
-import java.io.File;
-
-import static org.junit.Assert.*;
-
+/**
+ * Class test behavior StoreXML class.
+ *
+ * @author Roman Rusanov
+ * @version 0.1
+ * @since 12.03.19
+ */
 public class StoreXMLTest {
-
-    private StoreXML storeXML = new StoreXML();
-
+    /**
+     * The field contain instance Config class.
+     */
     private Config config = new Config();
-
+    /**
+     * The field contain instance that generate in SQLite DB sequence of rows.
+     */
     private StoreSQL storeSQL = new StoreSQL(this.config);
-
-    @Before
-    public void setUp() {
-        this.storeSQL.generate(5);
+    /**
+     * The field contain instance StoreXML class.
+     * Convert from collection to xml file.
+     */
+    private StoreXML storeXML = new StoreXML();
+    /**
+     * The method execute after each test.
+     * @throws SQLException try close connection may throw.
+     */
+    @After
+    public void closeConnection() throws SQLException {
+        this.config.getConnection().close();
     }
 
+    /**
+     * Test method save.
+     */
     @Test
-    public void save() {
+    public void whenMethodPassThenStoreToXml() {
         storeXML.save(storeSQL.load());
     }
 }

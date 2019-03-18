@@ -1,5 +1,4 @@
 package ru.rrusanov.xml_xslt_jdbc;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
@@ -8,27 +7,52 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-
+/**
+ * Class generate in SQLite DB sequence of rows.
+ *
+ * @author Roman Rusanov
+ * @version 0.1
+ * @since 06.03.19
+ */
 public class StoreSQL implements AutoCloseable {
-
+    /**
+     * The field contain instance that create connection to SQLite db.
+     */
     private final Config config;
-
+    /**
+     * The field contain connection to SQLite db.
+     */
     private Connection connect;
-
+    /**
+     * Logger.
+     */
     private static final Logger LOG = LogManager.getLogger(StoreSQL.class.getName());
-
+    /**
+     * Version for Logger.
+     */
     private int version = 1;
 
+    /**
+     * The deafault constructor.
+     * @param config instance that create connection to SQLite db.
+     */
     public StoreSQL(Config config) {
         this.config = config;
         this.connect = this.config.getConnection();
     }
 
+    /**
+     * The method generate sequence of rows in db.
+     * @param size sequence from 0 to size value.
+     */
     public void generate(int size) {
+        if (!this.tableExist("entry")) {
+            this.createTable();
+        }
         this.clearTable();
         try (PreparedStatement ps = this.connect.prepareStatement("insert into entry (field) values (?);")) {
             this.connect.setAutoCommit(false);
-            for (int i = 0; i < size; i++){
+            for (int i = 0; i < size; i++) {
                 ps.setInt(1, i);
                 ps.execute();
             }
@@ -49,6 +73,9 @@ public class StoreSQL implements AutoCloseable {
         }
     }
 
+    /**
+     * The method clear table entry from all rows.
+     */
     public void clearTable() {
         try (PreparedStatement ps = this.connect.prepareStatement("delete from entry;")) {
                 ps.executeUpdate();
@@ -60,6 +87,10 @@ public class StoreSQL implements AutoCloseable {
         }
     }
 
+    /**
+     * The method load from DB to collection all entry that exist in table entry.
+     * @return LinkedList with that contain all entrees.
+     */
     public List<Entry> load() {
         LinkedList<Entry> result = new LinkedList<>();
         try (PreparedStatement ps = this.config.getConnection().prepareStatement("select * from entry;")) {
@@ -76,6 +107,11 @@ public class StoreSQL implements AutoCloseable {
         return result;
     }
 
+    /**
+     * The method check exist table in db.
+     * @param tableName Sting table name.
+     * @return If exist return true, otherwise false.
+     */
     public boolean tableExist(String tableName) {
         boolean result = false;
         try (ResultSet rs = this.connect.getMetaData().getTables(null, null, "%", null)) {
@@ -92,6 +128,9 @@ public class StoreSQL implements AutoCloseable {
         return result;
     }
 
+    /**
+     * The method create table entry in DB.
+     */
     public void createTable() {
         try (PreparedStatement ps = this.connect.prepareStatement(
                 "create table if not exists entry (field integer);")) {
@@ -109,6 +148,9 @@ public class StoreSQL implements AutoCloseable {
         }
     }
 
+    /**
+     * The method delete entry table from DB.
+     */
     public void deleteTable() {
         try (PreparedStatement ps = this.connect.prepareStatement(
                 "drop table entry;")) {
