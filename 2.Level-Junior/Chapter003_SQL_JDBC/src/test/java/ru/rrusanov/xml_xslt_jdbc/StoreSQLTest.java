@@ -33,6 +33,7 @@ public class StoreSQLTest {
     public void setUp() {
         config = new Config();
         storeSQL = new StoreSQL(config);
+        this.storeSQL.createTable();
     }
 
     /**

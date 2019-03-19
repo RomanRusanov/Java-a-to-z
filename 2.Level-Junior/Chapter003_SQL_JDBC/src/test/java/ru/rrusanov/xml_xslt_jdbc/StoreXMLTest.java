@@ -1,5 +1,6 @@
 package ru.rrusanov.xml_xslt_jdbc;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import java.sql.SQLException;
 
@@ -24,6 +25,14 @@ public class StoreXMLTest {
      * Convert from collection to xml file.
      */
     private StoreXML storeXML = new StoreXML();
+
+    /**
+     * The method execute before each test.
+     */
+    @Before
+    public void setUp() {
+        this.storeSQL.createTable();
+    }
     /**
      * The method execute after each test.
      * @throws SQLException try close connection may throw.
