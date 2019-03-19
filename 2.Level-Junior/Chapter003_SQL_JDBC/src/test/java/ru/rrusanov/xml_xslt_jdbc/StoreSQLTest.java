@@ -74,6 +74,7 @@ public class StoreSQLTest {
     @Test(timeout = 2000)
     public void whenRowsGeneratedThenRowCountEquals() throws SQLException {
         int expect = 1000000;
+        this.storeSQL.createTable();
         this.storeSQL.generate(expect);
         PreparedStatement ps = this.config.getConnection().prepareStatement("select count(*) from entry;");
         ResultSet rs = ps.executeQuery();
@@ -87,6 +88,7 @@ public class StoreSQLTest {
      */
     @Test
     public void whenEntryLoadedThenSizeEquals() {
+        this.storeSQL.createTable();
         this.storeSQL.generate(10);
         assertEquals(this.storeSQL.load().size(), 10);
     }

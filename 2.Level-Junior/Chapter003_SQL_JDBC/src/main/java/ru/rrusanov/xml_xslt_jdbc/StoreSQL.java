@@ -46,9 +46,6 @@ public class StoreSQL implements AutoCloseable {
      * @param size sequence from 0 to size value.
      */
     public void generate(int size) {
-        if (!this.tableExist("entry")) {
-            this.createTable();
-        }
         this.clearTable();
         try (PreparedStatement ps = this.connect.prepareStatement("insert into entry (field) values (?);")) {
             this.connect.setAutoCommit(false);
