@@ -5,9 +5,7 @@
  *
  * ConfigTest.java test behavior Config class.
  *  void setUp() The method execute before each test.
- *  void closeConnection() The method execute after each test.
  *  void whenPropertiesSetThenReturnThem() Test init method.
- *  void whenMethodThenConnectionCreate() Test initConnectionToSQLiteDB method.
  *
  * ConvertXSQTTest.java test behavior ConvertXSQT class.
  *  void setUp() The method execute before each test.
@@ -22,6 +20,8 @@
  *  void whenTableCreateThenReturnTrue() Test method createTable.
  *  void whenRowsGeneratedThenRowCountEquals() Test method generate.
  *  void whenEntryLoadedThenSizeEquals() Test method load.
+ *  void whenMethodCallThenConnectionCreate() Test initConnectionToSQLiteDB method.
+ *  void closeConnection() The method execute after each test.
  *
  * StoreXMLTest.java test behavior StoreXML class.
  *  void closeConnection() The method execute after each test.

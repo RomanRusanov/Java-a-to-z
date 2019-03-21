@@ -5,8 +5,7 @@
  *
  * Config.java Class create connection to SQLite db.
  *  void init() The method load properties from file app.propertiesSqlLite.
- *  boolean initConnectionToSQLiteDB() Method create instance of connection of db if it not exist yet.
- *  Connection getConnection() The method return connection instance to DB.
+ *  Properties getValues()
  *
  * ConvertXSQT.java Class convert xml to other xml structure.
  *  void convert(File source, File dest, File scheme) The method convert from dest xml file to source xml file,
@@ -31,6 +30,8 @@
  *  void createTable() The method create table entry in DB.
  *  void deleteTable() The method delete entry table from DB.
  *  void close() Closes this resource, relinquishing any underlying resources.
+ *  boolean initConnectionToSQLiteDB() Method create instance of connection of db if it not exist yet.
+ *  Connection getConnection() The method return connection instance to DB.
  *
  * StoreXML.java Class convert Entry object into xml structure.
  *  void save(List<Entry> list) The method save Entries from collection to xml file.

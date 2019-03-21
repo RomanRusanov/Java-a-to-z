@@ -31,8 +31,8 @@ public class StoreSQLTest {
      */
     @Before
     public void setUp() {
-        config = new Config();
-        storeSQL = new StoreSQL(config);
+        this.config = new Config();
+        this.storeSQL = new StoreSQL(config);
         this.storeSQL.createTable();
     }
 
@@ -42,7 +42,7 @@ public class StoreSQLTest {
      */
     @After
     public void closeConnection() throws SQLException {
-        this.config.getConnection().close();
+        this.storeSQL.getConnection().close();
     }
 
     /**
@@ -77,7 +77,7 @@ public class StoreSQLTest {
         int expect = 1000000;
         this.storeSQL.createTable();
         this.storeSQL.generate(expect);
-        PreparedStatement ps = this.config.getConnection().prepareStatement("select count(*) from entry;");
+        PreparedStatement ps = this.storeSQL.getConnection().prepareStatement("select count(*) from entry;");
         ResultSet rs = ps.executeQuery();
         rs.next();
         int rowCount = rs.getInt(1);
@@ -92,5 +92,13 @@ public class StoreSQLTest {
         this.storeSQL.createTable();
         this.storeSQL.generate(10);
         assertEquals(this.storeSQL.load().size(), 10);
+    }
+
+    /**
+     * Test initConnectionToSQLiteDB method.
+     */
+    @Test
+    public void whenMethodCallThenConnectionCreate() {
+        assertTrue(this.storeSQL.initConnectionToSQLiteDB(this.config.getValues()));
     }
 }

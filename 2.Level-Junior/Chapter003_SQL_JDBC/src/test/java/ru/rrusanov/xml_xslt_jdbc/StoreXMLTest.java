@@ -39,7 +39,7 @@ public class StoreXMLTest {
      */
     @After
     public void closeConnection() throws SQLException {
-        this.config.getConnection().close();
+        this.storeSQL.getConnection().close();
     }
 
     /**

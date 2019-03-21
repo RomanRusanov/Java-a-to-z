@@ -35,6 +35,7 @@ public class ConvertXSQTTest {
      */
     @Before
     public void setUp() {
+        this.storeSQL.initConnectionToSQLiteDB(this.config.getValues());
         this.storeSQL.createTable();
         this.storeSQL.generate(1000000);
         this.storeXML.save(this.storeSQL.load());
@@ -47,7 +48,7 @@ public class ConvertXSQTTest {
     @After
     public void closeConnection() throws SQLException {
         this.storeSQL.deleteTable();
-        this.config.getConnection().close();
+        this.storeSQL.getConnection().close();
     }
 
     /**

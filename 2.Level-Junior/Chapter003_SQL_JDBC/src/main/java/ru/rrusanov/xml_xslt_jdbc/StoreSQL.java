@@ -5,8 +5,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.DriverManager;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 /**
  * Class generate in SQLite DB sequence of rows.
  *
@@ -38,7 +40,8 @@ public class StoreSQL implements AutoCloseable {
      */
     public StoreSQL(Config config) {
         this.config = config;
-        this.connect = this.config.getConnection();
+        this.initConnectionToSQLiteDB(config.getValues());
+        this.connect = this.getConnection();
     }
 
     /**
@@ -90,7 +93,7 @@ public class StoreSQL implements AutoCloseable {
      */
     public List<Entry> load() {
         LinkedList<Entry> result = new LinkedList<>();
-        try (PreparedStatement ps = this.config.getConnection().prepareStatement("select * from entry;")) {
+        try (PreparedStatement ps = this.getConnection().prepareStatement("select * from entry;")) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 result.add(new Entry(rs.getInt("field")));
@@ -175,5 +178,27 @@ public class StoreSQL implements AutoCloseable {
         if (this.connect != null) {
             this.connect.close();
         }
+    }
+    /**
+     * Method create instance of connection of db if it not exist yet.
+     * @param values Configuration db(pathToDb + file.db, url db, username, password).
+     * @return True if connection create. Otherwise false.
+     */
+    public boolean initConnectionToSQLiteDB(Properties values) {
+        String url = values.getProperty("url") + values.getProperty("pathToDB")
+                + values.getProperty("fileDB");
+        try {
+            this.connect = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            LOG.error(String.format("Connection by passed url: %s version: %s", url, version));
+        }
+        return this.connect != null;
+    }
+    /**
+     * The method return connection instance to DB.
+     * @return connection.
+     */
+    public Connection getConnection() {
+        return this.connect;
     }
 }
