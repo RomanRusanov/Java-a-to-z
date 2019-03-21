@@ -1,10 +1,7 @@
 package ru.rrusanov.xml_xslt_jdbc;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -34,15 +31,6 @@ public class StoreSQLTest {
         this.config = new Config();
         this.storeSQL = new StoreSQL(config);
         this.storeSQL.createTable();
-    }
-
-    /**
-     * The method execute after each test.
-     * @throws SQLException try close connection may throw.
-     */
-    @After
-    public void closeConnection() throws SQLException {
-        this.storeSQL.getConnection().close();
     }
 
     /**
@@ -77,11 +65,7 @@ public class StoreSQLTest {
         int expect = 1000000;
         this.storeSQL.createTable();
         this.storeSQL.generate(expect);
-        PreparedStatement ps = this.storeSQL.getConnection().prepareStatement("select count(*) from entry;");
-        ResultSet rs = ps.executeQuery();
-        rs.next();
-        int rowCount = rs.getInt(1);
-        assertEquals(rowCount, expect);
+        assertEquals(this.storeSQL.countAllRows(), expect);
     }
 
     /**

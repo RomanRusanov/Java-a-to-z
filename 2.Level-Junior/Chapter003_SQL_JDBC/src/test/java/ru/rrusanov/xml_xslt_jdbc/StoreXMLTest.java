@@ -1,9 +1,6 @@
 package ru.rrusanov.xml_xslt_jdbc;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import java.sql.SQLException;
-
 /**
  * Class test behavior StoreXML class.
  *
@@ -32,14 +29,6 @@ public class StoreXMLTest {
     @Before
     public void setUp() {
         this.storeSQL.createTable();
-    }
-    /**
-     * The method execute after each test.
-     * @throws SQLException try close connection may throw.
-     */
-    @After
-    public void closeConnection() throws SQLException {
-        this.storeSQL.getConnection().close();
     }
 
     /**

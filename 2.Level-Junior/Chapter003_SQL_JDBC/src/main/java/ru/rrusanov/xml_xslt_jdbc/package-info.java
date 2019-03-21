@@ -31,7 +31,7 @@
  *  void deleteTable() The method delete entry table from DB.
  *  void close() Closes this resource, relinquishing any underlying resources.
  *  boolean initConnectionToSQLiteDB() Method create instance of connection of db if it not exist yet.
- *  Connection getConnection() The method return connection instance to DB.
+ *  int countAllRows() The method count all rows in table.
  *
  * StoreXML.java Class convert Entry object into xml structure.
  *  void save(List<Entry> list) The method save Entries from collection to xml file.

@@ -41,7 +41,6 @@ public class StoreSQL implements AutoCloseable {
     public StoreSQL(Config config) {
         this.config = config;
         this.initConnectionToSQLiteDB(config.getValues());
-        this.connect = this.getConnection();
     }
 
     /**
@@ -93,7 +92,7 @@ public class StoreSQL implements AutoCloseable {
      */
     public List<Entry> load() {
         LinkedList<Entry> result = new LinkedList<>();
-        try (PreparedStatement ps = this.getConnection().prepareStatement("select * from entry;")) {
+        try (PreparedStatement ps = this.connect.prepareStatement("select * from entry;")) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 result.add(new Entry(rs.getInt("field")));
@@ -194,11 +193,31 @@ public class StoreSQL implements AutoCloseable {
         }
         return this.connect != null;
     }
+
     /**
-     * The method return connection instance to DB.
-     * @return connection.
+     * The method count all rows in table.
+     * @return number of rows.
      */
-    public Connection getConnection() {
-        return this.connect;
+    public int countAllRows() {
+        int result = 0;
+        try (PreparedStatement ps = this.connect.prepareStatement(
+                "select count(*) from entry;")) {
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    result = rs.getInt(1);
+                }
+            } catch (SQLException e) {
+                LOG.error(String.format(
+                        "Error get result set(count all entries in table). Version:%d%n SQL Exception:%s",
+                            version, e.toString())
+                );
+            }
+        } catch (SQLException e) {
+            LOG.error(String.format(
+                    "Error executing prepare statement with count all rows in table. Version:%d%n SQL Exception:%s",
+                        version, e.toString())
+            );
+        }
+        return result;
     }
 }
