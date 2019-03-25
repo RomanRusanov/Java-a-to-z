@@ -46,6 +46,13 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         this.init();
     }
     /**
+     * The constructor create instance Tracker with passed connection to db.
+     * @param connection to db.
+     */
+    public TrackerSQL(Connection connection) {
+        this.connection = connection;
+    }
+    /**
      * The field contain version for logger.
      */
     private int version = 1;

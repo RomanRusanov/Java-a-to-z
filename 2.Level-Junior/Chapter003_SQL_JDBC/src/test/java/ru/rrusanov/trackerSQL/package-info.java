@@ -5,7 +5,6 @@
  *
  * TrackerSQLTest Class test Tracker.java.
  * Methods:
- *  public void setUp() The method execute before each test.
  *  public void whenConnectionCreateThenReturnTrue() The method check connection to db.
  *  public void whenItemCreateThenItExist() Test if item create then it exist. add() Method behavior check.
  *  public void whenItemsExistThenReturnItemsId() Test if items exist in db. findAll Method behavior check.

@@ -30,5 +30,9 @@
  * Methods:
  *  public void init() Initialize Menu.
  *  static void main(String[] args) Add instance the input, invoke init().
+ *
+ * ConnectionRollback.java Class create connection with rollback all commits.
+ *  public static Connection create(Connection connection)
+ *   Create connection with autocommit=false mode and rollback call, when connection is closed.
  */
 package ru.rrusanov.trackerSQL;
