@@ -1,0 +1,3 @@
+fileDB = parser.db
+pathToDB = ./db/
+url = jdbc:sqlite:
