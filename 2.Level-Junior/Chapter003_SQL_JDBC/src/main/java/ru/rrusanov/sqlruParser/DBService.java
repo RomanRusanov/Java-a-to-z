@@ -8,12 +8,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
+
 /**
  * @author Roman Rusanov
  * @version 0.1
  * @since 27.03.2019
- *
- *
  */
 public class DBService implements AutoCloseable {
     /**
