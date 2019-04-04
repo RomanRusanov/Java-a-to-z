@@ -1,9 +1,12 @@
 package ru.rrusanov.sqlruParser;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import ru.rrusanov.xml_xslt_jdbc.ConvertXSQT;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -20,23 +23,44 @@ import java.util.List;
 public class Parser {
 
     private List<Article> currentPageListArticle;
-
     private final Date dToday = new Date();
     private final Date dYesterday = new Date(System.currentTimeMillis() - 86400000);
     private final SimpleDateFormat format = new SimpleDateFormat("dd MMM yy");
     private final String strToday = format.format(dToday);
     private final String strYesterday = this.format.format(dYesterday);
+    /**
+     * Logger.
+     */
+    private static final Logger LOG = LogManager.getLogger(Parser.class.getName());
+    /**
+     * Version for Logger.
+     */
+    private int version = 1;
 
-    public static void main(String[] args) throws IOException {
-        Document currentPage = Jsoup.connect("http://www.sql.ru/forum/job").get();
+    public Document getDocFromUrl(String url) {
+        Document currentPage = null;
+        try {
+            currentPage = Jsoup.connect(url).get();
+        } catch (IOException e) {
+            LOG.error(String.format(
+                    "Error connect to site(%s). Version:%d%n Exception:%s", url, version, e.toString())
+            );
+        }
+        return currentPage;
+    }
+
+    public Elements getAllArticleOnPage(String site) {
+        Document currentPage = this.getDocFromUrl(site);
         Element pageContainer = currentPage.getElementById("page-container");
         Element contentWrapperForum = pageContainer.getElementById("content-wrapper-forum");
         Elements table = contentWrapperForum.getElementsByTag("table");
-        Elements forumTable = table.next(".forumTable");
-        Parser parser = new Parser();
-        parser.parseCurrentPage(forumTable);
+        return table.next(".forumTable");
+    }
 
-
+    public String getTextArticle(String urlArticle) {
+        Document currentPage = this.getDocFromUrl(urlArticle);
+        Elements msgBody = currentPage.getElementsByAttributeValue("class", "msgBody");
+        return msgBody.first().nextElementSibling().text();
     }
 
     public List<Article> parseCurrentPage(Elements forumTable) {
@@ -49,7 +73,8 @@ public class Parser {
             String subj = c.first().nextElementSibling().child(0).text();
             String url = c.first().nextElementSibling().child(0).attributes().get("href");
             String date = c.last().text();
-            result.add(new Article(url, subj, "text", this.convertDate(date)));
+            String text = this.getTextArticle(url);
+            result.add(new Article(url, subj, text, this.convertDate(date)));
         }
         return result;
     }
