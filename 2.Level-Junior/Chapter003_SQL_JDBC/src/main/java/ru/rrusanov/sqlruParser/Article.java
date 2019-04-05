@@ -1,6 +1,5 @@
 package ru.rrusanov.sqlruParser;
 
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -12,15 +11,15 @@ public class Article {
 
     private String url;
 
-    private String subject;
+    private String topic;
 
     private String text;
 
     private String date;
 
-    public Article(String url, String subject, String text, String date) {
+    public Article(String url, String topic, String text, String date) {
         this.url = url;
-        this.subject = subject;
+        this.topic = topic;
         this.text = text;
         this.date = date;
     }
@@ -29,8 +28,8 @@ public class Article {
         return url;
     }
 
-    public String getSubject() {
-        return subject;
+    public String getTopic() {
+        return topic;
     }
 
     public String getText() {
@@ -45,8 +44,8 @@ public class Article {
         this.url = url;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public void setText(String text) {
@@ -63,21 +62,21 @@ public class Article {
         if (o == null || getClass() != o.getClass()) return false;
         Article article = (Article) o;
         return url.equals(article.url) &&
-                subject.equals(article.subject) &&
+                topic.equals(article.topic) &&
                 text.equals(article.text) &&
                 date.equals(article.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(url, subject, text, date);
+        return Objects.hash(url, topic, text, date);
     }
 
     @Override
     public String toString() {
         return "Article{" +
                 "url='" + url + '\'' +
-                ", subject='" + subject + '\'' +
+                ", topic='" + topic + '\'' +
                 ", text='" + text + '\'' +
                 ", date='" + date + '\'' +
                 '}';

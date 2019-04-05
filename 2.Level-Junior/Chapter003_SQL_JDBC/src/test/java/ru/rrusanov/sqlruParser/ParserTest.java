@@ -32,4 +32,16 @@ public class ParserTest {
     @Test
     public void convertDate() {
     }
+
+    @Test
+    public void getDocFromUrl() {
+    }
+
+    @Test
+    public void findMatchCharSequence() {
+        String[] topicsNotMatch = {"java script", "javascript"};
+        Parser parser = new Parser();
+        Assert.assertThat(parser.findMatchCharSequence("The JavAScrIpt lang", topicsNotMatch), is(true));
+        Assert.assertThat(parser.findMatchCharSequence("The JavA ScrIpt lang", topicsNotMatch), is(true));
+    }
 }

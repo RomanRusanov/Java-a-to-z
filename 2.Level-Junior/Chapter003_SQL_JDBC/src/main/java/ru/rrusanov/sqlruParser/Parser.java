@@ -6,14 +6,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import ru.rrusanov.xml_xslt_jdbc.ConvertXSQT;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Roman Rusanov
@@ -22,7 +18,9 @@ import java.util.List;
  */
 public class Parser {
 
-    private List<Article> currentPageListArticle;
+    private List<Article> currentPageListAllArticle;
+    private String[] topicsNotMatch = {"javascript", "java script"};
+    private String[] topicsMatch = {"java"};
     private final Date dToday = new Date();
     private final Date dYesterday = new Date(System.currentTimeMillis() - 86400000);
     private final SimpleDateFormat format = new SimpleDateFormat("dd MMM yy");
@@ -49,6 +47,31 @@ public class Parser {
         return currentPage;
     }
 
+    public boolean findMatchCharSequence(String strProcess, String[] pattern) {
+        boolean result = false;
+        String currWord = "";
+        for (int i = 0; i < strProcess.length() - 1; i++){
+            for (int j = 0; j < pattern.length; j++) {
+                if (currWord.equalsIgnoreCase(pattern[j])) {
+                    result = true;
+                    break;
+                }
+            }
+            if (result) {
+                if (pattern.length > 1) {
+                    result = findMatchCharSequence(strProcess.substring(i+1), pattern);
+                }
+                break;
+            }
+            if (strProcess.charAt(i) == " ".charAt(0)) {
+                currWord = "";
+                i++;
+            }
+            currWord = currWord + strProcess.charAt(i);
+        }
+        return result;
+    }
+
     public Elements getAllArticleOnPage(String site) {
         Document currentPage = this.getDocFromUrl(site);
         Element pageContainer = currentPage.getElementById("page-container");
@@ -70,11 +93,14 @@ public class Parser {
         iterator.next();
         while (iterator.hasNext()) {
             Elements c = iterator.next().children();
-            String subj = c.first().nextElementSibling().child(0).text();
+            String topic = c.first().nextElementSibling().child(0).text();
+//            if (topicsNotMatch.) {
+//
+//            }
             String url = c.first().nextElementSibling().child(0).attributes().get("href");
             String date = c.last().text();
             String text = this.getTextArticle(url);
-            result.add(new Article(url, subj, text, this.convertDate(date)));
+            result.add(new Article(url, topic, text, this.convertDate(date)));
         }
         return result;
     }
