@@ -9,7 +9,6 @@ import static org.junit.Assert.*;
 public class ParserTest {
 
 
-
     @Test
     public void getAllArticleOnPage() {
 
@@ -27,6 +26,9 @@ public class ParserTest {
 
     @Test
     public void parseCurrentPage() {
+        Parser parser = new Parser();
+        parser.init();
+        System.out.println("");
     }
 
     @Test
@@ -37,11 +39,26 @@ public class ParserTest {
     public void getDocFromUrl() {
     }
 
-    @Test
+    @Test(expected = IllegalStateException.class)
     public void findMatchCharSequence() {
         String[] topicsNotMatch = {"java script", "javascript"};
         Parser parser = new Parser();
-        Assert.assertThat(parser.findMatchCharSequence("The JavAScrIpt lang", topicsNotMatch), is(true));
-        Assert.assertThat(parser.findMatchCharSequence("The JavA ScrIpt lang", topicsNotMatch), is(true));
+        Assert.assertThat(parser.findMatchCharSequence("The javascript lang", topicsNotMatch),
+                is(true)
+        );
+        Assert.assertThat(parser.findMatchCharSequence("The java script lang", topicsNotMatch),
+                is(true)
+        );
+        Assert.assertThat(parser.findMatchCharSequence("The java lang", topicsNotMatch),
+                is(false)
+        );
+        // That method call generate IllegalStateException.
+        parser.findMatchCharSequence("shortStr", topicsNotMatch);
+    }
+
+    @Test
+    public void getMaxPageNumber() {
+        Parser parser = new Parser();
+        System.out.println(parser.getMaxPageNumber("https://www.sql.ru/forum/job/"));
     }
 }
