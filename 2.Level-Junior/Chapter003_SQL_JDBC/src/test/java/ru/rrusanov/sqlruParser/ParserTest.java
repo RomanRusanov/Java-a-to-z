@@ -1,7 +1,10 @@
 package ru.rrusanov.sqlruParser;
 
+import org.jsoup.select.Elements;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -27,8 +30,9 @@ public class ParserTest {
     @Test
     public void parseCurrentPage() {
         Parser parser = new Parser();
-        parser.init();
-        System.out.println("");
+        Elements allArticle = parser.getAllArticleOnPage("https://www.sql.ru/forum/job/2");
+        List<Article> listArticle = parser.parseCurrentPage(allArticle);
+        System.out.println(listArticle);
     }
 
     @Test
@@ -60,5 +64,20 @@ public class ParserTest {
     public void getMaxPageNumber() {
         Parser parser = new Parser();
         System.out.println(parser.getMaxPageNumber("https://www.sql.ru/forum/job/"));
+    }
+
+    @Test
+    public void processFirstStart() {
+        Parser parser = new Parser();
+        parser.processFirstStart();
+        System.out.println("");
+    }
+
+    @Test
+    public void parsePage5() {
+        Parser parser = new Parser();
+        Elements allArticle = parser.getAllArticleOnPage("https://www.sql.ru/forum/job/5");
+        List<Article> listArticle = parser.parseCurrentPage(allArticle);
+        System.out.println(listArticle);
     }
 }

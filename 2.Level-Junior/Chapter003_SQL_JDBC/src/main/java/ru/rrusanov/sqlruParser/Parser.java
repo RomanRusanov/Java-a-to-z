@@ -18,7 +18,7 @@ import java.util.*;
  */
 public class Parser {
 
-    private List<Article> currentPageListAllArticle;
+    private final List<Article> allMatchedArticle = new ArrayList<>();
     private String[] topicsNotMatch = {"javascript", "java script", "Java Script", "JavaScript"};
     private String[] topicsMatch = {"java", "Java", "JAVA"};
     private final Date dToday = new Date();
@@ -27,6 +27,7 @@ public class Parser {
     private final String strToday = format.format(dToday);
     private final String strYesterday = this.format.format(dYesterday);
     private Integer maxPageNumber;
+    private boolean noMoreMatchedArticle;
     /**
      * Logger.
      */
@@ -36,10 +37,21 @@ public class Parser {
      */
     private int version = 1;
 
-    public void init() {
-        Elements allArticleOnPage = this.getAllArticleOnPage("http://www.sql.ru/forum/job/2");
-        this.currentPageListAllArticle = this.parseCurrentPage(allArticleOnPage);
+    /**
+     * Default constructor.
+     */
+    public Parser() {
         this.maxPageNumber = getMaxPageNumber("http://www.sql.ru/forum/job/");
+        this.noMoreMatchedArticle = false;
+    }
+
+    public void processFirstStart() {
+        List<Article> listArticleOnCurrentPage;
+        for (int i = 0; i <= this.maxPageNumber && !noMoreMatchedArticle; i++) { //iterate by pages
+            Elements allArticleOnPage = this.getAllArticleOnPage("http://www.sql.ru/forum/job/" + (i + 1));
+            listArticleOnCurrentPage = this.parseCurrentPage(allArticleOnPage);
+            this.allMatchedArticle.addAll(listArticleOnCurrentPage);
+        }
     }
 
     public Document getDocFromUrl(String url) {
@@ -65,8 +77,7 @@ public class Parser {
         // check length strProcess and pattern String length
         for (int k = 0; k < pattern.length; k++) {
             if (pattern[k].length() > strProcess.length()) {
-                LOG.error(String.format("String(%s) to process shorter than pattern(%s)", strProcess, pattern[k]));
-                throw new IllegalStateException("String to process shorter than pattern");
+                return false;
             }
         }
         // find match char sequence
@@ -113,21 +124,33 @@ public class Parser {
     }
 
     public List<Article> parseCurrentPage(Elements forumTable) {
-        ArrayList<Article> result = new ArrayList<>();
+        List<Article> result = new ArrayList<>();
+        int counter = 0; // how many article sequent not matched by date.
+        String currYear = this.strToday.substring(this.strToday.length() - 2); // Current year
+        String stringToCompare = String.format(" %s, ", currYear);
         Elements curr = forumTable.first().child(0).children();
         Iterator<Element> iterator = curr.iterator();
         iterator.next();
         while (iterator.hasNext()) {
             Elements c = iterator.next().children();
+            String date = this.convertDate(c.last().text());
+            if (!date.contains(stringToCompare) && counter <= 4) {
+                counter++;
+                continue;
+            }
+            if (counter > 4) {
+                this.noMoreMatchedArticle = true;
+                break;
+            }
+            counter = 0;
             String topic = c.first().nextElementSibling().child(0).text();
             if (this.findMatchCharSequence(topic, this.topicsNotMatch) ||
                 !this.findMatchCharSequence(topic, this.topicsMatch)) {
                 continue;
             }
             String url = c.first().nextElementSibling().child(0).attributes().get("href");
-            String date = c.last().text();
             String text = this.getTextArticle(url);
-            result.add(new Article(url, topic, text, this.convertDate(date)));
+            result.add(new Article(url, topic, text, date));
         }
         return result;
     }
