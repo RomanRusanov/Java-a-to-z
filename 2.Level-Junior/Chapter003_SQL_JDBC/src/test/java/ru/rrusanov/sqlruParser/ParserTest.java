@@ -3,11 +3,8 @@ package ru.rrusanov.sqlruParser;
 import org.jsoup.select.Elements;
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.util.List;
-
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
 
 public class ParserTest {
 
@@ -79,5 +76,14 @@ public class ParserTest {
         Elements allArticle = parser.getAllArticleOnPage("https://www.sql.ru/forum/job/5");
         List<Article> listArticle = parser.parseCurrentPage(allArticle);
         System.out.println(listArticle);
+    }
+
+    @Test
+    public void compareStringDate() {
+        Parser parser = new Parser();
+        String date1 = "01 янв 99, 12:00";
+        String date2 = "01 янв 99, 12:01";
+        boolean result = parser.compareStringDate(date1, date2);
+        Assert.assertThat(result, is(false));
     }
 }

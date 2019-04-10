@@ -8,6 +8,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -23,11 +24,13 @@ public class Parser {
     private String[] topicsMatch = {"java", "Java", "JAVA"};
     private final Date dToday = new Date();
     private final Date dYesterday = new Date(System.currentTimeMillis() - 86400000);
-    private final SimpleDateFormat format = new SimpleDateFormat("dd MMM yy");
-    private final String strToday = format.format(dToday);
-    private final String strYesterday = this.format.format(dYesterday);
+    private final SimpleDateFormat formatShort = new SimpleDateFormat("dd MMM yy");
+    private final SimpleDateFormat formatFull = new SimpleDateFormat("dd MMM yy, HH:mm");
+    private final String strToday = this.formatShort.format(dToday);
+    private final String strYesterday = this.formatShort.format(dYesterday);
     private Integer maxPageNumber;
     private boolean noMoreMatchedArticle;
+    private String lastArticleDate;
     /**
      * Logger.
      */
@@ -74,7 +77,7 @@ public class Parser {
 
 
     public boolean findMatchCharSequence(String strProcess, String[] pattern) {
-        // check length strProcess and pattern String length
+        // check length strProcess and pattern String length. The pattern string must be shorter.
         for (int k = 0; k < pattern.length; k++) {
             if (pattern[k].length() > strProcess.length()) {
                 return false;
@@ -88,10 +91,12 @@ public class Parser {
             int strCursor = 0;
             for (int j = 0; j < strProcess.length(); j++) { // array strProcess
                 flag = false;
+                // find equal char in strProcess and pattern.
                 if (pattern[i].charAt(strCursor) == strProcess.charAt(j)) {
-                    flag = true; // find equal char in strProcess and pattern.
+                    flag = true;
                     counter++;
                     strCursor++;
+                    // check if pattern length equals funded chars when matched funded
                     if (counter == pattern[i].length()) {
                         result = true;
                         break;
@@ -134,6 +139,7 @@ public class Parser {
         while (iterator.hasNext()) {
             Elements c = iterator.next().children();
             String date = this.convertDate(c.last().text());
+            //compare
             if (!date.contains(stringToCompare) && counter <= 4) {
                 counter++;
                 continue;
@@ -166,4 +172,23 @@ public class Parser {
         return result;
     }
 
+    public boolean compareStringDate(String date1, String date2) {
+        Date d1 = null;
+        Date d2 = null;
+        try {
+            d1 = this.formatFull.parse(date1);
+        } catch (ParseException e) {
+            LOG.error(String.format(
+                    "Error parse date(%s). Version:%d%n Exception:%s", date1, version, e.toString())
+            );
+        }
+        try {
+            d2 = this.formatFull.parse(date2);
+        } catch (ParseException e) {
+            LOG.error(String.format(
+                    "Error parse date(%s). Version:%d%n Exception:%s", date2, version, e.toString())
+            );
+        }
+        return d1.compareTo(d2) > 0;
+    }
 }
