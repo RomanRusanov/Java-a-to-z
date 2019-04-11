@@ -30,7 +30,9 @@ public class Parser {
     private final String strYesterday = this.formatShort.format(dYesterday);
     private Integer maxPageNumber;
     private boolean noMoreMatchedArticle;
-    private String lastArticleDate;
+    private String lastArticleDate = "01 янв 70, 00:00";
+    private boolean firstStart = true;
+    private boolean stopProcess = false;
     /**
      * Logger.
      */
@@ -48,13 +50,19 @@ public class Parser {
         this.noMoreMatchedArticle = false;
     }
 
-    public void processFirstStart() {
+    public void processStart() {
         List<Article> listArticleOnCurrentPage;
         for (int i = 0; i <= this.maxPageNumber && !noMoreMatchedArticle; i++) { //iterate by pages
             Elements allArticleOnPage = this.getAllArticleOnPage("http://www.sql.ru/forum/job/" + (i + 1));
+            // on second start not fund new article.
+            if (!this.firstStart && stopProcess) {
+                break;
+            }
             listArticleOnCurrentPage = this.parseCurrentPage(allArticleOnPage);
             this.allMatchedArticle.addAll(listArticleOnCurrentPage);
         }
+        this.noMoreMatchedArticle = false;
+        this.firstStart = false;
     }
 
     public Document getDocFromUrl(String url) {
@@ -78,26 +86,26 @@ public class Parser {
 
     public boolean findMatchCharSequence(String strProcess, String[] pattern) {
         // check length strProcess and pattern String length. The pattern string must be shorter.
-        for (int k = 0; k < pattern.length; k++) {
-            if (pattern[k].length() > strProcess.length()) {
+        for (String str : pattern) {
+            if (str.length() > strProcess.length()) {
                 return false;
             }
         }
         // find match char sequence
         boolean result = false;
         boolean flag; //by default chars not equals.
-        for (int i = 0; i < pattern.length; i++) { // array pattern
+        for (String str : pattern) { // array pattern
             int counter = 0; // how many fined equals char
             int strCursor = 0;
             for (int j = 0; j < strProcess.length(); j++) { // array strProcess
                 flag = false;
                 // find equal char in strProcess and pattern.
-                if (pattern[i].charAt(strCursor) == strProcess.charAt(j)) {
+                if (str.charAt(strCursor) == strProcess.charAt(j)) {
                     flag = true;
                     counter++;
                     strCursor++;
                     // check if pattern length equals funded chars when matched funded
-                    if (counter == pattern[i].length()) {
+                    if (counter == str.length()) {
                         result = true;
                         break;
                     }
@@ -131,6 +139,7 @@ public class Parser {
     public List<Article> parseCurrentPage(Elements forumTable) {
         List<Article> result = new ArrayList<>();
         int counter = 0; // how many article sequent not matched by date.
+        int counterOldDate = 0;
         String currYear = this.strToday.substring(this.strToday.length() - 2); // Current year
         String stringToCompare = String.format(" %s, ", currYear);
         Elements curr = forumTable.first().child(0).children();
@@ -140,6 +149,17 @@ public class Parser {
             Elements c = iterator.next().children();
             String date = this.convertDate(c.last().text());
             //compare
+            if (!this.firstStart && counterOldDate > 10) {
+                this.stopProcess = true;
+                break;
+            }
+            // check the field lastArticleDate must store the date of the most recent article.
+            if (!this.compareStringDate(this.lastArticleDate, date)) {
+                this.lastArticleDate = date;
+                counterOldDate = 0;
+            } else {
+                counterOldDate++;
+            }
             if (!date.contains(stringToCompare) && counter <= 4) {
                 counter++;
                 continue;
@@ -156,7 +176,10 @@ public class Parser {
             }
             String url = c.first().nextElementSibling().child(0).attributes().get("href");
             String text = this.getTextArticle(url);
-            result.add(new Article(url, topic, text, date));
+            Article currentArticle = new Article(url, topic, text, date);
+            if (!this.allMatchedArticle.contains(currentArticle)) {
+                result.add(currentArticle);
+            }
         }
         return result;
     }

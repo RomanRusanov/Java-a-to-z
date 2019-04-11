@@ -40,7 +40,7 @@ public class ParserTest {
     public void getDocFromUrl() {
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test()
     public void findMatchCharSequence() {
         String[] topicsNotMatch = {"java script", "javascript"};
         Parser parser = new Parser();
@@ -53,8 +53,7 @@ public class ParserTest {
         Assert.assertThat(parser.findMatchCharSequence("The java lang", topicsNotMatch),
                 is(false)
         );
-        // That method call generate IllegalStateException.
-        parser.findMatchCharSequence("shortStr", topicsNotMatch);
+        Assert.assertThat(parser.findMatchCharSequence("shortStr", topicsNotMatch), is(false));
     }
 
     @Test
@@ -64,9 +63,10 @@ public class ParserTest {
     }
 
     @Test
-    public void processFirstStart() {
+    public void process() {
         Parser parser = new Parser();
-        parser.processFirstStart();
+        parser.processStart();
+        parser.processStart();
         System.out.println("");
     }
 
