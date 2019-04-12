@@ -65,8 +65,10 @@ public class ParserTest {
     @Test
     public void process() {
         Parser parser = new Parser();
-        parser.processStart();
-        parser.processStart();
+        DBService dbService = new DBService(new Config());
+        parser.process();
+        parser.process();
+        dbService.insertArticleListToDB(parser.getAllMatchedArticle());
         System.out.println("");
     }
 

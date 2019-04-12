@@ -50,7 +50,15 @@ public class Parser {
         this.noMoreMatchedArticle = false;
     }
 
-    public void processStart() {
+    public void clearList() {
+        this.allMatchedArticle.clear();
+    }
+
+    public List<Article> getAllMatchedArticle() {
+        return allMatchedArticle;
+    }
+
+    public void process() {
         List<Article> listArticleOnCurrentPage;
         for (int i = 0; i <= this.maxPageNumber && !noMoreMatchedArticle; i++) { //iterate by pages
             Elements allArticleOnPage = this.getAllArticleOnPage("http://www.sql.ru/forum/job/" + (i + 1));
