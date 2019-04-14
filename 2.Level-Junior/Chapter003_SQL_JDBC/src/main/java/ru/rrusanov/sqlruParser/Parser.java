@@ -6,6 +6,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.quartz.Job;
+import org.quartz.JobDataMap;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -17,7 +21,7 @@ import java.util.*;
  * @version 0.1
  * @since 27.03.2019
  */
-public class Parser {
+public class Parser implements Job {
 
     private final List<Article> allMatchedArticle = new ArrayList<>();
     private String[] topicsNotMatch = {"javascript", "java script", "Java Script", "JavaScript"};
@@ -50,15 +54,14 @@ public class Parser {
         this.noMoreMatchedArticle = false;
     }
 
-    public void clearList() {
-        this.allMatchedArticle.clear();
-    }
-
     public List<Article> getAllMatchedArticle() {
         return allMatchedArticle;
     }
 
-    public void process() {
+    @Override
+    public void execute(JobExecutionContext context) throws JobExecutionException {
+        JobDataMap dataMap = context.getMergedJobDataMap();
+        this.firstStart = dataMap
         List<Article> listArticleOnCurrentPage;
         for (int i = 0; i <= this.maxPageNumber && !noMoreMatchedArticle; i++) { //iterate by pages
             Elements allArticleOnPage = this.getAllArticleOnPage("http://www.sql.ru/forum/job/" + (i + 1));
@@ -72,6 +75,20 @@ public class Parser {
         this.noMoreMatchedArticle = false;
         this.firstStart = false;
     }
+//    public void process() {
+//        List<Article> listArticleOnCurrentPage;
+//        for (int i = 0; i <= this.maxPageNumber && !noMoreMatchedArticle; i++) { //iterate by pages
+//            Elements allArticleOnPage = this.getAllArticleOnPage("http://www.sql.ru/forum/job/" + (i + 1));
+//            // on second start not fund new article.
+//            if (!this.firstStart && stopProcess) {
+//                break;
+//            }
+//            listArticleOnCurrentPage = this.parseCurrentPage(allArticleOnPage);
+//            this.allMatchedArticle.addAll(listArticleOnCurrentPage);
+//        }
+//        this.noMoreMatchedArticle = false;
+//        this.firstStart = false;
+//    }
 
     public Document getDocFromUrl(String url) {
         Document currentPage = null;
