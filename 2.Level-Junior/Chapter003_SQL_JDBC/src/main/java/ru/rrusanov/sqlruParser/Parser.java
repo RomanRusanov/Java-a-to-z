@@ -6,10 +6,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.quartz.Job;
-import org.quartz.JobDataMap;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
+import org.quartz.*;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -21,6 +18,7 @@ import java.util.*;
  * @version 0.1
  * @since 27.03.2019
  */
+@PersistJobDataAfterExecution
 public class Parser implements Job {
 
     private final List<Article> allMatchedArticle = new ArrayList<>();
@@ -58,10 +56,18 @@ public class Parser implements Job {
         return allMatchedArticle;
     }
 
+    public boolean getFirstStart() {
+        return this.firstStart;
+    }
+
+    public void setFirstStart(boolean firstStart) {
+        this.firstStart = firstStart;
+    }
+
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         JobDataMap dataMap = context.getMergedJobDataMap();
-        this.firstStart = dataMap
+//        this.firstStart = dataMap.getBoolean("firstStart");
         List<Article> listArticleOnCurrentPage;
         for (int i = 0; i <= this.maxPageNumber && !noMoreMatchedArticle; i++) { //iterate by pages
             Elements allArticleOnPage = this.getAllArticleOnPage("http://www.sql.ru/forum/job/" + (i + 1));
