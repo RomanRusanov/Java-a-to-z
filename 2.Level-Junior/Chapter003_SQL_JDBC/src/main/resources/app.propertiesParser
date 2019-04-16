@@ -1,5 +1,6 @@
 fileDB = parser.db
-pathToDB = ./db/
+##pathToDB = ./db/
+pathToDB =
 url = jdbc:sqlite:
 username=user
 password=password

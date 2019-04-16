@@ -6,13 +6,17 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.quartz.*;
-
+import org.quartz.Job;
+import org.quartz.JobDataMap;
+import org.quartz.JobExecutionContext;
+import org.quartz.PersistJobDataAfterExecution;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -35,6 +39,7 @@ public class Parser implements Job {
     private String lastArticleDate = "01 янв 70, 00:00";
     private boolean firstStart = true;
     private boolean stopProcess = false;
+    private DBService dbService = new DBService(new Config());
     /**
      * Logger.
      */
@@ -56,18 +61,18 @@ public class Parser implements Job {
         return allMatchedArticle;
     }
 
-    public boolean getFirstStart() {
-        return this.firstStart;
+    public boolean isFirstStart() {
+        return firstStart;
     }
 
     public void setFirstStart(boolean firstStart) {
         this.firstStart = firstStart;
     }
 
+
     @Override
-    public void execute(JobExecutionContext context) throws JobExecutionException {
-        JobDataMap dataMap = context.getMergedJobDataMap();
-//        this.firstStart = dataMap.getBoolean("firstStart");
+    public void execute(JobExecutionContext context) {
+        JobDataMap dataMap = context.getJobDetail().getJobDataMap();
         List<Article> listArticleOnCurrentPage;
         for (int i = 0; i <= this.maxPageNumber && !noMoreMatchedArticle; i++) { //iterate by pages
             Elements allArticleOnPage = this.getAllArticleOnPage("http://www.sql.ru/forum/job/" + (i + 1));
@@ -77,24 +82,12 @@ public class Parser implements Job {
             }
             listArticleOnCurrentPage = this.parseCurrentPage(allArticleOnPage);
             this.allMatchedArticle.addAll(listArticleOnCurrentPage);
+            LOG.error(String.format("Page http://www.sql.ru/forum/job/%d", i));
         }
+        this.dbService.insertArticleListToDB(this.allMatchedArticle);
         this.noMoreMatchedArticle = false;
-        this.firstStart = false;
+        dataMap.put("firstStart", false);
     }
-//    public void process() {
-//        List<Article> listArticleOnCurrentPage;
-//        for (int i = 0; i <= this.maxPageNumber && !noMoreMatchedArticle; i++) { //iterate by pages
-//            Elements allArticleOnPage = this.getAllArticleOnPage("http://www.sql.ru/forum/job/" + (i + 1));
-//            // on second start not fund new article.
-//            if (!this.firstStart && stopProcess) {
-//                break;
-//            }
-//            listArticleOnCurrentPage = this.parseCurrentPage(allArticleOnPage);
-//            this.allMatchedArticle.addAll(listArticleOnCurrentPage);
-//        }
-//        this.noMoreMatchedArticle = false;
-//        this.firstStart = false;
-//    }
 
     public Document getDocFromUrl(String url) {
         Document currentPage = null;

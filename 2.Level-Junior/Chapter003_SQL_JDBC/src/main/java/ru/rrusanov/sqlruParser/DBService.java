@@ -2,8 +2,11 @@ package ru.rrusanov.sqlruParser;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 import static ru.rrusanov.trackerSQL.ConnectionRollback.create;
@@ -101,7 +104,7 @@ public class DBService implements AutoCloseable {
             ) {
                 String topic = article.getTopic();
                 if (this.existArticleNameInBD(article.getTopic())) {
-                    topic = "Дубликат! " + topic;
+                    continue;
                 }
                 ps.setString(1, topic);
                 ps.setString(2, article.getText());
