@@ -17,8 +17,6 @@ public class DBServiceTest {
      */
     @Before
     public void setUp() {
-        this.config = new Config();
-        this.dbService = new DBService(this.config);
     }
 
     @Test public void test() {

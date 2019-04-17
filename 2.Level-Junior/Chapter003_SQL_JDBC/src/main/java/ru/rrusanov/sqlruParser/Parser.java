@@ -1,5 +1,4 @@
 package ru.rrusanov.sqlruParser;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
@@ -26,20 +25,21 @@ import java.util.List;
 public class Parser implements Job {
 
     private final List<Article> allMatchedArticle = new ArrayList<>();
-    private String[] topicsNotMatch = {"javascript", "java script", "Java Script", "JavaScript"};
-    private String[] topicsMatch = {"java", "Java", "JAVA"};
-    private final Date dToday = new Date();
-    private final Date dYesterday = new Date(System.currentTimeMillis() - 86400000);
+    private final String[] topicsNotMatch = {"javascript", "java script", "Java Script", "JavaScript"};
+    private final String[] topicsMatch = {"java", "Java", "JAVA"};
+    private final Date dToday;
+    private final Date dYesterday;
     private final SimpleDateFormat formatShort = new SimpleDateFormat("dd MMM yy");
     private final SimpleDateFormat formatFull = new SimpleDateFormat("dd MMM yy, HH:mm");
-    private final String strToday = this.formatShort.format(dToday);
-    private final String strYesterday = this.formatShort.format(dYesterday);
-    private Integer maxPageNumber;
+    private final String strToday;
+    private final String strYesterday;
+    private final Integer maxPageNumber;
     private boolean noMoreMatchedArticle;
     private String lastArticleDate = "01 янв 70, 00:00";
     private boolean firstStart = true;
     private boolean stopProcess = false;
-    private DBService dbService = new DBService(new Config());
+    private String configFile;
+    private DBService dbService;
     /**
      * Logger.
      */
@@ -55,13 +55,17 @@ public class Parser implements Job {
     public Parser() {
         this.maxPageNumber = getMaxPageNumber("http://www.sql.ru/forum/job/");
         this.noMoreMatchedArticle = false;
+        this.dToday = new Date();
+        this.strToday = this.formatShort.format(dToday);
+        this.dYesterday = new Date(System.currentTimeMillis() - 86400000);
+        this.strYesterday = this.formatShort.format(dYesterday);
     }
 
     public List<Article> getAllMatchedArticle() {
         return allMatchedArticle;
     }
 
-    public boolean isFirstStart() {
+    public boolean getFirstStart() {
         return firstStart;
     }
 
@@ -69,24 +73,42 @@ public class Parser implements Job {
         this.firstStart = firstStart;
     }
 
+    public String getLastArticleDate() {
+        return lastArticleDate;
+    }
+
+    public void setLastArticleDate(String lastArticleDate) {
+        this.lastArticleDate = lastArticleDate;
+    }
+
+    public String getConfigFile() {
+        return configFile;
+    }
+
+    public void setConfigFile(String configFile) {
+        this.configFile = configFile;
+    }
 
     @Override
     public void execute(JobExecutionContext context) {
         JobDataMap dataMap = context.getJobDetail().getJobDataMap();
         List<Article> listArticleOnCurrentPage;
-        for (int i = 0; i <= this.maxPageNumber && !noMoreMatchedArticle; i++) { //iterate by pages
-            Elements allArticleOnPage = this.getAllArticleOnPage("http://www.sql.ru/forum/job/" + (i + 1));
+        for (int i = 1; i <= this.maxPageNumber && !noMoreMatchedArticle; i++) { //iterate by pages
+            Elements allArticleOnPage = this.getAllArticleOnPage("http://www.sql.ru/forum/job/" + i);
             // on second start not fund new article.
             if (!this.firstStart && stopProcess) {
                 break;
             }
             listArticleOnCurrentPage = this.parseCurrentPage(allArticleOnPage);
             this.allMatchedArticle.addAll(listArticleOnCurrentPage);
-            LOG.error(String.format("Page http://www.sql.ru/forum/job/%d", i));
+            LOG.info(String.format("Page http://www.sql.ru/forum/job/%d", i));
         }
+        this.dbService = new DBService(new Config(this.configFile));
         this.dbService.insertArticleListToDB(this.allMatchedArticle);
         this.noMoreMatchedArticle = false;
         dataMap.put("firstStart", false);
+        dataMap.put("lastArticleDate", this.lastArticleDate);
+        LOG.info(String.format("LastArticleDate after page parse: %s", this.lastArticleDate));
     }
 
     public Document getDocFromUrl(String url) {
@@ -103,8 +125,8 @@ public class Parser implements Job {
 
     public int getMaxPageNumber(String site) {
         Document currentPage = this.getDocFromUrl(site);
-        Elements sort_options = currentPage.getElementsByAttributeValue("style", "text-align:left");
-        return Integer.parseInt(sort_options.first().child(10).text());
+        Elements sortOptions = currentPage.getElementsByAttributeValue("style", "text-align:left");
+        return Integer.parseInt(sortOptions.first().child(10).text());
     }
 
 

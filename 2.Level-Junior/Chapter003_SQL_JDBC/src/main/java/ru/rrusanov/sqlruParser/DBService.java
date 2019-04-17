@@ -2,6 +2,8 @@ package ru.rrusanov.sqlruParser;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +12,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 import static ru.rrusanov.trackerSQL.ConnectionRollback.create;
-
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -31,7 +32,7 @@ public class DBService implements AutoCloseable {
     private int version = 1;
 
     public DBService(Config config) {
-        this.initConnectionToSQLiteDB(config.getValues());
+        this.initConnectionToSQLiteDB(config.getConfig());
         this.createTable();
     }
 
@@ -98,6 +99,7 @@ public class DBService implements AutoCloseable {
     }
 
     public void insertArticleListToDB(List<Article> articleList) {
+        int numArticleInsertToDB = 0;
         for (Article article : articleList) {
             try (PreparedStatement ps = this.connection.prepareStatement(
                 "insert into vacancy (name, text, link) values (?, ?, ?)")
@@ -109,7 +111,7 @@ public class DBService implements AutoCloseable {
                 ps.setString(1, topic);
                 ps.setString(2, article.getText());
                 ps.setString(3, article.getUrl());
-                LOG.info("To vacancy table row added: " + ps.executeUpdate());
+                numArticleInsertToDB =  numArticleInsertToDB + ps.executeUpdate();
                 this.connection.commit();
             } catch (SQLException e) {
                 try {
@@ -127,6 +129,7 @@ public class DBService implements AutoCloseable {
 
             }
         }
+        LOG.info(String.format("Article(s) added to DB: %d", numArticleInsertToDB));
     }
 
     public boolean existArticleNameInBD(String topic) {
@@ -147,6 +150,4 @@ public class DBService implements AutoCloseable {
         }
         return result;
     }
-
-
 }

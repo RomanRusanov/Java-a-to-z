@@ -3,7 +3,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * Class create connection to SQLite db.
+ * Class contain configuration connection to SQLite db, cron scheduler parameters.
  *
  * @author Roman Rusanov
  * @version 0.1
@@ -13,29 +13,28 @@ public class Config {
     /**
      * The field contain properties of connection to db.
      */
-    private final Properties values = new Properties();
-
+    private final Properties config = new Properties();
     /**
      * The default constructor.
      * Initiate connection.
      */
-    public Config() {
-        this.init();
+    public Config(String configFile) {
+        this.init(configFile);
     }
 
     /**
      * Getter for properties.
      * @return properties.
      */
-    public Properties getValues() {
-        return values;
+    public Properties getConfig() {
+        return config;
     }
     /**
-     * The method load properties from file app.propertiesParser.
+     * The method load properties from file example (app.propertiesParser).
      */
-    public void init() {
-        try (InputStream in = Config.class.getClassLoader().getResourceAsStream("app.propertiesParser")) {
-            values.load(in);
+    public void init(String configFile) {
+        try (InputStream in = Config.class.getClassLoader().getResourceAsStream(configFile)) {
+            config.load(in);
         } catch (Exception e) {
             throw new IllegalStateException("Config from file: app.propertiesParser not loaded. " + e);
         }

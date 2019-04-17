@@ -9,7 +9,13 @@
         <Logger name="ru.rrusanov.log4j2" level="trace" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
-        <Root level="error">
+        <Logger name="Parser" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="DBService" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Root level="info">
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>

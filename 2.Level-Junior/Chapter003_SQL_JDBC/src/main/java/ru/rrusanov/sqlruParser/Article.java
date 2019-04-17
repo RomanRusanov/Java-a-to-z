@@ -1,11 +1,11 @@
 package ru.rrusanov.sqlruParser;
-
 import java.util.Objects;
-
 /**
  * @author Roman Rusanov
  * @version 0.1
  * @since 30.03.2019
+ *
+ * The class describe
  */
 public class Article {
 
