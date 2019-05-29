@@ -1,5 +1,4 @@
 package ru.rrusanov;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -11,11 +10,11 @@ import java.util.Scanner;
  */
 public class ConsoleInput {
     /**
-     * @{value} for capture system in.
+     * The field contain instance for capture system in.
      */
     private Scanner scanner = new Scanner(System.in);
     /**
-     * input from console to string value.
+     * Input from console to string value.
      * @param question print message for user
      * @return string what user enter from console
      */
