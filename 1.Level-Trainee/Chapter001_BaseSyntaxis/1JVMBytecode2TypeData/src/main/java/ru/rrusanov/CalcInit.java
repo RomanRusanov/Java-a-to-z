@@ -7,25 +7,35 @@ package ru.rrusanov;
  * Class demonstrate simple calculator.
  */
 public class CalcInit {
+
+	private InteractCalc interactCalc;
+
+	private ConsoleInput consoleInput;
+
+	public CalcInit(InteractCalc interactCalc, ConsoleInput consoleInput) {
+		this.interactCalc = interactCalc;
+		this.consoleInput = consoleInput;
+	}
+
+	public void init() {
+		do {
+			interactCalc.writeToConsoleMenu();
+			interactCalc.takeUserChoose();
+			interactCalc.takeArgumentsFromConsole();
+			interactCalc.executeAction();
+			interactCalc.printResultToConsole();
+		} while (!"y".equals(this.consoleInput.ask("Exit?(y)")));
+	}
+
 	/**
 	 * Main method.
 	 * @param args arguments.
 	 */
 	public static void main(String[] args) {
-		Calculator calc = new Calculator();
-		//
-		int first = 5;
-		int second = 5;
-		calc.add(first, second);
-		System.out.printf("%d + %d = %.0f ", first, second, calc.getResult());
-		//
-		calc.subtract(first, second);
-		System.out.printf("%d - %d = %.0f ", first, second, calc.getResult());
-		//
-		calc.div(first, second);
-		System.out.printf("%d / %d = %.0f ", first, second, calc.getResult());
-		//
-		calc.multiple(first, second);
-		System.out.printf("%d * %d = %.0f ", first, second, calc.getResult());
+		Calculator calculator = new Calculator();
+		ConsoleInput consoleInput = new ConsoleInput();
+		InteractCalc interactCalc = new InteractCalc(calculator, consoleInput);
+		CalcInit calcInit = new CalcInit(interactCalc, consoleInput);
+		calcInit.init();
 	}
 }
