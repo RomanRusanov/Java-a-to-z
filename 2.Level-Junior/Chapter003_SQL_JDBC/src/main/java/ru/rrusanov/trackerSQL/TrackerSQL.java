@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 import ru.rrusanov.tracker.ConsoleInput;
 import ru.rrusanov.tracker.ITracker;
 import ru.rrusanov.tracker.Input;
-import ru.rrusanov.log4j2.UsageLog4j2;
 import ru.rrusanov.tracker.model.Item;
 import java.io.InputStream;
 import java.sql.Connection;

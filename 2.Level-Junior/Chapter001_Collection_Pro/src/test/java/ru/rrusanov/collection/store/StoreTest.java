@@ -4,6 +4,9 @@ import ru.rrusanov.collection.store.Store.User;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
+
+import static org.hamcrest.Matchers.is;
+
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -27,7 +30,7 @@ public class StoreTest {
     /**
      * The field contains user stored previous list.
      */
-    private User user1 = new User("Ivan\n");
+    private User user1 = new User("Ivan");
     /**
      * The field contains user stored previous list.
      */
@@ -35,7 +38,7 @@ public class StoreTest {
     /**
      * The field contains user stored previous list.
      */
-    private User user3 = new User("Vladimir\n");
+    private User user3 = new User("Vladimir");
     /**
      * The field contains user stored current list.
      */
@@ -71,22 +74,22 @@ public class StoreTest {
      */
     @Test
     public void whenUsersNotInPreviousListThenItAddedToCurrent() {
-        Assert.assertTrue(info.getAdded().containsValue(user4));
-        Assert.assertTrue(info.getAdded().containsValue(user5));
+        Assert.assertThat(info.getAdded().containsValue(user4), is(true));
+        Assert.assertThat(info.getAdded().containsValue(user5), is(true));
     }
     /**
      * The test check method changedUser().
      */
     @Test
     public void whenIdSameAndNameNotThenUserBeChanged() {
-        Assert.assertTrue(info.getChanged().containsValue(user6));
+        Assert.assertThat(info.getChanged().containsValue(user6), is(true));
     }
     /**
      * The test check method removedUser().
      */
     @Test
     public void whenUsersNotInCurrentListThenItRemoved() {
-        Assert.assertTrue(info.getRemoved().containsValue(user1));
-        Assert.assertTrue(info.getRemoved().containsValue(user3));
+        Assert.assertThat(info.getRemoved().containsValue(user1), is(true));
+        Assert.assertThat(info.getRemoved().containsValue(user3), is(true));
     }
 }
