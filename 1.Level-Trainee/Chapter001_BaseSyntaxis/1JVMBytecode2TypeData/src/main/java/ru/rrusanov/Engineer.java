@@ -1,5 +1,11 @@
 package ru.rrusanov;
-
+/**
+ * @author Roman Rusanov
+ * @version 0.1
+ * @since 30.05.2019
+ *
+ * Class engineer calculator.
+ */
 public class Engineer {
     /**
      * value result.
@@ -7,36 +13,33 @@ public class Engineer {
     private double result = 0;
 
     /**
-     * Addition operation.
+     * Calculate sin.
      * @param first value for operation.
-     * @param second value for operation.
      */
-    public void add(double first, double second) {
-        this.result = first + second;
+    public void sin(double first) {
+        this.result = Math.sin(first);
     }
     /**
-     * Subtraction operation.
+     * Calculate cos.
      * @param first value for operation.
-     * @param second value for operation.
      */
-    public void subtract(double first, double second) {
-        this.result = first - second;
+    public void cos(double first) {
+        this.result = Math.cos(first);
     }
     /**
-     * Division operation.
+     * Calculate tan.
      * @param first value for operation.
-     * @param second value for operation.
      */
-    public void div(double first, double second) {
-        this.result = first / second;
+    public void tan(double first) {
+        this.result = Math.tan(first);
     }
     /**
-     * Multiple operation.
+     * Calculate pow.
      * @param first value for operation.
      * @param second value for operation.
      */
-    public void multiple(double first, double second) {
-        this.result = first * second;
+    public void pow(double first, double second) {
+        this.result = Math.pow(first, second);
     }
     /**
      * Getter for result value.

@@ -24,5 +24,20 @@
  *  public void takeUserChoose() The method take and save user choose of action from menu.
  *  public void executeAction() The method exucute action that user choose.
  *  public void printResultToConsole() The method print result to console.
+ *
+ * Interact.java The interface describe what methods must be implemented.
+ *  void writeToConsoleMenu() The method print menu to console.
+ *  void takeArgumentsFromConsole() The method take and save arguments from console.
+ *  void takeUserChoose() The method take and save user choose of action from menu.
+ *  void executeAction() The method exucute action that user choose.
+ *  void printResultToConsole() The method print result to console.
+ *
+ * InteractEng.java Class engineer calculator.
+ *  public InteractCalc(Engineer engineer, ConsoleInput consoleInput) The default constructor.
+ *  public void writeToConsoleMenu() The method print menu to console.
+ *  public void takeArgumentsFromConsole() The method take and save arguments from console.
+ *  public void takeUserChoose() The method take and save user choose of action from menu.
+ *  public void executeAction() The method exucute action that user choose.
+ *  public void printResultToConsole() The method print result to console.
  */
 package ru.rrusanov;

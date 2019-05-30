@@ -1,19 +1,9 @@
 package ru.rrusanov;
 
+/**
+ * The interface describe what methods must be implemented.
+ */
 public interface Interact {
-    /**
-     * The field contain instance of Calculator class.
-     */
-    Calculator calculator = null;
-    /**
-     * The field contain value that user choose.
-     */
-    Integer userChoose = -1;
-    /**
-     * The field contain instance of ConsoleInput class.
-     */
-    ConsoleInput consoleInput = null;
-
     /**
      * The method print menu to console.
      */

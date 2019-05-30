@@ -44,10 +44,10 @@ public class CalcInit {
 	 * @param args arguments.
 	 */
 	public static void main(String[] args) {
-		Calculator calculator = new Calculator();
+		Engineer engineer = new Engineer();
 		ConsoleInput consoleInput = new ConsoleInput();
-		InteractCalc interactCalc = new InteractCalc(calculator, consoleInput);
-		CalcInit calcInit = new CalcInit(interactCalc, consoleInput);
+		Interact interact = new InteractEng(engineer, consoleInput);
+		CalcInit calcInit = new CalcInit(interact, consoleInput);
 		calcInit.init();
 	}
 }
