@@ -3,7 +3,7 @@ package ru.rrusanov;
 /**
  * The class describe interact user and Calculator class, user input data from console.
  */
-public class InteractCalc {
+public class InteractCalc implements Interact{
     /**
      * The field contain first argument in operation.
      */

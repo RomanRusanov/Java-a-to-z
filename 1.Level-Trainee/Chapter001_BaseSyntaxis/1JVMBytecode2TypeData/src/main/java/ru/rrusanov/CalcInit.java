@@ -10,7 +10,7 @@ public class CalcInit {
 	/**
 	 * The field contain instance interact with calculator class.
 	 */
-	private InteractCalc interactCalc;
+	private Interact interact;
 	/**
 	 * The field contain instance produce user input from console.
 	 */
@@ -18,11 +18,11 @@ public class CalcInit {
 
 	/**
 	 * The default constructor.
-	 * @param interactCalc instance.
+	 * @param interact instance.
 	 * @param consoleInput instance.
 	 */
-	public CalcInit(InteractCalc interactCalc, ConsoleInput consoleInput) {
-		this.interactCalc = interactCalc;
+	public CalcInit(Interact interact, ConsoleInput consoleInput) {
+		this.interact = interact;
 		this.consoleInput = consoleInput;
 	}
 
@@ -31,11 +31,11 @@ public class CalcInit {
 	 */
 	public void init() {
 		do {
-			interactCalc.writeToConsoleMenu();
-			interactCalc.takeUserChoose();
-			interactCalc.takeArgumentsFromConsole();
-			interactCalc.executeAction();
-			interactCalc.printResultToConsole();
+			interact.writeToConsoleMenu();
+			interact.takeUserChoose();
+			interact.takeArgumentsFromConsole();
+			interact.executeAction();
+			interact.printResultToConsole();
 		} while (!"y".equals(this.consoleInput.ask("Exit?(y)")));
 	}
 
