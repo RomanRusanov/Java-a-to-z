@@ -1,4 +1,8 @@
 package ru.rrusanov;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -23,6 +27,10 @@ public class InteractEng implements Interact {
      * The field contain value that user choose.
      */
     private Integer userChoose = -1;
+    /**
+     * The field contain actions in menu.
+     */
+    private Map<Integer, Double> actions;
 
     /**
      * The default constructor.
@@ -32,6 +40,7 @@ public class InteractEng implements Interact {
     public InteractEng(Engineer engineer, ConsoleInput consoleInput) {
         this.engineer = engineer;
         this.consoleInput = consoleInput;
+        this.actions = new HashMap<>();
     }
     /**
      * The field contain instance of ConsoleInput class.
@@ -56,6 +65,9 @@ public class InteractEng implements Interact {
     @Override
     public void takeArgumentsFromConsole() {
         firstArg = Double.parseDouble(this.consoleInput.ask("Input first argument - "));
+        if (this.userChoose == 4) {
+            this.secondArg = Double.parseDouble(this.consoleInput.ask("Input second argument - "));
+        }
     }
 
     /**
@@ -67,23 +79,21 @@ public class InteractEng implements Interact {
     }
 
     /**
+     * The method fill map for each function calculate result.
+     */
+    public void fillActions() {
+        this.actions.put(1, this.engineer.sin(this.firstArg));
+        this.actions.put(2, this.engineer.cos(this.firstArg));
+        this.actions.put(3, this.engineer.tan(this.firstArg));
+        this.actions.put(4, this.engineer.pow(this.firstArg, this.secondArg));
+    }
+    /**
      * The method exucute action that user choose.
      */
     @Override
     public void executeAction() {
-        if (this.userChoose == 1) {
-            this.engineer.sin(this.firstArg);
-        }
-        if (this.userChoose == 2) {
-            this.engineer.cos(this.firstArg);
-        }
-        if (this.userChoose == 3) {
-            this.engineer.tan(this.firstArg);
-        }
-        if (this.userChoose == 4) {
-            this.secondArg = Double.parseDouble(this.consoleInput.ask("Input second argument - "));
-            this.engineer.pow(this.firstArg, this.secondArg);
-        }
+        this.fillActions();
+        this.engineer.setResult(this.actions.getOrDefault(this.userChoose, 0.0));
     }
 
     /**

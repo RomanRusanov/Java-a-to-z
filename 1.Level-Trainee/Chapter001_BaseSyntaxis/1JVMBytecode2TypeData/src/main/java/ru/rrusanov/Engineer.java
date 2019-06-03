@@ -15,31 +15,39 @@ public class Engineer {
     /**
      * Calculate sin.
      * @param first value for operation.
+     * @return double result.
      */
-    public void sin(double first) {
+    public double sin(double first) {
         this.result = Math.sin(first);
+        return this.result;
     }
     /**
      * Calculate cos.
      * @param first value for operation.
+     * @return double result.
      */
-    public void cos(double first) {
+    public double cos(double first) {
         this.result = Math.cos(first);
+        return this.result;
     }
     /**
      * Calculate tan.
      * @param first value for operation.
+     * @return double result.
      */
-    public void tan(double first) {
+    public double tan(double first) {
         this.result = Math.tan(first);
+        return this.result;
     }
     /**
      * Calculate pow.
      * @param first value for operation.
      * @param second value for operation.
+     * @return double result.
      */
-    public void pow(double first, double second) {
+    public double pow(double first, double second) {
         this.result = Math.pow(first, second);
+        return this.result;
     }
     /**
      * Getter for result value.
@@ -47,5 +55,13 @@ public class Engineer {
      */
     public double getResult() {
         return this.result;
+    }
+
+    /**
+     * Setter for result value.
+     * @param result double.
+     */
+    public void setResult(double result) {
+        this.result = result;
     }
 }
