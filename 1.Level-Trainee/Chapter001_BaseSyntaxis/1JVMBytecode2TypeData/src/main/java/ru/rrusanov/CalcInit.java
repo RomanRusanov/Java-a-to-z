@@ -45,8 +45,10 @@ public class CalcInit {
 	 */
 	public static void main(String[] args) {
 		Engineer engineer = new Engineer();
+//		Calculator calculator = new Calculator();
 		ConsoleInput consoleInput = new ConsoleInput();
 		Interact interact = new InteractEng(engineer, consoleInput);
+//		Interact interact = new InteractCalc(calculator, consoleInput);
 		CalcInit calcInit = new CalcInit(interact, consoleInput);
 		calcInit.init();
 	}

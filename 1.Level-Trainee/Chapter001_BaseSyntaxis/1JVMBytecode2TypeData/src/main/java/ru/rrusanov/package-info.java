@@ -19,6 +19,13 @@
  *
  * InteractCalc.java The class describe interact user and Calculator class, user input data from console.
  *  public InteractCalc(Calculator calculator, ConsoleInput consoleInput) The default constructor.
+ *  private void initFunc() The method add actions in map.
+ *  private Double add()The method call add function.
+ *  private Double sub() The method call subtract function.
+ *  private Double div() The method call div function.
+ *  private Double mult() The method call multiple function.
+ *  private Double previous()
+ *   The method use previous result as first argument and call function (add, sub, div, mult) on second argument.
  *  public void writeToConsoleMenu() The method print menu to console.
  *  public void takeArgumentsFromConsole() The method take and save arguments from console.
  *  public void takeUserChoose() The method take and save user choose of action from menu.
@@ -34,6 +41,11 @@
  *
  * InteractEng.java Class engineer calculator.
  *  public InteractCalc(Engineer engineer, ConsoleInput consoleInput) The default constructor.
+ *  private void initFunc() The method add actions in map.
+ *  private Double sin()The method call sin function.
+ *  private Double cos() The method call cos function.
+ *  private Double tang() The method call tang function.
+ *  private Double pow() The method call pow function.
  *  public void writeToConsoleMenu() The method print menu to console.
  *  public void takeArgumentsFromConsole() The method take and save arguments from console.
  *  public void takeUserChoose() The method take and save user choose of action from menu.

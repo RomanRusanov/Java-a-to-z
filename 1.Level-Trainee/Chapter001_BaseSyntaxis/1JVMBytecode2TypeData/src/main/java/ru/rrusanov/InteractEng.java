@@ -26,11 +26,15 @@ public class InteractEng implements Interact {
     /**
      * The field contain value that user choose.
      */
-    private Integer userChoose = -1;
+    private String userChoose = "";
     /**
-     * The field contain actions in menu.
+     * The field contain all actions in engineer calculator.
      */
-    private Map<Integer, Double> actions;
+    private Map<String, Action> actions = new HashMap<>();
+    /**
+     * The field contain instance of ConsoleInput class.
+     */
+    private ConsoleInput consoleInput;
 
     /**
      * The default constructor.
@@ -40,23 +44,65 @@ public class InteractEng implements Interact {
     public InteractEng(Engineer engineer, ConsoleInput consoleInput) {
         this.engineer = engineer;
         this.consoleInput = consoleInput;
-        this.actions = new HashMap<>();
-    }
-    /**
-     * The field contain instance of ConsoleInput class.
-     */
-    private ConsoleInput consoleInput;
+        this.initFunc();
 
+    }
+
+    /**
+     * The method add actions in map.
+     */
+    public void initFunc() {
+        this.actions.put("s", this::sin);
+        this.actions.put("c", this::cos);
+        this.actions.put("t", this::tang);
+        this.actions.put("p", this::pow);
+    }
+
+    /**
+     * The method call sin function.
+     * @return Double.
+     */
+    private Double sin() {
+        this.engineer.sin(this.firstArg);
+        return this.engineer.getResult();
+    }
+
+    /**
+     * The method call cos function.
+     * @return Double.
+     */
+    private Double cos() {
+        this.engineer.cos(this.firstArg);
+        return this.engineer.getResult();
+    }
+
+    /**
+     * The method call tang function.
+     * @return Double.
+     */
+    private Double tang() {
+        this.engineer.tan(this.firstArg);
+        return this.engineer.getResult();
+    }
+
+    /**
+     * The method call pow function.
+     * @return Double.
+     */
+    private Double pow() {
+        this.engineer.pow(this.firstArg, this.secondArg);
+        return this.engineer.getResult();
+    }
     /**
      * The method print menu to console.
      */
     @Override
     public void writeToConsoleMenu() {
         System.out.printf("Menu with actions choose:%n");
-        System.out.printf("1 trigonometric sine of an angle in between 0.0 and pi.%n");
-        System.out.printf("2 trigonometric cosine of an angle.%n");
-        System.out.printf("3 trigonometric tangent of an angle.%n");
-        System.out.printf("4 number raise to the power%n");
+        System.out.printf("s | trigonometric sine of an angle in between 0.0 and pi.%n");
+        System.out.printf("c | trigonometric cosine of an angle.%n");
+        System.out.printf("t | trigonometric tangent of an angle.%n");
+        System.out.printf("p | number raise to the power%n");
     }
 
     /**
@@ -65,7 +111,7 @@ public class InteractEng implements Interact {
     @Override
     public void takeArgumentsFromConsole() {
         firstArg = Double.parseDouble(this.consoleInput.ask("Input first argument - "));
-        if (this.userChoose == 4) {
+        if (this.userChoose.equals("p")) {
             this.secondArg = Double.parseDouble(this.consoleInput.ask("Input second argument - "));
         }
     }
@@ -75,25 +121,15 @@ public class InteractEng implements Interact {
      */
     @Override
     public void takeUserChoose() {
-        this.userChoose = Integer.valueOf(this.consoleInput.ask("Input number of actions"));
+        this.userChoose = this.consoleInput.ask("Input number of actions ");
     }
 
-    /**
-     * The method fill map for each function calculate result.
-     */
-    public void fillActions() {
-        this.actions.put(1, this.engineer.sin(this.firstArg));
-        this.actions.put(2, this.engineer.cos(this.firstArg));
-        this.actions.put(3, this.engineer.tan(this.firstArg));
-        this.actions.put(4, this.engineer.pow(this.firstArg, this.secondArg));
-    }
     /**
      * The method exucute action that user choose.
      */
     @Override
     public void executeAction() {
-        this.fillActions();
-        this.engineer.setResult(this.actions.getOrDefault(this.userChoose, 0.0));
+        this.actions.getOrDefault(this.userChoose, () -> System.out.println("Incorrect input!")).action();
     }
 
     /**
