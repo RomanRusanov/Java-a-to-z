@@ -1,5 +1,7 @@
 package ru.rrusanov;
 
+import java.util.Map;
+
 /**
  * The interface describe what methods must be implemented.
  */
@@ -20,12 +22,25 @@ public interface Interact {
     void takeUserChoose();
 
     /**
-     * The method exucute action that user choose.
+     * The method execute action that user choose.
+     * @param action action that user choose.
      */
-    void executeAction();
+    void executeAction(String action);
 
     /**
      * The method print result to console.
      */
     void printResultToConsole();
+
+    /**
+     * The getter for field.
+     * @return Map.
+     */
+    Map<String, Action> getActions();
+
+    /**
+     * The setter for field.
+     * @param value String(one symbol of action from menu).
+     */
+    void setUserChoose(String value);
 }

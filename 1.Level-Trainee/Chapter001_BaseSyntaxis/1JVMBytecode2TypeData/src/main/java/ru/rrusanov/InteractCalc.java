@@ -26,7 +26,7 @@ public class InteractCalc implements Interact {
     /**
      * The field contain instance of ConsoleInput class.
      */
-    private ConsoleInput consoleInput;
+    private ConsoleInput consoleInput = new ConsoleInput();
     /**
      * The field contain all actions in calculator.
      */
@@ -35,12 +35,23 @@ public class InteractCalc implements Interact {
     /**
      * The default constructor.
      * @param calculator instance.
-     * @param consoleInput instance.
      */
-    public InteractCalc(Calculator calculator, ConsoleInput consoleInput) {
+    public InteractCalc(Calculator calculator) {
         this.calculator = calculator;
-        this.consoleInput = consoleInput;
         this.initFunc();
+    }
+
+    /**
+     * The getter for actions field.
+     * @return Map.
+     */
+    public Map<String, Action> getActions() {
+        return this.actions;
+    }
+
+    @Override
+    public void setUserChoose(String value) {
+        this.userChoose = value;
     }
 
     /**
@@ -130,9 +141,10 @@ public class InteractCalc implements Interact {
 
     /**
      * The method execute action that user choose.
+     * @param action action that user choose.
      */
-    public void executeAction() {
-        this.actions.getOrDefault(this.userChoose, () -> System.out.println("Incorrect input!")).action();
+    public void executeAction(String action) {
+        this.actions.getOrDefault(action, () -> System.out.println("Incorrect input!")).action();
     }
 
     /**

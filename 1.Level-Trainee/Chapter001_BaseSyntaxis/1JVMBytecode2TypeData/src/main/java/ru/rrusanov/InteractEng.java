@@ -34,16 +34,14 @@ public class InteractEng implements Interact {
     /**
      * The field contain instance of ConsoleInput class.
      */
-    private ConsoleInput consoleInput;
+    private ConsoleInput consoleInput = new ConsoleInput();
 
     /**
      * The default constructor.
      * @param engineer instance.
-     * @param consoleInput instance.
      */
-    public InteractEng(Engineer engineer, ConsoleInput consoleInput) {
+    public InteractEng(Engineer engineer) {
         this.engineer = engineer;
-        this.consoleInput = consoleInput;
         this.initFunc();
 
     }
@@ -55,7 +53,7 @@ public class InteractEng implements Interact {
         this.actions.put("s", this::sin);
         this.actions.put("c", this::cos);
         this.actions.put("t", this::tang);
-        this.actions.put("p", this::pow);
+        this.actions.put("o", this::pow);
     }
 
     /**
@@ -102,7 +100,7 @@ public class InteractEng implements Interact {
         System.out.printf("s | trigonometric sine of an angle in between 0.0 and pi.%n");
         System.out.printf("c | trigonometric cosine of an angle.%n");
         System.out.printf("t | trigonometric tangent of an angle.%n");
-        System.out.printf("p | number raise to the power%n");
+        System.out.printf("o | number raise to the power%n");
     }
 
     /**
@@ -111,7 +109,7 @@ public class InteractEng implements Interact {
     @Override
     public void takeArgumentsFromConsole() {
         firstArg = Double.parseDouble(this.consoleInput.ask("Input first argument - "));
-        if (this.userChoose.equals("p")) {
+        if (this.userChoose.equals("o")) {
             this.secondArg = Double.parseDouble(this.consoleInput.ask("Input second argument - "));
         }
     }
@@ -128,8 +126,8 @@ public class InteractEng implements Interact {
      * The method exucute action that user choose.
      */
     @Override
-    public void executeAction() {
-        this.actions.getOrDefault(this.userChoose, () -> System.out.println("Incorrect input!")).action();
+    public void executeAction(String action) {
+        this.actions.getOrDefault(action, () -> System.out.println("Incorrect input!")).action();
     }
 
     /**
@@ -138,5 +136,15 @@ public class InteractEng implements Interact {
     @Override
     public void printResultToConsole() {
         System.out.printf("Result: %f", this.engineer.getResult());
+    }
+
+    @Override
+    public Map<String, Action> getActions() {
+        return this.actions;
+    }
+
+    @Override
+    public void setUserChoose(String value) {
+        this.userChoose = value;
     }
 }
