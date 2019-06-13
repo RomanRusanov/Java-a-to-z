@@ -7,7 +7,7 @@ public class Food {
 
     private String name;
 
-    private Calendar expaireDate;
+    private Calendar expireDate;
 
     private Calendar createDate;
 
@@ -23,12 +23,12 @@ public class Food {
         this.name = name;
     }
 
-    public Calendar getExpaireDate() {
-        return expaireDate;
+    public Calendar getExpireDate() {
+        return expireDate;
     }
 
-    public void setExpaireDate(Calendar expaireDate) {
-        this.expaireDate = expaireDate;
+    public void setExpireDate(Calendar expireDate) {
+        this.expireDate = expireDate;
     }
 
     public Calendar getCreateDate() {
@@ -63,28 +63,23 @@ public class Food {
         return Double.compare(food.price, price) == 0 &&
                 discount == food.discount &&
                 name.equals(food.name) &&
-                expaireDate.equals(food.expaireDate) &&
+                expireDate.equals(food.expireDate) &&
                 createDate.equals(food.createDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, expaireDate, createDate, price, discount);
+        return Objects.hash(name, expireDate, createDate, price, discount);
     }
 
     @Override
     public String toString() {
         return "Food{" +
                 "name='" + name + '\'' +
-                ", expaireDate=" + expaireDate +
+                ", expireDate=" + expireDate +
                 ", createDate=" + createDate +
                 ", price=" + price +
                 ", discount=" + discount +
                 '}';
-    }
-
-    public byte calculateDiscount() {
-        long timeInMillSec = this.expaireDate.getTimeInMillis() - this.createDate.getTimeInMillis();
-        long days = (timeInMillSec / (60*60*24*1000));
     }
 }
