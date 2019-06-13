@@ -49,6 +49,10 @@ public class InteractCalc implements Interact {
         return this.actions;
     }
 
+    /**
+     * Setter for field.
+     * @param value String(one symbol of action from menu).
+     */
     @Override
     public void setUserChoose(String value) {
         this.userChoose = value;
@@ -141,10 +145,9 @@ public class InteractCalc implements Interact {
 
     /**
      * The method execute action that user choose.
-     * @param action action that user choose.
      */
-    public void executeAction(String action) {
-        this.actions.getOrDefault(action, () -> System.out.println("Incorrect input!")).action();
+    public void executeAction() {
+        this.actions.getOrDefault(this.userChoose, () -> System.out.println("Incorrect input!")).action();
     }
 
     /**

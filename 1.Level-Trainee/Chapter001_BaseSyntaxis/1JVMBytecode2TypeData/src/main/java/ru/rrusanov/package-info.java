@@ -13,6 +13,7 @@
  * CalcInit.java Class demonstrate simple calculator, and use Single Responsibility Principal.
  *  public CalcInit(InteractCalc interactCalc, ConsoleInput consoleInput) The default constructor.
  *  public static void main(String[] args) Main method. Enter point.
+ *  public void init() The method initiate main execution.
  *
  * ConsoleInput.java A class implements an input from console.
  *  public String ask(String question) Input from console to string value.
@@ -38,6 +39,7 @@
  *  void takeUserChoose() The method take and save user choose of action from menu.
  *  void executeAction() The method exucute action that user choose.
  *  void printResultToConsole() The method print result to console.
+ *  void setUserChoose(String value)The setter for field.
  *
  * InteractEng.java Class engineer calculator.
  *  public InteractCalc(Engineer engineer, ConsoleInput consoleInput) The default constructor.
@@ -51,5 +53,14 @@
  *  public void takeUserChoose() The method take and save user choose of action from menu.
  *  public void executeAction() The method exucute action that user choose.
  *  public void printResultToConsole() The method print result to console.
+ *  public void checkActionExist() The method check what instance calculator to use.
+ *
+ * InteractWrapper.java The abstract class describe decorator methods.
+ *  void writeToConsoleMenu() The method print menu to console.
+ *  void takeArgumentsFromConsole() The method take and save arguments from console.
+ *  void takeUserChoose() The method take and save user choose of action from menu.
+ *  void executeAction() The method exucute action that user choose.
+ *  void printResultToConsole() The method print result to console.
+ *  void setUserChoose(String value)The setter for field.
  */
 package ru.rrusanov;

@@ -23,9 +23,8 @@ public interface Interact {
 
     /**
      * The method execute action that user choose.
-     * @param action action that user choose.
      */
-    void executeAction(String action);
+    void executeAction();
 
     /**
      * The method print result to console.

@@ -10,7 +10,11 @@ import java.util.Map;
  *
  * The class describe interact user and Engineer class, user input data from console.
  */
-public class InteractEng implements Interact {
+public class InteractEng extends InteractWrapper {
+    /**
+     * The field contain wrapped instance.
+     */
+    private Interact interact;
     /**
      * The field contain first argument in operation.
      */
@@ -35,15 +39,19 @@ public class InteractEng implements Interact {
      * The field contain instance of ConsoleInput class.
      */
     private ConsoleInput consoleInput = new ConsoleInput();
+    /**
+     * The filed contain state use this calculator or wrapped instance.
+     */
+    private boolean actionExist = false;
 
     /**
      * The default constructor.
-     * @param engineer instance.
+     * @param interact instance.
      */
-    public InteractEng(Engineer engineer) {
-        this.engineer = engineer;
+    public InteractEng(Interact interact) {
+        this.interact = interact;
+        this.engineer = new Engineer();
         this.initFunc();
-
     }
 
     /**
@@ -96,6 +104,7 @@ public class InteractEng implements Interact {
      */
     @Override
     public void writeToConsoleMenu() {
+        this.interact.writeToConsoleMenu();
         System.out.printf("Menu with actions choose:%n");
         System.out.printf("s | trigonometric sine of an angle in between 0.0 and pi.%n");
         System.out.printf("c | trigonometric cosine of an angle.%n");
@@ -108,9 +117,13 @@ public class InteractEng implements Interact {
      */
     @Override
     public void takeArgumentsFromConsole() {
-        firstArg = Double.parseDouble(this.consoleInput.ask("Input first argument - "));
-        if (this.userChoose.equals("o")) {
-            this.secondArg = Double.parseDouble(this.consoleInput.ask("Input second argument - "));
+        if (this.actionExist) {
+            firstArg = Double.parseDouble(this.consoleInput.ask("Input first argument - "));
+            if (this.userChoose.equals("o")) {
+                this.secondArg = Double.parseDouble(this.consoleInput.ask("Input second argument - "));
+            }
+        } else {
+            this.interact.takeArgumentsFromConsole();
         }
     }
 
@@ -120,14 +133,29 @@ public class InteractEng implements Interact {
     @Override
     public void takeUserChoose() {
         this.userChoose = this.consoleInput.ask("Input number of actions ");
+        this.checkActionExist();
+        if (!this.actionExist) {
+            this.setUserChoose(this.userChoose);
+        }
     }
 
     /**
-     * The method exucute action that user choose.
+     * The method check what instance calculator to use.
+     */
+    public void checkActionExist() {
+        this.actionExist = this.actions.containsKey(this.userChoose);
+    }
+
+    /**
+     * The method execute action that user choose.
      */
     @Override
-    public void executeAction(String action) {
-        this.actions.getOrDefault(action, () -> System.out.println("Incorrect input!")).action();
+    public void executeAction() {
+        if (this.actionExist) {
+            this.actions.get(this.userChoose).action();
+        } else {
+            this.interact.executeAction();
+        }
     }
 
     /**
@@ -135,16 +163,31 @@ public class InteractEng implements Interact {
      */
     @Override
     public void printResultToConsole() {
-        System.out.printf("Result: %f", this.engineer.getResult());
+        if (this.actionExist) {
+            System.out.printf("Result: %f", this.engineer.getResult());
+        } else {
+            this.interact.printResultToConsole();
+        }
+
     }
 
     @Override
     public Map<String, Action> getActions() {
-        return this.actions;
+        Map<String, Action> result;
+        if (this.actionExist) {
+            result = this.actions;
+        } else {
+            result = this.interact.getActions();
+        }
+        return result;
     }
 
     @Override
     public void setUserChoose(String value) {
-        this.userChoose = value;
+        if (this.actionExist) {
+            this.userChoose = value;
+        } else {
+            this.interact.setUserChoose(value);
+        }
     }
 }

@@ -1,88 +1,62 @@
 package ru.rrusanov;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 /**
- * The class contain all calculators and provide interaction with them.
+ * @author Roman Rusanov
+ * @version 0.1
+ * @since 13.06.2019
+ * The abstract class describe decorator methods.
  */
-public class InteractWrapper {
-    /**
-     * The collection contain all calculators.
-     */
-    private List<Interact> interactsCalcs = new LinkedList<>();
-    /**
-     * The field contain instance of console input.
-     */
-    private ConsoleInput consoleInput = new ConsoleInput();
-    /**
-     * The field contain that user input from console.
-     */
-    private String userChoose = "";
+public abstract class InteractWrapper implements Interact {
 
     /**
-     * The method add calculator to collection.
-     * @param interact Instance interact with calculator.
+     * The method take and save arguments from console.
      */
-    public void addInteract(Interact interact) {
-        this.interactsCalcs.add(interact);
+    @Override
+    public void takeArgumentsFromConsole() {
+
     }
 
     /**
-     * The method print all menus in console.
+     * The method take and save user choose of action from menu.
      */
-    public void writeToConsoleMenu() {
-        this.interactsCalcs.forEach(Interact::writeToConsoleMenu);
+    @Override
+    public void takeUserChoose() {
+
     }
 
     /**
-     * The method find matched action in calculators collection.
-     * @return Matched calculator.
+     * The method execute action that user choose.
      */
-    public Interact findMatchedInteract() {
-        Interact result = null;
-        Iterator<Interact> iterator = this.interactsCalcs.iterator();
-        boolean userChooseCorrect = false;
-        while (!userChooseCorrect) {
-            while (iterator.hasNext()) {
-                Interact currentInt = iterator.next();
-                Map<String, Action> intActions = currentInt.getActions();
-                if (intActions.getOrDefault(this.userChoose, null) != null) {
-                    result = currentInt;
-                    userChooseCorrect = true;
-                    break;
-                }
-            }
-            if (!userChooseCorrect) {
-                this.userChoose = getUserChoose();
-            }
-            iterator = this.interactsCalcs.iterator();
-        }
-        return result;
-    }
-
-    /**
-     * The method execute algorithm interaction.
-     */
+    @Override
     public void executeAction() {
-        do {
-            this.writeToConsoleMenu();
-            this.userChoose = this.getUserChoose();
-            Interact interact = findMatchedInteract();
-            interact.takeArgumentsFromConsole();
-            interact.executeAction(this.userChoose);
-            interact.printResultToConsole();
-        } while (!"y".equals(this.consoleInput.ask("Exit?(y) ")));
+
     }
 
     /**
-     * The method get input from console.
-     * @return String that user input.
+     * The method print result to console.
      */
-    public String getUserChoose() {
-        return new ConsoleInput().ask("Choose the action: ");
+    @Override
+    public void printResultToConsole() {
+
     }
 
+    /**
+     * The getter for field.
+     * @return Map.
+     */
+    @Override
+    public Map<String, Action> getActions() {
+        return null;
+    }
+
+    /**
+     * The setter for field.
+     * @param value String(one symbol of action from menu).
+     */
+    @Override
+    public void setUserChoose(String value) {
+
+    }
 }
