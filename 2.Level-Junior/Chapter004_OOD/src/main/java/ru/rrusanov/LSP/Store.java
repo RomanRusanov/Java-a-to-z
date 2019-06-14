@@ -6,9 +6,15 @@ import java.util.HashMap;
 
 public interface Store {
 
-    public boolean putInStore(Food food);
+    String getName();
 
-    public Food getFood(String name);
+    void putInStore(Food food);
 
-    public HashMap<String, Food> getAllFood();
+    Food getFood(String name);
+
+    HashMap<String, Food> getAllFood();
+
+    boolean removeFromStore(String name);
+
+    boolean isConditionMatched(Food food);
 }
