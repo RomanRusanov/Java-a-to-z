@@ -10,11 +10,10 @@ public interface Store {
 
     void putInStore(Food food);
 
-    Food getFood(String name);
-
     HashMap<String, Food> getAllFood();
 
     boolean removeFromStore(String name);
 
-    boolean isConditionMatched(Food food);
+    boolean isConditionMatched(Food food, Long passedTime);
+
 }

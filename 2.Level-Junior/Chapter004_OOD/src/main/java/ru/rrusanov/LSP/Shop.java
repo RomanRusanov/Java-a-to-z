@@ -25,13 +25,8 @@ public class Shop implements Store {
     }
 
     @Override
-    public Food getFood(String name) {
-        return null;
-    }
-
-    @Override
     public HashMap<String, Food> getAllFood() {
-        return null;
+        return this.container;
     }
 
     @Override
@@ -40,13 +35,13 @@ public class Shop implements Store {
     }
 
     @Override
-    public boolean isConditionMatched(Food food) {
+    public boolean isConditionMatched(Food food, Long passedTime) {
         boolean result = false;
-        Long currentTime = System.currentTimeMillis();
+        Long currentTime = passedTime == 0L ? System.currentTimeMillis(): passedTime;
         long createTime = food.getCreateDate().getTimeInMillis();
         Long expireTime = food.getExpireDate().getTimeInMillis();
-        double percent25 = expireTime - createTime * 0.25;
-        double percent75 = expireTime - createTime * 0.75;
+        double percent25 = (expireTime - createTime) * 0.25;
+        double percent75 = (expireTime - createTime) * 0.75;
         if (expireTime - currentTime > percent25 && expireTime - currentTime < percent75) {
             result = true;
             this.putInStore(food);

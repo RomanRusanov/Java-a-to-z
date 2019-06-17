@@ -25,13 +25,8 @@ public class Trash implements Store {
     }
 
     @Override
-    public Food getFood(String name) {
-        return null;
-    }
-
-    @Override
     public HashMap<String, Food> getAllFood() {
-        return null;
+        return this.container;
     }
 
     @Override
@@ -40,11 +35,11 @@ public class Trash implements Store {
     }
 
     @Override
-    public boolean isConditionMatched(Food food) {
+    public boolean isConditionMatched(Food food, Long passedTime) {
         boolean result = false;
-        Long currentTime = System.currentTimeMillis();
+        Long currentTime = passedTime == 0L ? System.currentTimeMillis(): passedTime;
         Long expireTime = food.getExpireDate().getTimeInMillis();
-        if (currentTime < expireTime) {
+        if (currentTime > expireTime) {
             result = true;
         }
         return result;

@@ -12,4 +12,12 @@ public class Milk extends Food {
         this.setPrice(80.50);
         this.setDiscount((byte) 0);
     }
+
+    public Milk(String name, GregorianCalendar expire, GregorianCalendar create, Double price, Byte discount) {
+        this.setName(name);
+        this.setExpireDate(expire);
+        this.setCreateDate(create);
+        this.setPrice(price);
+        this.setDiscount(discount);
+    }
 }
