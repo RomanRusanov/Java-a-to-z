@@ -55,12 +55,12 @@ public class Warehouse implements Store {
     }
 
     /**
-     * The method remove Store from control.
-     * @param name Name of store instance.
+     * The method remove food from.
+     * @param name Name of food instance.
      * @return if removed return true, otherwise false.
      */
     @Override
-    public boolean removeStore(String name) {
+    public boolean removeFood(String name) {
         return this.container.remove(name, this.container.get(name));
     }
 
@@ -81,5 +81,9 @@ public class Warehouse implements Store {
             result = true;
         }
         return result;
+    }
+
+    public boolean isWarehouseFull() {
+        return this.container.size() > 10;
     }
 }

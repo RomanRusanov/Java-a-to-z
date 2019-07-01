@@ -19,7 +19,7 @@
  *  public String getName() The getter for field.
  *  public void putInStore(Food food) The method add food to store container.
  *  public HashMap<String, Food> getAllFood() The getter for field.
- *  public boolean removeStore(String name) The method remove Store from control.
+ *  public boolean removeFood(String name) The method remove food from.
  *  public boolean isConditionMatched(Food food, Long passedTime)
  *   The method check matched this store for passed food instance.
  *
@@ -28,7 +28,7 @@
  *  public String getName() The getter for field.
  *  public void putInStore(Food food) The method add food to store container.
  *  public HashMap<String, Food> getAllFood() The getter for field.
- *  public boolean removeStore(String name) The method remove Store from control.
+ *  public boolean removeFood(String name) The method remove food from.
  *  public boolean isConditionMatched(Food food, Long passedTime)
  *   The method check matched this store for passed food instance.
  *
@@ -37,7 +37,7 @@
  *  public String getName() The getter for field.
  *  public void putInStore(Food food) The method add food to store container.
  *  public HashMap<String, Food> getAllFood() The getter for field.
- *  public boolean removeStore(String name) The method remove Store from control.
+ *  public boolean removeFood(String name) The method remove food from.
  *  public boolean isConditionMatched(Food food, Long passedTime)
  *   The method check matched this store for passed food instance.
  *
@@ -46,7 +46,7 @@
  *  public String getName() The getter for field.
  *  public void putInStore(Food food) The method add food to store container.
  *  public HashMap<String, Food> getAllFood() The getter for field.
- *  public boolean removeStore(String name) The method remove Store from control.
+ *  public boolean removeFood(String name) The method remove food from.
  *  public boolean isConditionMatched(Food food, Long passedTime)
  *   The method check matched this store for passed food instance.
  */

@@ -33,7 +33,7 @@ public interface Store {
      * @param name Name of store instance.
      * @return if removed return true, otherwise false.
      */
-    boolean removeStore(String name);
+    boolean removeFood(String name);
 
     /**
      * The method check matched this store for passed food instance.

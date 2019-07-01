@@ -11,7 +11,29 @@ import java.util.HashMap;
  * <p>
  * The class implements warehouse new store for exercise(extended store).
  */
-public class Warehouse2 implements Store {
+public class Warehouse2 implements Store{
+    /**
+     * The field contain
+     */
+    private Warehouse wrappedStore;
+    /**
+     * The field contain all foods instance.
+     */
+    private HashMap<String, Food> container = new HashMap<>();
+    /**
+     * The field contain name store.
+     */
+    private String name;
+    /**
+     * The constructor.
+     *
+     * @param name Instance name.
+     */
+    public Warehouse2(Warehouse warehouse, String name) {
+        this.name = name;
+        this.wrappedStore = warehouse;
+    }
+
     /**
      * The getter for field.
      *
@@ -19,7 +41,7 @@ public class Warehouse2 implements Store {
      */
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 
     /**
@@ -29,7 +51,7 @@ public class Warehouse2 implements Store {
      */
     @Override
     public void putInStore(Food food) {
-
+        this.container.put(food.getName(), food);
     }
 
     /**
@@ -39,18 +61,18 @@ public class Warehouse2 implements Store {
      */
     @Override
     public HashMap<String, Food> getAllFood() {
-        return null;
+        return this.container;
     }
 
     /**
-     * The method remove Store from control.
+     * The method remove food from.
      *
-     * @param name Name of store instance.
+     * @param name Name of food instance.
      * @return if removed return true, otherwise false.
      */
     @Override
-    public boolean removeStore(String name) {
-        return false;
+    public boolean removeFood(String name) {
+        return this.container.remove(name, this.container.get(name));
     }
 
     /**
@@ -62,6 +84,6 @@ public class Warehouse2 implements Store {
      */
     @Override
     public boolean isConditionMatched(Food food, Long passedTime) {
-        return false;
+        return this.wrappedStore.isWarehouseFull() && this.wrappedStore.isConditionMatched(food, passedTime);
     }
 }
