@@ -3,10 +3,13 @@ package ru.rrusanov.LSP;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import ru.rrusanov.LSP.model.*;
+import ru.rrusanov.LSP.model.FoodWrapper;
+import ru.rrusanov.LSP.model.Milk;
+import ru.rrusanov.LSP.model.MilkReproduct;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
 import static org.hamcrest.CoreMatchers.is;
 /**
  * @author Roman Rusanov
@@ -40,14 +43,27 @@ public class Warehouse2Test {
     public void setUp() {
         this.warehouse = new Warehouse("TestWarehouse");
         this.warehouse2 = new Warehouse2(warehouse, "TestWarehouse2");
-        this.timeForTest = 1560760137273L; // 2019, Calendar.JUNE, 17
+        this.timeForTest = 1560760137273L; // 2019, Calendar.JUNE, 17 Current date
         for (int i = 0 ; i < 9 ; i++) {
-            this.warehouse2.putInStore(new MilkReproduct(new Milk("Milk Russian field",
-                    new GregorianCalendar(2019, Calendar.JUNE, 15),
-                    new GregorianCalendar(2019, Calendar.JUNE, 10),
-                    80.50,
-                    (byte) 0)));
+            // Put in store 10 foods.
+            warehouse.putInStore(new MilkReproduct(new Milk("Milk Russian field",
+                                        new GregorianCalendar(2019, Calendar.JUNE, 15), // Expire date
+                                        new GregorianCalendar(2019, Calendar.JUNE, 10), // Create date
+                                        80.50,
+                                        (byte) i)));
         }
+//        FoodWrapper foodWrapper1 = new MilkReproduct(new Milk("Milk Russian field",
+//                new GregorianCalendar(2019, Calendar.JUNE, 15), // Expire date
+//                new GregorianCalendar(2019, Calendar.JUNE, 10), // Create date
+//                80.50,
+//                (byte) 0));
+//        FoodWrapper foodWrapper2 = new MilkReproduct(new Milk("Milk Russian field",
+//                new GregorianCalendar(2019, Calendar.JUNE, 15), // Expire date
+//                new GregorianCalendar(2019, Calendar.JUNE, 10), // Create date
+//                80.50,
+//                (byte) 0));
+//        System.out.println(foodWrapper1.equals(foodWrapper2));
+//        System.out.println(foodWrapper1.hashCode() + " " + foodWrapper2.hashCode());
     }
 
     /**

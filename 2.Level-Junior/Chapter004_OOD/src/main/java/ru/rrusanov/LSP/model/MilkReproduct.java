@@ -20,45 +20,24 @@ public class MilkReproduct extends FoodWrapper {
      */
     private boolean canReproduct;
     /**
-     * The field contain name food.
-     */
-    private String name;
-    /**
-     * The field contain expire date.
-     */
-    private Calendar expireDate;
-    /**
-     * The field contain create date.
-     */
-    private Calendar createDate;
-    /**
-     * The field price food.
-     */
-    private double price;
-    /**
-     * The field contain discount percent.
-     */
-    private byte discount;
-
-    /**
      * The constructor take instance food, and add new functional (can food reproduct in future).
      * @param food instance.
      */
     public MilkReproduct(Food food) {
         this.wrappedFood = food;
         this.canReproduct = true;
-        this.name = food.getName();
-        this.expireDate = food.getExpireDate();
-        this.createDate = food.getCreateDate();
-        this.price = food.getPrice();
-        this.discount = food.getDiscount();
+        super.setName(food.getName());
+        super.setExpireDate(food.getExpireDate());
+        super.setCreateDate(food.getCreateDate());
+        super.setPrice(food.getPrice());
+        super.setDiscount(food.getDiscount());
     }
     /**
      * The getter for field.
      * @return name.
      */
     public String getName() {
-        return this.wrappedFood.getName();
+        return super.getName();
     }
 
     /**
@@ -66,7 +45,7 @@ public class MilkReproduct extends FoodWrapper {
      * @param name string.
      */
     public void setName(String name) {
-        this.wrappedFood.setName(name);
+        super.setName(name);
     }
 
     /**
@@ -74,7 +53,7 @@ public class MilkReproduct extends FoodWrapper {
      * @return calendar instance.
      */
     public Calendar getExpireDate() {
-        return this.wrappedFood.getExpireDate();
+        return super.getExpireDate();
     }
 
     /**
@@ -82,7 +61,7 @@ public class MilkReproduct extends FoodWrapper {
      * @param expireDate Calendar instance.
      */
     public void setExpireDate(Calendar expireDate) {
-        this.wrappedFood.setExpireDate(expireDate);
+        super.setExpireDate(expireDate);
     }
 
     /**
@@ -143,28 +122,17 @@ public class MilkReproduct extends FoodWrapper {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        if (!super.equals(o)) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         MilkReproduct that = (MilkReproduct) o;
-        return canReproduct == that.canReproduct
-                && Double.compare(that.price, price) == 0
-                && discount == that.discount
-                && wrappedFood.equals(that.wrappedFood)
-                && name.equals(that.name)
-                && expireDate.equals(that.expireDate)
-                && createDate.equals(that.createDate);
+        return canReproduct == that.canReproduct &&
+                wrappedFood.equals(that.wrappedFood);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), wrappedFood, canReproduct, name, expireDate, createDate, price, discount);
+        return Objects.hash(super.hashCode(), wrappedFood, canReproduct);
     }
 
     @Override
@@ -172,11 +140,11 @@ public class MilkReproduct extends FoodWrapper {
         return "MilkReproduct{"
                 + "wrappedFood=" + wrappedFood
                 + ", canReproduct=" + canReproduct
-                + ", name='" + name + '\''
-                + ", expireDate=" + expireDate
-                + ", createDate=" + createDate
-                + ", price=" + price
-                + ", discount=" + discount
+                + ", name='" + this.wrappedFood.getName() + '\''
+                + ", expireDate=" + this.wrappedFood.getExpireDate()
+                + ", createDate=" + this.wrappedFood.getCreateDate()
+                + ", price=" + this.wrappedFood.getPrice()
+                + ", discount=" + this.wrappedFood.getDiscount()
                 + '}';
     }
 }
