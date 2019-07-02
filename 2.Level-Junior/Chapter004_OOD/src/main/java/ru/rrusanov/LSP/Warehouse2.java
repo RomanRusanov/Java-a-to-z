@@ -11,9 +11,9 @@ import java.util.HashMap;
  * <p>
  * The class implements warehouse new store for exercise(extended store).
  */
-public class Warehouse2 implements Store{
+public class Warehouse2 implements Store {
     /**
-     * The field contain
+     * The field contain wrapped store instance.
      */
     private Warehouse wrappedStore;
     /**
@@ -27,7 +27,8 @@ public class Warehouse2 implements Store{
     /**
      * The constructor.
      *
-     * @param name Instance name.
+     * @param warehouse Instance to wrapped.
+     * @param name Warehouse name.
      */
     public Warehouse2(Warehouse warehouse, String name) {
         this.name = name;

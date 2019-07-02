@@ -3,10 +3,11 @@ package ru.rrusanov.LSP;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import ru.rrusanov.LSP.model.Bread;
-import ru.rrusanov.LSP.model.Butter;
 import ru.rrusanov.LSP.model.Food;
 import ru.rrusanov.LSP.model.Milk;
+import ru.rrusanov.LSP.model.Bread;
+import ru.rrusanov.LSP.model.Butter;
+import ru.rrusanov.LSP.model.MilkReproduct;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import static org.hamcrest.CoreMatchers.is;
@@ -82,5 +83,20 @@ public class WarehouseTest {
     @Test
     public void whenConditionMatchedThenReturnTrue() {
         Assert.assertThat(warehouse.isConditionMatched(this.food, this.timeForTest), is(true));
+    }
+    /**
+     * The test check isWarehouseFull.
+     */
+    @Test
+    public void whenWarehouseContainMoreThen10FoodsThenReturnTrue() {
+        for (int i = 0; i < 11; i++) {
+            // Put in store 10 foods.
+            warehouse.putInStore(new MilkReproduct(new Milk("Milk Russian field" + i,
+                    new GregorianCalendar(2019, Calendar.JUNE, 15), // Expire date
+                    new GregorianCalendar(2019, Calendar.JUNE, 10), // Create date
+                    80.50,
+                    (byte) 0)));
+        }
+        Assert.assertThat(warehouse.isWarehouseFull(), is(true));
     }
 }

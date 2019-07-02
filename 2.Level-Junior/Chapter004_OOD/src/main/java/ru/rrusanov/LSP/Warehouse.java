@@ -83,6 +83,10 @@ public class Warehouse implements Store {
         return result;
     }
 
+    /**
+     * The method check is store full.
+     * @return If container size more 10 instance of foods then return true, otherwise false.
+     */
     public boolean isWarehouseFull() {
         return this.container.size() > 10;
     }

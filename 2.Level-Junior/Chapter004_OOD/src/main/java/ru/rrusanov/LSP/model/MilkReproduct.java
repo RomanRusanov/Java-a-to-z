@@ -69,7 +69,7 @@ public class MilkReproduct extends FoodWrapper {
      * @return Calendar instance.
      */
     public Calendar getCreateDate() {
-        return this.wrappedFood.getCreateDate();
+        return super.getCreateDate();
     }
 
     /**
@@ -77,7 +77,7 @@ public class MilkReproduct extends FoodWrapper {
      * @param createDate Calendar instance.
      */
     public void setCreateDate(Calendar createDate) {
-        this.wrappedFood.setCreateDate(createDate);
+        super.setCreateDate(createDate);
     }
 
     /**
@@ -85,7 +85,7 @@ public class MilkReproduct extends FoodWrapper {
      * @return double value.
      */
     public double getPrice() {
-        return this.wrappedFood.getPrice();
+        return super.getPrice();
     }
 
     /**
@@ -93,7 +93,7 @@ public class MilkReproduct extends FoodWrapper {
      * @param price double value.
      */
     public void setPrice(double price) {
-        this.wrappedFood.setPrice(price);
+        super.setPrice(price);
     }
 
     /**
@@ -101,7 +101,7 @@ public class MilkReproduct extends FoodWrapper {
      * @return byte value.
      */
     public byte getDiscount() {
-        return this.wrappedFood.getDiscount();
+        return super.getDiscount();
     }
 
     /**
@@ -109,7 +109,7 @@ public class MilkReproduct extends FoodWrapper {
      * @param discount byte value.
      */
     public void setDiscount(byte discount) {
-        this.wrappedFood.setDiscount(discount);
+        super.setDiscount(discount);
     }
 
     /**
@@ -122,12 +122,18 @@ public class MilkReproduct extends FoodWrapper {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         MilkReproduct that = (MilkReproduct) o;
-        return canReproduct == that.canReproduct &&
-                wrappedFood.equals(that.wrappedFood);
+        return canReproduct == that.canReproduct
+                && wrappedFood.equals(that.wrappedFood);
     }
 
     @Override
@@ -140,11 +146,11 @@ public class MilkReproduct extends FoodWrapper {
         return "MilkReproduct{"
                 + "wrappedFood=" + wrappedFood
                 + ", canReproduct=" + canReproduct
-                + ", name='" + this.wrappedFood.getName() + '\''
-                + ", expireDate=" + this.wrappedFood.getExpireDate()
-                + ", createDate=" + this.wrappedFood.getCreateDate()
-                + ", price=" + this.wrappedFood.getPrice()
-                + ", discount=" + this.wrappedFood.getDiscount()
+                + ", name='" + super.getName() + '\''
+                + ", expireDate=" + super.getExpireDate()
+                + ", createDate=" + super.getCreateDate()
+                + ", price=" + super.getPrice()
+                + ", discount=" + super.getDiscount()
                 + '}';
     }
 }

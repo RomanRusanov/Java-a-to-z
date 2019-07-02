@@ -44,26 +44,19 @@ public class Warehouse2Test {
         this.warehouse = new Warehouse("TestWarehouse");
         this.warehouse2 = new Warehouse2(warehouse, "TestWarehouse2");
         this.timeForTest = 1560760137273L; // 2019, Calendar.JUNE, 17 Current date
-        for (int i = 0 ; i < 9 ; i++) {
+        for (int i = 0; i < 11; i++) {
             // Put in store 10 foods.
-            warehouse.putInStore(new MilkReproduct(new Milk("Milk Russian field",
+            warehouse.putInStore(new MilkReproduct(new Milk("Milk Russian field" + i,
                                         new GregorianCalendar(2019, Calendar.JUNE, 15), // Expire date
                                         new GregorianCalendar(2019, Calendar.JUNE, 10), // Create date
                                         80.50,
-                                        (byte) i)));
+                                        (byte) 0)));
         }
-//        FoodWrapper foodWrapper1 = new MilkReproduct(new Milk("Milk Russian field",
-//                new GregorianCalendar(2019, Calendar.JUNE, 15), // Expire date
-//                new GregorianCalendar(2019, Calendar.JUNE, 10), // Create date
-//                80.50,
-//                (byte) 0));
-//        FoodWrapper foodWrapper2 = new MilkReproduct(new Milk("Milk Russian field",
-//                new GregorianCalendar(2019, Calendar.JUNE, 15), // Expire date
-//                new GregorianCalendar(2019, Calendar.JUNE, 10), // Create date
-//                80.50,
-//                (byte) 0));
-//        System.out.println(foodWrapper1.equals(foodWrapper2));
-//        System.out.println(foodWrapper1.hashCode() + " " + foodWrapper2.hashCode());
+        this.food = new MilkReproduct(new Milk("Milk Russian field",
+                new GregorianCalendar(2019, Calendar.JULY, 30), // Expire date
+                new GregorianCalendar(2019, Calendar.JUNE, 10), // Create date
+                80.50,
+                (byte) 0));
     }
 
     /**
@@ -81,7 +74,7 @@ public class Warehouse2Test {
     @Test
     public void whenCallGetAllFoodThenReturnAllFoodsInContainerStore() {
         this.warehouse.putInStore(food);
-        Assert.assertThat(this.warehouse.getAllFood().size(), is(1));
+        Assert.assertThat(this.warehouse.getAllFood().size(), is(12));
     }
 
     /**
