@@ -1,6 +1,6 @@
 package ru.rrusanov.ISP;
 
-import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Roman Rusanov
@@ -17,7 +17,7 @@ public abstract class MenuItem {
     /**
      * The field contain collection that contain sub MenuItems instance.
      */
-    private HashMap<String, MenuItem> children;
+    private List<MenuItem> children;
     /**
      * The field contain string that user must input, for activation this menu item.
      */
@@ -42,5 +42,17 @@ public abstract class MenuItem {
      */
     public boolean isMenuItemContainChildren() {
         return this.children.isEmpty();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean addSubMenuItem(MenuItem item) {
+        return this.children.add(item);
     }
 }
