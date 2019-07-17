@@ -1,5 +1,7 @@
 package ru.rrusanov.ISP;
 
+import java.util.Iterator;
+
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -9,15 +11,17 @@ package ru.rrusanov.ISP;
  */
 public class MenuInteraction {
 
-    private MenuItem firstMenuItem;
+    private String indent = "";
 
-    public MenuInteraction(MenuItem item) {
-        this.firstMenuItem = item;
-    }
-
-    public void printAllItems(MenuItem item) {
-        while (item.isMenuItemContainChildren()){
-            item.
+    public void printAllItems(BaseItem item, String indent) {
+        System.out.println(indent + item.getName());
+        if (item.isMenuItemContainChildren()) {
+            this.indent = this.indent + "--";
+            Iterator<BaseItem> itemIterator = item.getChildren().iterator();
+            while (itemIterator.hasNext()) {
+                printAllItems(itemIterator.next(),this.indent);
+            }
+            this.indent = this.indent.substring(this.indent.length() - 2);
         }
     }
 }
