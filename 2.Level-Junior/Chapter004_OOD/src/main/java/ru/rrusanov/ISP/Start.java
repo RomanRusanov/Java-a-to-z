@@ -36,7 +36,7 @@ public class Start {
     /**
      * The field contain instance menu.
      */
-    private MenuInteraction menuInteraction = new MenuInteraction();
+    private Menu menu = new MenuInteraction();
 
     /**
      * The main enter point to app.
@@ -56,9 +56,9 @@ public class Start {
         item11.addSubMenuItem(item112);
         item1.addSubMenuItem(item12);
         do {
-            menuInteraction.printAllItems(item1, "");
+            menu.printAllItems(item1, "");
             String userChoose = consoleInput.ask("Choose hotkey in round bracket to activate menu(?)");
-            BaseItem menuChoosen = menuInteraction.findHotKey(item1, userChoose);
+            Item menuChoosen = menu.findHotKey(item1, userChoose);
             menuChoosen.action();
         } while (!"y".equals(this.consoleInput.ask("Exit?(y)")));
     }

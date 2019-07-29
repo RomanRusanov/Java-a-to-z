@@ -9,7 +9,7 @@ import java.util.Iterator;
  * <p>
  * The class describe interaction menu items with logic.
  */
-public class MenuInteraction {
+public class MenuInteraction implements Menu {
     /**
      * The field contain start indent symbol for each menu items.
      * For next level menu be added --
@@ -25,7 +25,7 @@ public class MenuInteraction {
      * @param root Root item.
      * @param indent indent for next level menu.
      */
-    public void printAllItems(BaseItem root, String indent) {
+    public void printAllItems(Item root, String indent) {
         System.out.printf("%s%s (%s)%s", indent, root.getName(), root.getHotKey(), NEW_LINE);
         if (root.isMenuItemContainChildren()) {
             this.indent = this.indent + "--";
@@ -43,8 +43,8 @@ public class MenuInteraction {
      * @param hotkey Sting value.
      * @return Instance item menu.
      */
-    public BaseItem findHotKey(BaseItem root, String hotkey) {
-        BaseItem result = null;
+    public Item findHotKey(Item root, String hotkey) {
+        Item result = null;
         if (root.getHotKey().equals(hotkey)) {
             return root;
         }

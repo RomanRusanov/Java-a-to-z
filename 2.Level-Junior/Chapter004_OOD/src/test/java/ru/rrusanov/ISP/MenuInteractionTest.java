@@ -76,7 +76,7 @@ public class MenuInteractionTest {
      */
     @Test
     public void whenInMenuExistActionThenReturnItemInstanceOtherwiseReturnNull() {
-        BaseItem result = menuInteraction.findHotKey(item1, "1");
+        Item result = menuInteraction.findHotKey(item1, "1");
         Assert.assertThat(result, is(item1));
         result = menuInteraction.findHotKey(item1, "2");
         Assert.assertThat(result, is(item11));

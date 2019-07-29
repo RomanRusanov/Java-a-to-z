@@ -11,7 +11,7 @@ import java.util.Objects;
  * <p>
  * The class describe menu item instance.
  */
-public class BaseItem {
+public class BaseItem implements Item {
 
     /**
      * The field contain collection that contain sub MenuItems instance.
@@ -40,7 +40,7 @@ public class BaseItem {
     /**
      * The method execute menu item some work. It run when user choose this menu.
      */
-    void action() {
+    public void action() {
         System.out.println("Execute action for menu" + this.name);
     }
     /**

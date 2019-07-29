@@ -24,5 +24,17 @@
  *  public void printAllItems(BaseItem root, String indent)The method print to console all items with contain root item.
  *  public BaseItem findHotKey(BaseItem root, String hotkey) The method find matched instance menu item by hot key.
  *
+ * Menu.java The interface describe menu.
+ *  void printAllItems(BaseItem root, String indent)The method print to console all items with contain root item.
+ *  BaseItem findHotKey(BaseItem root, String hotkey) The method find matched instance menu item by hot key.
+ *
+ * Item.java The interface describe item.
+ *  void action() The method execute menu item some work. It run when user choose this menu.
+ *  String getHotKey() The getter for field.
+ *  boolean isMenuItemContainChildren() The method check contain this menu some submenu.
+ *  String getName() The getter for field.
+ *  void setName(String name) The setter for field.
+ *  boolean addSubMenuItem(BaseItem item) The method add to submenu passed instance.
+ *  List<BaseItem> getChildren() The method return collection instance with all submenu.
  */
 package ru.rrusanov.ISP;
