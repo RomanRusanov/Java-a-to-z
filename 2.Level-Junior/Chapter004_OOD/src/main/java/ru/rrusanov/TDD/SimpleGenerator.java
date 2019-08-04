@@ -1,0 +1,1 @@
+package ru.rrusanov.TDD;public class SimpleGenerator {}
