@@ -1,1 +1,1 @@
-package ru.rrusanov.TDD;public class SimpleGenerator {}
+package ru.rrusanov.TDD;import javafx.util.Pair;/** * @author Roman Rusanov * @version 0.1 * @since 4.08.2019 * * The class . */public class SimpleGenerator {    private Pair[]}
