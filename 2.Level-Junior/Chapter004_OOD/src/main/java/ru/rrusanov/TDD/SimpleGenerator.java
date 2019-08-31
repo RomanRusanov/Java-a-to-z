@@ -1,6 +1,7 @@
 package ru.rrusanov.TDD;
 
-import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 /**
@@ -16,11 +17,11 @@ public class SimpleGenerator {
     /**
      * The field contain pair to process.
      */
-    private HashMap<String, String> pairs = new HashMap<>();
+    private LinkedList<Pair> pairs = new LinkedList<>();
     /**
      * The field contain pair that be used.
      */
-    private HashMap<String, String> usedPairs = new HashMap<>();
+    private LinkedList<Pair> usedPairs = new LinkedList<>();
     /**
      * The field contain string what be target for the regexp.
      */
@@ -28,15 +29,14 @@ public class SimpleGenerator {
     /**
      * The field contain compiled pattern regex.
      */
-    private final Pattern KEYS = Pattern.compile("\\$\\{\\w+}");
+    private final Pattern keys = Pattern.compile("\\$\\{\\w+}");
 
     /**
      * The method add par to collection.
-     * @param key String key.
-     * @param value String value.
+     * @param pair Pair to add.
      */
-    public void addPair(String key, String value) {
-        this.pairs.put(key, value);
+    public void addPair(Pair pair) {
+        this.pairs.add(pair);
     }
 
     /**
@@ -55,11 +55,11 @@ public class SimpleGenerator {
      */
     public String process() throws IllegalStateException {
         String result = inputString;
-        Matcher matcher = KEYS.matcher(this.inputString);
+        Matcher matcher = keys.matcher(this.inputString);
         while (matcher.find()) {
             String keyFind = inputString.substring(matcher.start() + 2, matcher.end() - 1);
-            result = result.replace("${" + keyFind + "}", this.checkKey(keyFind));
-            this.usedPairs.put(keyFind, this.pairs.get(keyFind));
+            result = result.replace("${" + keyFind + "}", this.findByKey(keyFind).getValue());
+            this.markPairAsUsed(keyFind);
         }
         if (this.usedPairs.size() != this.pairs.size()) {
             throw new IllegalStateException("Input string don't use all pairs in map!");
@@ -68,15 +68,42 @@ public class SimpleGenerator {
     }
 
     /**
-     * The method check if key exist in collection, then return it value, otherwise throw exception.
-     * @param key String key.
-     * @return String value.
-     * @throws IllegalStateException If map not contain keys in map, then throw IllegalStateException.
+     * The method put pair in collection what contain used pairs, if pair all ready present when skip.
+     * @param key String.
      */
-    public String checkKey(String key) throws IllegalStateException{
-        if (!this.pairs.containsKey(key)) {
-            throw new IllegalStateException("Key not fount in map. Pair not exist!");
+    public void markPairAsUsed(String key) {
+        Iterator<Pair> iterator = this.usedPairs.iterator();
+        boolean exist = false;
+        while (iterator.hasNext()) {
+            Pair currentPair = iterator.next();
+            if (currentPair.getKey().equals(key)) {
+                exist = true;
+                break;
+            }
         }
-        return this.pairs.get(key);
+        if (!exist) {
+            Pair used = this.findByKey(key);
+            this.usedPairs.add(used);
+        }
+    }
+
+    /**
+     * The method find pair by key value.
+     * @param key String.
+     * @return Pair.
+     */
+    public Pair findByKey(String key) {
+        Pair result = new Pair();
+        Iterator<Pair> iterator = this.pairs.iterator();
+        while (iterator.hasNext()) {
+            Pair currentPair = iterator.next();
+            if (currentPair.getKey().equals(key)) {
+                result = currentPair;
+            }
+        }
+        if (result.getKey().equals("empty")) {
+            throw new IllegalStateException("Key not found in collection!");
+        }
+        return result;
     }
 }

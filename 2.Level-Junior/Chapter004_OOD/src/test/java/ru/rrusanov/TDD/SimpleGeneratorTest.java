@@ -31,8 +31,8 @@ public class SimpleGeneratorTest {
      */
     @Test
     public void whenPassStringWhitKeysWhenKeysReplaysInString() {
-        this.simpleGenerator.addPair("name", "Petr");
-        this.simpleGenerator.addPair("subject", "you");
+        this.simpleGenerator.addPair(new Pair("name", "Petr"));
+        this.simpleGenerator.addPair(new Pair("subject", "you"));
         this.simpleGenerator.setInputString("I am a ${name}, Who are ${subject}?");
         String result = simpleGenerator.process();
         Assert.assertThat(result, is("I am a Petr, Who are you?"));
@@ -42,7 +42,7 @@ public class SimpleGeneratorTest {
      */
     @Test
     public void whenPassStringWhitKeysWhenKeysReplaysInString2() {
-        this.simpleGenerator.addPair("sos", "Aaa");
+        this.simpleGenerator.addPair(new Pair("sos", "Aaa"));
         this.simpleGenerator.setInputString(" Help, ${sos}, ${sos}, ${sos}");
         String result = simpleGenerator.process();
         Assert.assertThat(result, is(" Help, Aaa, Aaa, Aaa"));
@@ -60,7 +60,7 @@ public class SimpleGeneratorTest {
      */
     @Test (expected = IllegalStateException.class)
     public void whenKeysNotExistInInputStringWhenMethodThrowException() {
-        this.simpleGenerator.addPair("scream", "Aaa");
+        this.simpleGenerator.addPair(new Pair("scream", "Aaa"));
         this.simpleGenerator.setInputString(" Help, ${sos}");
         String result = simpleGenerator.process();
     }
