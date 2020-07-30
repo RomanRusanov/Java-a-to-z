@@ -132,8 +132,8 @@ public class DynamicLinkedListNodeTest {
         Thread thread1 = new Thread(new DynamicLinkedList1());
         Thread thread2 = new Thread(new DynamicLinkedList2());
         thread1.start();
-        thread2.start();
         thread1.join();
+        thread2.start();
         thread2.join();
         for (int i = 0; i < 8; i++) { // 8 - number added elements in collection.
             Assert.assertThat(this.dynamicLinkedListNode.get(i + 5), is(i + 5));

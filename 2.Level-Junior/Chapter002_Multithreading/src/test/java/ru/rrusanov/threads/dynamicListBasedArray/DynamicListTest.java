@@ -60,9 +60,10 @@ public class DynamicListTest {
     }
     /**
      * Test concurrency iterator.
+     * @throws InterruptedException InterruptedException.
      */
     @Test
-    public void whenOneThreadGetNextElementThenSecondThreadGetNextElement() {
+    public void whenOneThreadGetNextElementThenSecondThreadGetNextElement() throws InterruptedException {
         /**
          * The field contain instance of iterator for test.
          */
@@ -88,6 +89,7 @@ public class DynamicListTest {
         Thread thread1 = new Thread(new DynamicList1());
         Thread thread2 = new Thread(new DynamicList2());
         thread1.start();
+        thread1.join();
         thread2.start();
     }
     /**
@@ -123,8 +125,8 @@ public class DynamicListTest {
         Thread thread1 = new Thread(new DynamicList1());
         Thread thread2 = new Thread(new DynamicList2());
         thread1.start();
-        thread2.start();
         thread1.join();
+        thread2.start();
         thread2.join();
         for (int i = 0; i < 8; i++) { // 8 - number added elements in collection.
             Assert.assertThat(this.dynamicList.get(i + 3), is(i + 5));
