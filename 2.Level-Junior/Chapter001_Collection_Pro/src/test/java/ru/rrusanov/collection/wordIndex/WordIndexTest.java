@@ -18,7 +18,7 @@ public class WordIndexTest {
         this.wordIndex.loadFile("wordsFile.txt");
         Set<Integer> result = wordIndex.getIndexes4Word("world");
         Assert.assertTrue(result.contains(7));
-        Assert.assertTrue(result.contains(33));
+        Assert.assertTrue(result.contains(31));
     }
     /**
      * The test for method loadFile() when word not exist.
@@ -35,8 +35,7 @@ public class WordIndexTest {
     @Test
     public void whenStringIndexOfReturnResultThenWordIndexReturnSameResult() {
         this.wordIndex.loadFile("wordsFile.txt");
-        String stringFile = "hellow world how are you doing " + System.lineSeparator()
-                + "world what you feel now";
+        String stringFile = "hellow world how are you doing world what you feel now";
         String findString1 = "world";
         int stringPosition = stringFile.indexOf(findString1);
         Assert.assertTrue(wordIndex.getIndexes4Word(findString1).contains(stringPosition));
