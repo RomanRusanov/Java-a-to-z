@@ -10,10 +10,6 @@ import java.util.function.Predicate;
  */
 public class LogFilterTest {
     /**
-     * The filed with regex.
-     */
-    private String regex = "^.*\\s(404)\\s\\d+$";
-    /**
      * The field contain correct string for regex.
      */
     private String string1 = "0:0:0:0:0:0:0:1 - - [19/Feb/2020:15:21:18 "
@@ -46,10 +42,10 @@ public class LogFilterTest {
      */
     @Test
     public void whenSecondLast404ThenReturnTrue() {
-        Assert.assertFalse(bufferedreader.LogFilter.isContain("404", regex));
-        Assert.assertFalse(bufferedreader.LogFilter.isContain("404 1110", regex));
-        Assert.assertFalse(bufferedreader.LogFilter.isContain("4041110", regex));
-        Assert.assertFalse(bufferedreader.LogFilter.isContain("some text 404", regex));
-        Assert.assertTrue(LogFilter.isContain("some text 404 1110", regex));
+        Assert.assertFalse(bufferedreader.LogFilter.isContain("404"));
+        Assert.assertFalse(bufferedreader.LogFilter.isContain("404 1110"));
+        Assert.assertFalse(bufferedreader.LogFilter.isContain("4041110"));
+        Assert.assertFalse(bufferedreader.LogFilter.isContain("some text 404"));
+        Assert.assertTrue(LogFilter.isContain("some text 404 1110"));
     }
 }
