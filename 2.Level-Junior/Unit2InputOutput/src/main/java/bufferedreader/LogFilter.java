@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * @author Roman Rusanov
@@ -20,6 +21,11 @@ public class LogFilter {
     private static String regex = "^.*\\s(404)\\s\\d+$";
 
     /**
+     * The field contain compiled pattern.
+     */
+    private static Pattern pattern = Pattern.compile(regex);
+
+    /**
      * The method read from file and check lines.
      * @param file Source file.
      * @return List with string match pattern regex.
@@ -27,13 +33,8 @@ public class LogFilter {
     public static List<String> filter(String file) {
         List<String> result = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new FileReader(file))) {
-            List<String> lines = new ArrayList<>();
-            in.lines().forEach(lines::add);
-            for (String line : lines) {
-                if (isContain(line, regex)) {
-                    result.add(line);
-                }
-            }
+            result = in.lines().filter(LogFilter::isContain)
+                    .collect(Collectors.toList());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -52,11 +53,9 @@ public class LogFilter {
     /**
      * The method compile regex, and chek string match pattern regex.
      * @param source String for check.
-     * @param regex String pattern regex.
      * @return If match return true, otherwise false.
      */
-    public static boolean isContain(String source, String regex) {
-        Pattern pattern = Pattern.compile(regex);
+    public static boolean isContain(String source) {
         return pattern.matcher(source).find();
     }
 }

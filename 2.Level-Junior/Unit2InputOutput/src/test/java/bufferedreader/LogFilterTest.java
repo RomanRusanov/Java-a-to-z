@@ -45,10 +45,10 @@ public class LogFilterTest {
      */
     @Test
     public void whenSecondLast404ThenReturnTrue() {
-        Assert.assertFalse(LogFilter.isContain("404", regex));
-        Assert.assertFalse(LogFilter.isContain("404 1110", regex));
-        Assert.assertFalse(LogFilter.isContain("4041110", regex));
-        Assert.assertFalse(LogFilter.isContain("some text 404", regex));
-        Assert.assertTrue(LogFilter.isContain("some text 404 1110", regex));
+        Assert.assertFalse(LogFilter.isContain("404"));
+        Assert.assertFalse(LogFilter.isContain("404 1110"));
+        Assert.assertFalse(LogFilter.isContain("4041110"));
+        Assert.assertFalse(LogFilter.isContain("some text 404"));
+        Assert.assertTrue(LogFilter.isContain("some text 404 1110"));
     }
 }
