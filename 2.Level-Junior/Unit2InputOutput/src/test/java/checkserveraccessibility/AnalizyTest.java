@@ -1,9 +1,16 @@
 package checkserveraccessibility;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -20,18 +27,44 @@ public class AnalizyTest {
     /**
      * The field contain path and file name where store lines with periods.
      */
-    private String fileResult = "data/unavailable.csv";
+    private File target;
     /**
      * The field contain path and file name source log.
      */
-    private String fileSource = "data/server.log";
+    private File source;
+    /**
+     * The temp folder instance.
+     */
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
 
     /**
      * The method start before each test.
      */
     @Before
     public void setUp() {
-        analizy.unavailable(fileSource, fileResult);
+        try {
+            source = folder.newFile("server.log");
+            target = folder.newFile("unavailable.csv");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try (PrintWriter out = new PrintWriter(
+                new BufferedOutputStream(
+                        new FileOutputStream(source)
+                ))) {
+                    out.println("200 10:56:01");
+                    out.println("500 10:57:01");
+                    out.println("400 10:58:01");
+                    out.println("200 10:59:01");
+                    out.println("500 11:01:02");
+                    out.println("200 11:02:02");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        analizy.unavailable(source.getAbsolutePath(), target.getAbsolutePath());
     }
 
     /**
@@ -40,7 +73,7 @@ public class AnalizyTest {
     @Test
     public void whenLogAnalyzeThenOutFileContainPeriods() {
         List<String> readFromSource = new ArrayList<>();
-        try (BufferedReader in = new BufferedReader(new FileReader(fileResult))) {
+        try (BufferedReader in = new BufferedReader(new FileReader(target))) {
             readFromSource = in.lines().collect(Collectors.toList());
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,7 +90,6 @@ public class AnalizyTest {
     public void whenStringCorrectWhenReturnTrue() {
         String correct = "200 10:56:01";
         Assert.assertTrue(analizy.isContain(correct));
-
         String notCorrect = "10:56:01";
         Assert.assertFalse(analizy.isContain(notCorrect));
     }

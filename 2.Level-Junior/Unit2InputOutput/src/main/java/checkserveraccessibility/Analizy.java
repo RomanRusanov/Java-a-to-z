@@ -106,15 +106,4 @@ public class Analizy {
     public boolean isContain(String source) {
         return pattern.matcher(source).find();
     }
-
-    /**
-     * The main method.
-     * @param args Strings args.
-     */
-    public static void main(String[] args) {
-        Analizy analizy = new Analizy();
-        String pathServerLog = "./2.Level-Junior/Unit2InputOutput/data/server.log";
-        String pathUnavailableCsv = "./2.Level-Junior/Unit2InputOutput/data/unavailable.csv";
-        analizy.unavailable(pathServerLog, pathUnavailableCsv);
-    }
 }
