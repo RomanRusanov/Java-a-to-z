@@ -15,12 +15,24 @@ import java.util.List;
 public class Search {
     /**
      * The main method.
+     * Should be two params. First root folder example(.).
+     * Second file extension example(xml).
      * @param args String args.
      * @throws IOException walkFileTree may throw.
      */
     public static void main(String[] args) throws IOException {
-        Path start = Paths.get(".");
-        search(start, "xml").forEach(System.out::println);
+        if (args.length == 0) {
+            throw new IllegalArgumentException("First parameter not found! "
+                    + "Root folder is null. "
+                    + "Usage java -jar search.jar ROOT_FOLDER.");
+        }
+        if (args.length == 1) {
+            throw new IllegalArgumentException("Second parameter not found! "
+                    + "Extension of file is null."
+                    + " Usage java -jar search.jar ROOT_FOLDER. xml");
+        }
+        Path start = Paths.get(args[0]);
+        search(start, args[1]).forEach(System.out::println);
     }
 
     /**
