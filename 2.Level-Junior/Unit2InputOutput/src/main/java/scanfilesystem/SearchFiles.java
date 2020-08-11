@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+
 import static java.nio.file.FileVisitResult.CONTINUE;
 /**
  * @author Roman Rusanov
@@ -20,7 +22,7 @@ public class SearchFiles implements FileVisitor<Path> {
     /**
      * The field contain extension that match.
      */
-    private String ext;
+    private Predicate<Path> predicate;
     /**
      * The field contain collection that stored matched paths.
      */
@@ -28,10 +30,10 @@ public class SearchFiles implements FileVisitor<Path> {
 
     /**
      * The default constructor.
-     * @param ext String extension to find.
+     * @param p Predicate Boolean value to check.
      */
-    public SearchFiles(String ext) {
-        this.ext = ext;
+    public SearchFiles(Predicate<Path> p) {
+        this.predicate = p;
     }
 
     /**
@@ -58,7 +60,7 @@ public class SearchFiles implements FileVisitor<Path> {
      */
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        if (file.toFile().getName().endsWith(ext)) {
+        if (predicate.test(file)) {
             this.match.add(file);
         }
         return CONTINUE;

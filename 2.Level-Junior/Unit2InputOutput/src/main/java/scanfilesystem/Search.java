@@ -43,7 +43,7 @@ public class Search {
      * @return List whit fined paths.
      */
     public static List<Path> search(Path root, String ext) {
-        SearchFiles searcher = new SearchFiles(ext);
+        SearchFiles searcher = new SearchFiles(p -> p.toFile().getName().endsWith(ext));
         try {
             Files.walkFileTree(root, searcher);
         } catch (IOException e) {
