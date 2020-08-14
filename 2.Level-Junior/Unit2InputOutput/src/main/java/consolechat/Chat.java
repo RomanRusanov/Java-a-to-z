@@ -1,5 +1,4 @@
 package consolechat;
-import bufferedoutputstream.LogFilter;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -24,10 +23,6 @@ import java.util.stream.Collectors;
  */
 public class Chat {
     /**
-     * The field contain instance of input(console or stub).
-     */
-    private Input input;
-    /**
      * The field contain collection with all dialog log.
      */
     private List<String> log;
@@ -47,54 +42,22 @@ public class Chat {
      * The filed contain value when chat work is down.
      */
     private Boolean work;
+    /**
+     * The field contain state when chat must stop pass random stings.
+     */
+    private Boolean stop = false;
 
     /**
      * The default constructor.
-     * @param input Instance of input.
      * @param fileLog File where save all dialog.
      * @param fileWithAnswers File with all answers to user.
      */
-    public Chat(Input input, File fileLog, File fileWithAnswers) {
-        this.input = input;
+    public Chat(File fileLog, File fileWithAnswers) {
         this.log = new ArrayList<>();
         this.work = true;
         this.fileLog = fileLog;
         this.fileWithAnswers = fileWithAnswers;
         this.allAnswers = this.loadAnswers(this.fileWithAnswers);
-    }
-
-    /**
-     * Base logic for interaction with user.
-     */
-    public void interaction() {
-        Boolean stop = false;
-        while (this.work) {
-            String userSay = input.ask("Введите фразу:");
-            log.add(userSay);
-            if (userSay.equals("стоп")) {
-                stop = true;
-                continue;
-            }
-            if (userSay.equals("конец")) {
-                stop = true;
-                this.end();
-            }
-            if (!stop || userSay.equals("продолжить")) {
-                stop = false;
-                this.continued();
-            }
-        }
-    }
-
-    /**
-     * Main method.
-     * @param args String args.
-     */
-    public static void main(String[] args) {
-        File fileLog = new File("./2.Level-Junior/Unit2InputOutput/data/chatlog.txt");
-        File fileWithAnswers = new File("./2.Level-Junior/Unit2InputOutput/data/answers.txt");
-        Chat chat = new Chat(new ConsoleInput(), fileLog, fileWithAnswers);
-        chat.interaction();
     }
 
     /**
@@ -122,19 +85,50 @@ public class Chat {
     }
 
     /**
-     * The method change behavior of chat if user type "продолжить".
+     * The getter for field.
+     * @return List with all chat log.
      */
-    public void continued() {
-        String random = this.getRandomString();
-        this.log.add(random);
-        System.out.println(random);
+    public List<String> getLog() {
+        return log;
     }
 
     /**
-     * The method stop cycle of chat, and save all log to file.
+     * The getter for field.
+     * @return File where save all dialog.
      */
-    public void end() {
-        this.work = false;
-        LogFilter.save(this.log, this.fileLog.toString());
+    public File getFileLog() {
+        return fileLog;
+    }
+
+    /**
+     * The getter for field.
+     * @return Boolean.
+     */
+    public Boolean getStop() {
+        return stop;
+    }
+
+    /**
+     * The setter for field.
+     * @param stop Boolean.
+     */
+    public void setStop(Boolean stop) {
+        this.stop = stop;
+    }
+
+    /**
+     * The getter for field.
+     * @return Boolean.
+     */
+    public Boolean getWork() {
+        return work;
+    }
+
+    /**
+     * The setter for field.
+     * @param work Boolean.
+     */
+    public void setWork(Boolean work) {
+        this.work = work;
     }
 }

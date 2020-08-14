@@ -52,8 +52,9 @@ public class ChatTest {
         PrintStream printStream = new PrintStream(byteArrayOutputStream);
         System.setOut(printStream);
         StubInput stubInput = new StubInput(new String[] {("стоп"), ("конец")});
-        Chat chat = new Chat(stubInput, this.fileLog, this.fileWithAnswers);
-        chat.interaction();
+        Chat chat = new Chat(this.fileLog, this.fileWithAnswers);
+        Interaction interaction = new Interaction(chat, stubInput);
+        interaction.init();
         String result = byteArrayOutputStream.toString();
         String expect =  "";
         assertEquals(expect, result);
@@ -69,8 +70,9 @@ public class ChatTest {
         PrintStream printStream = new PrintStream(byteArrayOutputStream);
         System.setOut(printStream);
         StubInput stubInput = new StubInput(new String[] {("привет"), ("конец")});
-        Chat chat = new Chat(stubInput, this.fileLog, this.fileWithAnswers);
-        chat.interaction();
+        Chat chat = new Chat(this.fileLog, this.fileWithAnswers);
+        Interaction interaction = new Interaction(chat, stubInput);
+        interaction.init();
         String result = byteArrayOutputStream.toString().replaceAll(endLine, "");
         assertTrue(this.allAnswers.contains(result));
     }
