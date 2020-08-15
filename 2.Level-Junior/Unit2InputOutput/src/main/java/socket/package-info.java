@@ -5,7 +5,8 @@
  *
  * EchoServer.java The class send and receive simple http packets.
  *  public static void main(String[] args) The main method.
- *  public static Boolean checkMsg(String msg)
- *   The method check match string to regex.
+ *  public void init() The method start server.
+ *  public void addMessage(String request, String answer)
+ *   The method add key word and answer.
  */
 package socket;

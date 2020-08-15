@@ -5,28 +5,32 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 /**
  * @author Roman Rusanov
  * @version 0.1
  * @since 13.08.2020
  * email roman9628@gmail.com
  * The class send and receive simple http packets.
- * If Server receive string contain "msg=Bye" then server shutdown.
+ * If Server receive string contain "msg=Exit" then server shutdown.
  */
 public class EchoServer {
     /**
-     * The field contain pattern for regular expression.
+     * The compiled pattern.
      */
-    static Pattern pattern = Pattern.compile("^.*msg=Bye.*$");
+    private Pattern parseMsg = Pattern.compile(".*msg=([A-z]+)\\s.*");
+    /**
+     * The field contian collection that store all words.
+     */
+    private HashMap<String, String> allMessage = new HashMap<>();
 
     /**
-     * The main method.
-     * @param args String args.
-     * @throws IOException may throw I/O exception.
+     * The method start server.
+     * @throws IOException may throw I/O Exception.
      */
-    public static void main(String[] args) throws IOException {
+    public void init() throws IOException {
         try (ServerSocket server = new ServerSocket(9000)) {
             boolean work = true;
             while (work) {
@@ -36,24 +40,50 @@ public class EchoServer {
                              new InputStreamReader(socket.getInputStream()))) {
                     String str = in.readLine();
                     while (!str.isEmpty()) {
-                        if (checkMsg(str)) {
+                        Matcher matcher = parseMsg.matcher(str);
+                        String msgKey = "";
+                        while (matcher.find()) {
+                            msgKey = matcher.group(1);
+                            String message = this.allMessage.getOrDefault(msgKey, "What");
+                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                            out.write(message.getBytes());
+                        }
+                        if (msgKey.equals("Exit")) {
                             work = false;
                         }
-                        System.out.println(str);
                         str = in.readLine();
                     }
-                    out.write("HTTP/1.1 200 OK\r\n\\".getBytes());
                 }
             }
         }
     }
 
     /**
-     * The method check match string to regex.
-     * @param msg String to check.
-     * @return If math return true, otherwise false.
+     * The method add key word and answer.
+     * @param request key message that server parse (http://localhost:9000/?msg=Hello>)
+     *                Hello - that key word.
+     * @param answer String return by passed key.
      */
-    public static Boolean checkMsg(String msg) {
-        return pattern.matcher(msg).matches();
+    public void addMessage(String request, String answer) {
+        this.allMessage.put(request, answer);
+    }
+
+    /**
+     * The method fill collection all pairs.
+     */
+    public void fillMessageKeyWords() {
+        this.addMessage("Hello", "Hello, dear friend.");
+        this.addMessage("Exit", "Good bay my friend!");
+        this.addMessage("What", "What?");
+    }
+
+    /**
+     * The main method.
+     * @param args String args.
+     * @throws IOException may throw I/O Exception.
+     */
+    public static void main(String[] args) throws IOException {
+        EchoServer echoServer = new EchoServer();
+        echoServer.init();
     }
 }
