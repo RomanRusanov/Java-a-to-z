@@ -1,4 +1,7 @@
 package socket;
+import logger.UsageLog4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,36 +28,58 @@ public class EchoServer {
      * The field contian collection that store all words.
      */
     private HashMap<String, String> allMessage = new HashMap<>();
+    /**
+     * The instance with logger.
+     */
+    private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
 
     /**
      * The method start server.
      * @throws IOException may throw I/O Exception.
      */
-    public void init() throws IOException {
+    public void init() {
         try (ServerSocket server = new ServerSocket(9000)) {
             boolean work = true;
             while (work) {
-                Socket socket = server.accept();
+                Socket socket = null;
+                try {
+                    socket = server.accept();
+                } catch (IOException e) {
+                    LOG.error("Error! Get socket from instance server.", e);
+                }
                 try (OutputStream out = socket.getOutputStream();
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
-                    String str = in.readLine();
+                    String str = null;
+                    try {
+                        str = in.readLine();
+                    } catch (IOException e) {
+                        LOG.error("Error! Read from buffered reader.", e);
+                    }
                     while (!str.isEmpty()) {
                         Matcher matcher = parseMsg.matcher(str);
                         String msgKey = "";
                         while (matcher.find()) {
                             msgKey = matcher.group(1);
                             String message = this.allMessage.getOrDefault(msgKey, "What");
-                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
-                            out.write(message.getBytes());
+                            try {
+                                out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                                out.write(message.getBytes());
+                            } catch (IOException e) {
+                                LOG.error("Error! Write to output stream.", e);
+                            }
                         }
                         if (msgKey.equals("Exit")) {
                             work = false;
                         }
                         str = in.readLine();
                     }
+                } catch (IOException e) {
+                    LOG.error("Error! Get input/output stream.", e);
                 }
             }
+        } catch (IOException e) {
+            LOG.error("Error! Create instane ServerSocket.", e);
         }
     }
 
