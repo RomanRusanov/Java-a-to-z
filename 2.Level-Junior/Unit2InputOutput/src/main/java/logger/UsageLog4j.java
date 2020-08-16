@@ -19,10 +19,17 @@ public class UsageLog4j {
      * @param args String args.
      */
     public static void main(String[] args) {
-        LOG.trace("trace message");
-        LOG.debug("debug message");
-        LOG.info("info message");
-        LOG.warn("warn message");
-        LOG.error("error message");
+        boolean booleanVar = false;
+        byte byteVar = 127;
+        short shortVar = 32767;
+        int intVar = 2147483647;
+        long longVar = 9223372036854775807L;
+        float floatVar = 3.40282347E+38f;
+        double doubleVar = 1.7976931348623157E+308d;
+        char charVar = 65535;
+        LOG.debug(String.format("%n boolean: {}%n byteVar: {}%n shortVar: "
+                + "{}%n intVar: {}%n longVar: {}%n floatVar: {}%n "
+                + "doubleVar: {}%n charVar : {}"), booleanVar, byteVar,
+                shortVar, intVar, longVar, floatVar, doubleVar, charVar);
     }
 }
