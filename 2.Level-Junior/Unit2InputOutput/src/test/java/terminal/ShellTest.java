@@ -40,7 +40,7 @@ public class ShellTest {
         shell.cd("user");
         shell.cd("local");
         assertEquals(
-                 "/user/local/", shell.pwd()
+                 "/user/local", shell.pwd()
         );
     }
     /**

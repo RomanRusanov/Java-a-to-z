@@ -1,6 +1,7 @@
 package terminal;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.LinkedList;
+import java.util.stream.Collectors;
+
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -12,15 +13,7 @@ public class Shell {
     /**
      * The field contain root directory.
      */
-    private String currentPath = "/";
-    /**
-     * The field contain pattern to math string with sub folders.
-     */
-    Pattern patternWithSubFolder = Pattern.compile("^.*[/](.*[/?])$");
-    /**
-     * The field contain pattern to string with one folder.
-     */
-    Pattern patternOnlyFolder = Pattern.compile("^[0-9,A-z]+");
+    private LinkedList<String> currentPath = new LinkedList<>();
 
     /**
      * The method take string with path and change current directory.
@@ -30,21 +23,14 @@ public class Shell {
         String[] commands = path.split("/");
         for (String command : commands) {
             if (path.equals("/")) {
-                this.currentPath = "/";
+                this.currentPath.clear();
                 break;
             }
-            if (patternOnlyFolder.matcher(command).find()) {
-                this.currentPath = this.currentPath.concat(command);
-                this.currentPath = this.currentPath.concat("/");
-            }
             if (command.equals("..")) {
-                Matcher matcher = patternWithSubFolder.matcher(this.currentPath);
-                String strFindInRegEx = "";
-                while (matcher.find()) {
-                    strFindInRegEx = matcher.group(1);
-                    this.currentPath = this.currentPath.replace(strFindInRegEx, "");
-                }
+                this.currentPath.pollLast();
+                break;
             }
+            this.currentPath.addLast(command);
         }
     }
 
@@ -53,6 +39,6 @@ public class Shell {
      * @return String with current path.
      */
     public String pwd() {
-        return this.currentPath;
+        return this.currentPath.stream().collect(Collectors.joining("/", "/", ""));
     }
 }
