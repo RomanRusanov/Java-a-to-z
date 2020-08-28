@@ -1,5 +1,6 @@
 package cachesoftreference;
-import java.io.File;
+import java.io.*;
+import java.nio.file.Files;
 
 /**
  * @author Roman Rusanov
@@ -8,13 +9,25 @@ import java.io.File;
  * email roman9628@gmail.com
  * The class create instance File from string.
  */
-public class ReadFromDiskWay implements WayGetValue<String, File> {
+public class ReadFromDiskWay implements WayGetValue<String,byte[]> {
     /**
      * The method get value.
      * @return V value.
      */
     @Override
-    public File getValue(String key) {
-        return new File(key);
+    public byte[] getValue(String key) {
+        byte[] result = null;
+        File fileWithPath = new File("2.Level-Junior/GarbageCollection"
+                + "/src/main/resources/" + key);
+        try {
+            result = Files.readAllBytes(fileWithPath.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (result == null) {
+            throw new IllegalStateException(
+                    String.format("Can't read from file: %s", fileWithPath));
+        }
+        return result;
     }
 }

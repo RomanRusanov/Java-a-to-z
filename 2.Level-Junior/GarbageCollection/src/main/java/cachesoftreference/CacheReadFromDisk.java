@@ -1,7 +1,5 @@
 package cachesoftreference;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -19,30 +17,21 @@ public class CacheReadFromDisk {
      * @param args Args.
      */
     public static void main(String[] args) {
-        Cache<String, File> cache = new Cache<>(new ReadFromDiskWay());
-        print(cache.get(new String ("2.Level-Junior/GarbageCollection"
-                + "/src/main/resources/Address.txt")));
-        print(cache.get(new String("2.Level-Junior/GarbageCollection"
-                + "/src/main/resources/Address.txt")));
+        Cache<String, byte[]> cache = new Cache<>(new ReadFromDiskWay());
+        print(cache.get("Address.txt"));
+        print(cache.get("Address.txt"));
         activateGC();
-        print(cache.get(new String("2.Level-Junior/GarbageCollection"
-                + "/src/main/resources/Address.txt")));
-        print(cache.get(new String("2.Level-Junior/GarbageCollection"
-                + "/src/main/resources/Address.txt")));
-        print(cache.get(new String("2.Level-Junior/GarbageCollection"
-                + "/src/main/resources/Address.txt")));
+        print(cache.get("Address.txt"));
+        print(cache.get("Address.txt"));
+        print(cache.get("Address.txt"));
     }
 
     /**
      * The method read file text and out to system out.
-     * @param file File to read.
+     * @param in BufferedReader stream print to console.
      */
-    public static void print(File file) {
-        try (BufferedReader in = new BufferedReader(new FileReader(file))) {
-            in.lines().forEach(System.out::println);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public static void print(byte[] in) {
+        System.out.println(new String(in));
     }
 
     /**
