@@ -58,13 +58,13 @@ public class Cache<K,V> {
     public V get(K key) {
         V value;
         if (this.cache.containsKey(key)) {
-            SoftReference<V> softRef =this.cache.get(key);
-            if (softRef.get() == null) {
+            V strongRef = this.cache.get(key).get();
+            if (strongRef == null) {
                 value = this.getValue(key, this.currentWay);
                 this.replace(key, value);
                 System.out.println("-------Not cache operation");
             } else {
-                value = softRef.get();
+                value = strongRef;
                 System.out.println("-------Read from cache!");
             }
         } else {
