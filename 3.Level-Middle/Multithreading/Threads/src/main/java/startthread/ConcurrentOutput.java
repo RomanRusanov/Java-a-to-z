@@ -8,6 +8,10 @@ package startthread;
  * The class demonstrate that two threads start in random priority.
  */
 public class ConcurrentOutput {
+    /**
+     * Main method.
+     * @param args passed params.
+     */
     public static void main(String[] args) {
         Thread another = new Thread(
                 () -> System.out.println(Thread.currentThread().getName())

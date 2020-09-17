@@ -10,5 +10,9 @@
     <modules>
         <module>Multithreading</module>
     </modules>
-    
+    <parent>
+        <groupId>ru.rrusanov</groupId>
+        <artifactId>Java-a-to-z</artifactId>
+        <version>1.0</version>
+    </parent>
 </project>

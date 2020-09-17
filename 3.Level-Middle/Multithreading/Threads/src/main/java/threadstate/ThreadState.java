@@ -5,9 +5,13 @@ package threadstate;
  * @version 0.1
  * @since 17.09.2020
  * email roman9628@gmail.com
- * The class .
+ * The class demonstrate how get thread state.
  */
 public class ThreadState {
+    /**
+     * Main method.
+     * @param args passed params.
+     */
     public static void main(String[] args) {
         Thread first = new Thread(
                 () -> {
