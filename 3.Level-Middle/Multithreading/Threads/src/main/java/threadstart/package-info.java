@@ -3,4 +3,4 @@
  *  in random priority.
  *  void main(String[] args) Main method.
  */
-package startthread;
+package threadstart;

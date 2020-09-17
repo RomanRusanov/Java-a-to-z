@@ -1,4 +1,4 @@
-package startthread;
+package threadstart;
 
 /**
  * @author Roman Rusanov
