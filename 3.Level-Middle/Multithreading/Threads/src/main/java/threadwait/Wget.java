@@ -18,9 +18,9 @@ public class Wget {
                     for (int i = 0; i < 100; i++) {
                         print(i);
                         try {
-                            Thread.sleep(1000);
+                            Thread.sleep(100);
                         } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            Thread.currentThread().interrupt();
                         }
                     }
                 }
