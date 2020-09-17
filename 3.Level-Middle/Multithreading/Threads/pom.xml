@@ -19,7 +19,7 @@
             </plugin>
         </plugins>
     </build>
-Add    <parent>
+    <parent>
         <groupId>ru.rrusanov</groupId>
         <artifactId>Multithreading</artifactId>
         <version>1.0</version>
