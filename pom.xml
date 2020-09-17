@@ -7,6 +7,7 @@
 	<modules>
 		<module>1.Level-Trainee</module>
         <module>2.Level-Junior</module>
+        <module>3.Level-Middle</module>
     </modules>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
