@@ -10,6 +10,7 @@
     <modules>
         <module>Threads</module>
         <module>SharedResources</module>
+        <module>SynchronizeResources</module>
     </modules>
     <parent>
         <groupId>ru.rrusanov</groupId>
