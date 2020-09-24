@@ -1,6 +1,8 @@
 /**
  * FileDownload.java The class download file with limits by speed.
  *  void main(String[] args) Main method.
+ *  static long delay(long afterRead, int limit)
+ *   The method calculate delay in milliseconds depending of speed downloading.
  * ArgsName.java
  *  The class parse parameters passed as arguments and put them to collection.
  *  public String get(String key) The method get value by passed key string.
