@@ -40,6 +40,12 @@
             <artifactId>jcip-annotations</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>ru.rrusanov</groupId>
+            <artifactId>Chapter001_Collection_Pro</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 
