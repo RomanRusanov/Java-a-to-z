@@ -11,6 +11,7 @@
         <module>Threads</module>
         <module>SharedResources</module>
         <module>SynchronizeResources</module>
+        <module>WaitNotifyNotifyAll</module>
     </modules>
     <parent>
         <groupId>ru.rrusanov</groupId>
