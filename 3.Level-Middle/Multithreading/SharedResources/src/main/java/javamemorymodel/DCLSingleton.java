@@ -9,20 +9,29 @@ package javamemorymodel;
  * 2. Исправьте в нем ошибку. Текстом в комментарии напишите,
  *    почему возникает ошибка.
  * 3. Загрузите код в репозиторий. Оставьте ссылку на коммит.
+ *
+ * DCL Singleton with out volatile, use final filed to make barrier.
  */
 public final class DCLSingleton {
     /**
      * The field contain instance.
      */
-    private static volatile DCLSingleton inst;
-
+    private static DCLSingleton inst;
+    /**
+     * The field contain barrier.
+     */
+    private final Object barrier;
     /**
      * The method generate instance of class.
      * @return DCLSingleton.
      */
-    public static synchronized DCLSingleton instOf() {
+    public static DCLSingleton instOf() {
         if (inst == null) {
-            inst = new DCLSingleton();
+            synchronized (DCLSingleton.class) {
+                if (inst == null) {
+                    inst = new DCLSingleton();
+                }
+            }
         }
         return inst;
     }
@@ -31,5 +40,6 @@ public final class DCLSingleton {
      * The default constructor.
      */
     private DCLSingleton() {
+        this.barrier = new Object();
     }
 }
