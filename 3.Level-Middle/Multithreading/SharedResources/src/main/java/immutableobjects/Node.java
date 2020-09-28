@@ -17,7 +17,6 @@ import net.jcip.annotations.NotThreadSafe;
  * @param <T> Type that node store.
  */
 @NotThreadSafe
-@Immutable
 public class Node<T> {
     /**
      * The field contain reference to next node.
