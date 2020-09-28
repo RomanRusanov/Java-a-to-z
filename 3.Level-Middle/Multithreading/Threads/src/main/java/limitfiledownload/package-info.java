@@ -1,6 +1,6 @@
 /**
  * FileDownload.java The class download file with limits by speed.
- *  void main(String[] args) Main method.
+ *  public Path call() Computes a result, or throws an exception if unable to do so.
  *  static long delay(long afterRead, int limit)
  *   The method calculate delay in milliseconds depending of speed downloading.
  * ArgsName.java
