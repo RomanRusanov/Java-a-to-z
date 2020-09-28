@@ -20,7 +20,7 @@ public final class DCLSingleton {
      * The method generate instance of class.
      * @return DCLSingleton.
      */
-    public synchronized static DCLSingleton instOf() {
+    public static synchronized  DCLSingleton instOf() {
         if (inst == null) {
             synchronized (DCLSingleton.class) {
                 if (inst == null) {
