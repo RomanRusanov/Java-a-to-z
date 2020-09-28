@@ -14,15 +14,19 @@ public final class DCLSingleton {
     /**
      * The field contain instance.
      */
-    private static volatile DCLSingleton inst;
+    private static DCLSingleton inst;
 
     /**
      * The method generate instance of class.
      * @return DCLSingleton.
      */
-    public static synchronized DCLSingleton instOf() {
+    public synchronized static DCLSingleton instOf() {
         if (inst == null) {
-            inst = new DCLSingleton();
+            synchronized (DCLSingleton.class) {
+                if (inst == null) {
+                    inst = new DCLSingleton();
+                }
+            }
         }
         return inst;
     }
