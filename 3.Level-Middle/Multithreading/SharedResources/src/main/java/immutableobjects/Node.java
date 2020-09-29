@@ -1,5 +1,4 @@
 package immutableobjects;
-import net.jcip.annotations.Immutable;
 import net.jcip.annotations.NotThreadSafe;
 
 /**
