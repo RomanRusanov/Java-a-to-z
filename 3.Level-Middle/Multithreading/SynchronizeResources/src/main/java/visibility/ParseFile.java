@@ -25,16 +25,21 @@ public class ParseFile {
      * The field contain false if method write doesn't pass for
      * current instance file. True when data stored to file.
      */
-    private volatile boolean isLoad = true;
+    private boolean isLoad = true;
     /**
      * The method Setter for field.
      * @param f File.
+     * @return If field state change return true, otherwise,
+     * if method getContent not passed we can't change file.
      */
-    public synchronized void setFile(File f) {
+    public synchronized boolean setFile(File f) {
+        boolean result = false;
         if (isLoad) {
             file = f;
             isLoad = false;
+            result = true;
         }
+        return result;
     }
 
     /**
@@ -62,7 +67,7 @@ public class ParseFile {
      * The method load strings from file and store each string in array.
      * @return String array.
      */
-    private String[] loadContentFromFile() {
+    public String[] loadContentFromFile() {
         String[] result = new String[0];
         try (BufferedReader reader = new BufferedReader(new FileReader(this.file))) {
             result = reader.lines().toArray(String[]::new);
