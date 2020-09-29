@@ -21,23 +21,19 @@ public class FileDownload implements Callable<Path> {
     /**
      * The field contain instance that work with args.
      */
-    private ArgsName argsName;
+    public final ArgsName argsName;
     /**
      * The field contain url to load.
      */
-    private String url;
-    /**
-     * The field contain value buffer size.
-     */
-    private int startBufferSize = 1024;
+    private final String url;
     /**
      * The field contain value download limit.
      */
-    private int limit;
+    private final int limit;
     /**
      * The field contain string path with file name to store downloaded file.
      */
-    private String file;
+    private final String file;
 
     /**
      * The default constructor.
@@ -87,7 +83,8 @@ public class FileDownload implements Callable<Path> {
              FileOutputStream fileOutputStream = new FileOutputStream(
                      this.file
              )) {
-            int bufferSize = this.startBufferSize;
+            int startBufferSize = 1024;
+            int bufferSize = startBufferSize;
             byte[] dataBuffer = new byte[bufferSize];
             int bytesRead;
             int allBytesRead = 0;
@@ -100,7 +97,7 @@ public class FileDownload implements Callable<Path> {
                 }
                 fileOutputStream.write(dataBuffer, 0, allBytesRead);
                 long afterRead = -(beforeRead - System.nanoTime());
-                bufferSize = this.startBufferSize;
+                bufferSize = startBufferSize;
                 allBytesRead = 0;
                 Thread.sleep(this.delay(afterRead, this.limit));
             }
