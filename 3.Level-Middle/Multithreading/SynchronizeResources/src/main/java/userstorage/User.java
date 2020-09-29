@@ -1,8 +1,5 @@
 package userstorage;
 
-import net.jcip.annotations.GuardedBy;
-import net.jcip.annotations.ThreadSafe;
-
 import java.util.Objects;
 
 /**
@@ -12,20 +9,15 @@ import java.util.Objects;
  * email roman9628@gmail.com
  * The class describe User.
  */
-@ThreadSafe
 public class User {
-    /**
-     * The class TreadSafe monitor instance of class.
-     */
-    @GuardedBy("this")
     /**
      * The field contain user id unique value.
      */
-    private volatile int id;
+    private int id;
     /**
      * The field contain user amount.
      */
-    private volatile int amount;
+    private int amount;
 
     /**
      * The default constructor.
@@ -41,14 +33,14 @@ public class User {
      * The getter for field.
      * @return int id value.
      */
-    public synchronized int getId() {
+    public int getId() {
         return id;
     }
     /**
      * The getter for field.
      * @return Amount value.
      */
-    public synchronized int getAmount() {
+    public int getAmount() {
         return amount;
     }
 
@@ -56,7 +48,7 @@ public class User {
      * The setter for field.
      * @param amount int value.
      */
-    public synchronized void setAmount(int amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
