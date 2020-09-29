@@ -1,4 +1,6 @@
 package visibility;
+
+import net.jcip.annotations.ThreadSafe;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,19 +14,27 @@ import java.io.IOException;
  * email roman9628@gmail.com
  * The class parse file.
  */
+@ThreadSafe
 public class ParseFile {
     /**
      * The field contain file instance.
      * File for load and save content.
      */
-    private volatile File file;
-
+    private File file;
+    /**
+     * The field contain false if method write doesn't pass for
+     * current instance file. True when data stored to file.
+     */
+    private volatile boolean isLoad = true;
     /**
      * The method Setter for field.
      * @param f File.
      */
     public synchronized void setFile(File f) {
-        file = f;
+        if (isLoad) {
+            file = f;
+            isLoad = false;
+        }
     }
 
     /**
@@ -32,7 +42,7 @@ public class ParseFile {
      * @return File.
      */
     public synchronized File getFile() {
-        return file;
+        return new File(String.valueOf(this.file));
     }
 
     /**
@@ -40,10 +50,11 @@ public class ParseFile {
      * @return String.
      */
     public synchronized String getContent() {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         for (String str: this.loadContentFromFile()) {
             buffer.append(str + System.getProperty("line.separator"));
         }
+        this.isLoad = true;
         return buffer.toString();
     }
 
@@ -51,7 +62,7 @@ public class ParseFile {
      * The method load strings from file and store each string in array.
      * @return String array.
      */
-    public synchronized String[] loadContentFromFile() {
+    private String[] loadContentFromFile() {
         String[] result = new String[0];
         try (BufferedReader reader = new BufferedReader(new FileReader(this.file))) {
             result = reader.lines().toArray(String[]::new);
@@ -67,12 +78,13 @@ public class ParseFile {
      * @return String.
      */
     public synchronized String getContentWithoutUnicode() {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         for (String str: this.loadContentFromFile()) {
             str.chars().filter(c -> c < 0x80)
                     .forEach(c -> buffer.append(Character.valueOf((char) c)));
             buffer.append(System.getProperty("line.separator"));
         }
+        this.isLoad = true;
         return buffer.toString();
     }
 
@@ -80,7 +92,7 @@ public class ParseFile {
      * The method write String in file.
      * @param content String to write.
      */
-    public synchronized void saveContent(String content) {
+    public void saveContent(String content) {
         try (BufferedWriter w = new BufferedWriter(new FileWriter(file))) {
             w.write(content);
         } catch (IOException e) {
