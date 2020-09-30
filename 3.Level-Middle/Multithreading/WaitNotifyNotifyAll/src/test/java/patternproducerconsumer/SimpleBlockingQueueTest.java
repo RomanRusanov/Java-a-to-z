@@ -60,7 +60,12 @@ class SimpleBlockingQueueTest {
         }
         Thread consumer = new Thread(() -> {
             for (int i = 0; i < 4; i++) {
-                queue.poll();
+                try {
+                    queue.poll();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                }
             }
         }, "consumer");
         consumer.start();
@@ -87,7 +92,12 @@ class SimpleBlockingQueueTest {
         producer.start();
         Thread consumer = new Thread(() -> {
             for (int i = 0; i < 10; i++) {
-                result.add(queue.poll());
+                try {
+                    result.add(queue.poll());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                }
             }
         }, "consumer");
         consumer.start();

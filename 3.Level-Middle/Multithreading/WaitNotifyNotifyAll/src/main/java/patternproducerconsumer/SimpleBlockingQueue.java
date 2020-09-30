@@ -51,19 +51,16 @@ public class SimpleBlockingQueue<T> {
     /**
      * The method get element from queue.
      * @return Element.
+     * @throws InterruptedException wait may throw.
      */
-    public synchronized T poll() {
+    public synchronized T poll() throws InterruptedException {
         while (true) {
             if (!this.queue.isEmpty()) {
                 T element = this.queue.poll();
                 notifyAll();
                 return element;
             } else {
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
+                wait();
             }
         }
     }
