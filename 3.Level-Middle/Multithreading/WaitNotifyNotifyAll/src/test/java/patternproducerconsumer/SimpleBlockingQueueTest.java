@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.IntStream;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -107,5 +110,40 @@ class SimpleBlockingQueueTest {
         assertTrue(queue.isEmpty());
         assertEquals(Thread.State.TERMINATED, consumer.getState());
         assertEquals(Thread.State.TERMINATED, producer.getState());
+    }
+
+    /**
+     * The test from exercise junit test for simple blocking queue.
+     * @throws InterruptedException join method may throw.
+     */
+    @Test
+    public void whenFetchAllThenGetIt() throws InterruptedException {
+        final CopyOnWriteArrayList<Integer> buffer = new CopyOnWriteArrayList<>();
+        final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
+        Thread producer = new Thread(
+                () -> {
+                    IntStream.range(0, 8).forEach(
+                            queue::offer
+                    );
+                }, "producer"
+        );
+        producer.start();
+        Thread consumer = new Thread(
+                () -> {
+                    while (!queue.isEmpty() || !Thread.currentThread().isInterrupted()) {
+                        try {
+                            buffer.add(queue.poll());
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                            Thread.currentThread().interrupt();
+                        }
+                    }
+                }, "consumer"
+        );
+        consumer.start();
+        producer.join();
+        consumer.interrupt();
+        consumer.join();
+        assertEquals(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7), buffer);
     }
 }
