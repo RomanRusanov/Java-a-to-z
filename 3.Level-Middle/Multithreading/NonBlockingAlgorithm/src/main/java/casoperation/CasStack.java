@@ -8,9 +8,10 @@ import java.util.concurrent.atomic.AtomicReference;
  * @since 01.10.2020
  * email roman9628@gmail.com
  * The class describe Stack with thread safe CAS operation.
+ * @param <T> Type object that node stored.
  */
 @ThreadSafe
-public class CASStack<T> {
+public class CasStack<T> {
     /**
      * The field contain ref to head element.
      */
@@ -40,7 +41,7 @@ public class CASStack<T> {
      * If not equals repeat cycle.
      * ref.next = null remove reference to next element, because this node be
      * removed from stack, and next element not need more.
-     * @return Stored T element value.
+     * @return Stored object.
      */
     public T poll() {
         Node<T> ref;
@@ -56,12 +57,25 @@ public class CASStack<T> {
         return ref.value;
     }
 
+    /**
+     * The inner static class implements Node.
+     * @param <T> Object that Node store.
+     */
     private static final class Node<T> {
+        /**
+         * The field contain stored value.
+         */
         final T value;
-
+        /**
+         * The field reference to next node in stack.
+         */
         Node<T> next;
 
-        public Node(final T value) {
+        /**
+         * The default constructor.
+         * @param value Object to store.
+         */
+        Node(final T value) {
             this.value = value;
         }
     }
