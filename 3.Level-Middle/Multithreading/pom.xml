@@ -12,11 +12,24 @@
         <module>SharedResources</module>
         <module>SynchronizeResources</module>
         <module>WaitNotifyNotifyAll</module>
-        <module>NonBlockingAlgoritm</module>
+        <module>NonBlockingAlgorithm</module>
     </modules>
     <parent>
         <groupId>ru.rrusanov</groupId>
         <artifactId>3.Level-Middle</artifactId>
         <version>1.0</version>
     </parent>
+    <dependencies>
+        <dependency>
+            <groupId>net.jcip</groupId>
+            <artifactId>jcip-annotations</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.4.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
