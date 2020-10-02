@@ -33,7 +33,7 @@ public class SimpleBlockingQueue<T> {
      * @param sizeQueue Max queue size.
      */
     public SimpleBlockingQueue(int sizeQueue) {
-        this.sizeQueue = 5;
+        this.sizeQueue = sizeQueue;
     }
 
     /**
