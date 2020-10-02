@@ -26,25 +26,30 @@ public class SimpleBlockingQueue<T> {
     /**
      * The field contain max value queue size.
      */
-    private final int sizeQueue = 5;
+    private final int sizeQueue;
+
+    /**
+     * The default constructor.
+     * @param sizeQueue Max queue size.
+     */
+    public SimpleBlockingQueue(int sizeQueue) {
+        this.sizeQueue = 5;
+    }
 
     /**
      * The method add element to queue.
      * @param value Element to store.
      */
     public synchronized void offer(T value) {
-        while (true) {
-            if (this.queue.size() < this.sizeQueue) {
-                this.queue.offer(value);
-                break;
-            } else {
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
+        while (this.queue.size() == this.sizeQueue) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         }
+        this.queue.offer(value);
         notifyAll();
     }
 
@@ -54,15 +59,11 @@ public class SimpleBlockingQueue<T> {
      * @throws InterruptedException wait may throw.
      */
     public synchronized T poll() throws InterruptedException {
-        while (true) {
-            if (!this.queue.isEmpty()) {
-                T element = this.queue.poll();
-                notifyAll();
-                return element;
-            } else {
-                wait();
-            }
+        while (!this.queue.isEmpty()) {
+            wait();
         }
+        notifyAll();
+        return this.queue.poll();
     }
 
     /**

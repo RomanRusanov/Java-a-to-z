@@ -20,7 +20,7 @@ class SimpleBlockingQueueTest {
      */
     @Test
     public void whenQueueOffer3TimesThenConsume3Element() throws InterruptedException {
-        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
+        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(5);
         Thread producer = new Thread(() -> {
             for (int i = 0; i < 3; i++) {
                 queue.offer(i);
@@ -39,7 +39,7 @@ class SimpleBlockingQueueTest {
      */
     @Test
     public void whenQueueOfferAndNotConsumeThenSizeQueue5() throws InterruptedException {
-        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
+        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(5);
         Thread producer = new Thread(() -> {
             for (int i = 0; i < 6; i++) {
                 queue.offer(i);
@@ -57,7 +57,7 @@ class SimpleBlockingQueueTest {
      */
     @Test
     public void whenConsumeAllThenQueueEmptyAndConsumerWait() throws InterruptedException {
-        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
+        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(5);
         for (int i = 0; i < 3; i++) {
             queue.offer(i);
         }
@@ -84,7 +84,7 @@ class SimpleBlockingQueueTest {
      */
     @Test
     public void when2ThreadsWorkThenQueueIsEmpty() throws InterruptedException {
-        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
+        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(5);
         List<Integer> expect = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
         List<Integer> result = new ArrayList<>();
         Thread producer = new Thread(() -> {
@@ -119,7 +119,7 @@ class SimpleBlockingQueueTest {
     @Test
     public void whenFetchAllThenGetIt() throws InterruptedException {
         final CopyOnWriteArrayList<Integer> buffer = new CopyOnWriteArrayList<>();
-        final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
+        final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(5);
         Thread producer = new Thread(
                 () -> {
                     IntStream.range(0, 8).forEach(
