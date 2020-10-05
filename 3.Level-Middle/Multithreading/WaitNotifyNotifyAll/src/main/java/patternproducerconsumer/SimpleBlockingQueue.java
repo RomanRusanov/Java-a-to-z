@@ -59,7 +59,7 @@ public class SimpleBlockingQueue<T> {
      * @throws InterruptedException wait may throw.
      */
     public synchronized T poll() throws InterruptedException {
-        while (!this.queue.isEmpty()) {
+        while (this.queue.isEmpty()) {
             wait();
         }
         notifyAll();
