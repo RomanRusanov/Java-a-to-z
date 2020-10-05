@@ -13,6 +13,7 @@
         <module>SynchronizeResources</module>
         <module>WaitNotifyNotifyAll</module>
         <module>NonBlockingAlgorithm</module>
+        <module>Pool</module>
     </modules>
     <parent>
         <groupId>ru.rrusanov</groupId>
