@@ -47,14 +47,13 @@ public class NonBlockingCache {
         }
         this.storedBase.computeIfPresent(model.getId(),
                 (key, base) -> {
-                    do {
-                        atomicReference.set(this.storedBase.get(key));
-                        if (atomicReference.get().getVersion() != (model.getVersion() - 1)) {
-                            throw new OptimisticException("Version model passed "
-                                    + "different from expect, possible data corruption!"
-                            );
-                        }
-                    } while (!atomicReference.compareAndSet(this.storedBase.get(key), model));
+                    atomicReference.set(this.storedBase.get(key));
+                    if (atomicReference.get().getVersion() != (model.getVersion() - 1)) {
+                        throw new OptimisticException("Version model passed "
+                                + "different from expect, possible data corruption!"
+                        );
+                    }
+                    atomicReference.set(model);
                     return atomicReference.get();
                 }
         );
