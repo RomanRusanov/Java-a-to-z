@@ -25,7 +25,7 @@ public class ThreadPool {
     /**
      * The instance implement thread safe blocking queue.
      */
-    private final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>(3);
+    private final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>(sizeThreadPool);
 
     /**
      * The default constructor.
