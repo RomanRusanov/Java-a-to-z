@@ -40,7 +40,7 @@ public class EmailNotification {
      */
     public void close() {
         this.pool.shutdown();
-        while (pool.isTerminated()) {
+        while (!pool.isTerminated()) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
