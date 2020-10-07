@@ -16,23 +16,23 @@ public class SearchFJP<T> extends RecursiveTask<Integer> {
     /**
      * The field contain array.
      */
-    private T[] array;
+    private final T[] array;
     /**
      * The field contain start position to find in task.
      */
-    private int start;
+    private final int start;
     /**
      * The field contain end position to find in task.
      */
-    private int end;
+    private final int end;
     /**
      * The field contain start index in current task.
      */
-    private int startIndex;
+    private final int startIndex;
     /**
      * The field contain index to search.
      */
-    private int searchIndex;
+    private final int searchIndex;
 
     /**
      * The default constructor.
