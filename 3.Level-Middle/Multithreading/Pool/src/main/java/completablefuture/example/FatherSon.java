@@ -1,4 +1,4 @@
-package completablefuture;
+package completablefuture.example;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
