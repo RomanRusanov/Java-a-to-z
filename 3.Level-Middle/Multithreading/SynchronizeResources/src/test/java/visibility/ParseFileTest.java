@@ -1,9 +1,7 @@
 package visibility;
-import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.TemporaryFolder;
-import java.io.IOException;
+import org.junit.jupiter.api.io.TempDir;
 import java.nio.file.Path;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -14,17 +12,17 @@ class ParseFileTest {
     /**
      * The path with unicode symbols file.
      */
-    private Path fileWithUnicode = Path.of(
+    private final Path fileWithUnicode = Path.of(
             "src/test/resources/fileWithUnicodeSymbols.txt");
     /**
      * The path with out unicode symbols file.
      */
-    private Path fileWithoutUnicode = Path.of(
+    private final Path fileWithoutUnicode = Path.of(
             "src/test/resources/fileWithoutUnicodeSymbols.txt");
     /**
      * The instance of test class.
      */
-    private ParseFile parseFile = new ParseFile();
+    private final ParseFile parseFile = new ParseFile();
     /**
      * The string with symbol line separator.
      */
@@ -32,12 +30,12 @@ class ParseFileTest {
     /**
      * The instance temp folder.
      */
-    @Rule
-    public TemporaryFolder tempFolder = new TemporaryFolder();
+    @TempDir
+    static Path tempFolder;
     /**
      * The string contain that class must parse with unicode symbols.
      */
-    private String contentWithUnicode = "✓\t 2713 check mark" + NEW_LINE
+    private final String contentWithUnicode = "✓\t 2713 check mark" + NEW_LINE
             + "✗\t 2717 cross mark" + NEW_LINE
             + "〃\t 3003 ditto" + NEW_LINE
             + "§\t 00A7 section" + NEW_LINE
@@ -55,7 +53,7 @@ class ParseFileTest {
     /**
      * The string contain that class must parse with out unicode symbols.
      */
-    private String contentWithoutUnicode = "\t 2713 check mark" + NEW_LINE
+    private final String contentWithoutUnicode = "\t 2713 check mark" + NEW_LINE
             + "\t 2717 cross mark" + NEW_LINE
             + "\t 3003 ditto" + NEW_LINE
             + "\t 00A7 section" + NEW_LINE
@@ -92,21 +90,19 @@ class ParseFileTest {
      */
     @Test
     void whenParseWithSymbolsThenTheyExist() {
-        assertEquals(this.contentWithUnicode, this.parseFile.getContent());
+        ParseFile parseFile = new ParseFile();
+        parseFile.setFile(fileWithoutUnicode.toFile());
+        assertEquals(this.contentWithoutUnicode, parseFile.getContent());
     }
 
     /**
      * The test check save process.
-     * @throws IOException TempFolder may throw.
      */
     @Test
-    void whenSaveContentThenItSameWhatParse() throws IOException {
+    void whenSaveContentThenItSameWhatParse() {
         String parseResult = this.parseFile.getContentWithoutUnicode();
-        this.tempFolder.create();
-        this.parseFile.setFile(this.tempFolder.newFile("test.txt"));
+        this.parseFile.setFile(tempFolder.resolve("test.txt").toFile());
         this.parseFile.saveContent(parseResult);
-        System.out.println(this.parseFile.getFile());
         assertEquals(this.contentWithoutUnicode, this.parseFile.getContent());
-        this.tempFolder.delete();
     }
 }
