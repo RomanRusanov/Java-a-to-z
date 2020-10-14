@@ -11,6 +11,7 @@ before_install:
   - date
   # JDBC создание базы данных
   - psql -c 'create database tracker;' -U postgres
+  - psql -c 'create database competition;' -U postgres
 
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
 # Здесь используется сторонни сервис https://codecov.io/
@@ -21,6 +22,6 @@ after_success:
 notifications:
   email:
     recipients:
-      - rusanov_roman@icloud.com
+      - roman9628@gmail.com
     on_success: never # default: change
     on_failure: always # default: always

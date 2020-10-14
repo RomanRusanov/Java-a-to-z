@@ -1,6 +1,7 @@
 package completablefuture;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringJoiner;
@@ -18,7 +19,7 @@ public class Config {
     /**
      * The field contain relative path to file and file name.
      */
-    private final String path;
+    private final Path path;
     /**
      * The filed contain collection that store config pairs.
      */
@@ -32,7 +33,7 @@ public class Config {
      * The default constructor.
      * @param path String with relative path and file name.
      */
-    public Config(final String path) {
+    public Config(Path path) {
         this.path = path;
     }
 
@@ -41,7 +42,7 @@ public class Config {
      * and put to collection values.
      */
     public void load() {
-        try (BufferedReader in = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader in = new BufferedReader(new FileReader(path.toString()))) {
             in.lines().filter(this::isContain).forEach(str -> {
                                 String[] twoStrings = str.split("=");
                                 this.values.put(twoStrings[0], twoStrings[1]); }
@@ -79,11 +80,20 @@ public class Config {
     @Override
     public String toString() {
         StringJoiner out = new StringJoiner(System.lineSeparator());
-        try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
+        try (BufferedReader read = new BufferedReader(new FileReader(this.path.toString()))) {
             read.lines().forEach(out::add);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return out.toString();
+    }
+
+    /**
+     * The method need for unit test. Make
+     * @param param update param.
+     * @param value new value.
+     */
+    public void updateValue(String param, String value) {
+        this.values.replace(param, value);
     }
 }
