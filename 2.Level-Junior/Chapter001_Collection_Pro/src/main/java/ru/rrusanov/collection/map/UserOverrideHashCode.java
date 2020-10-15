@@ -1,5 +1,7 @@
 package ru.rrusanov.collection.map;
 import java.util.Calendar;
+import java.util.Objects;
+
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -36,5 +38,19 @@ public class UserOverrideHashCode {
         return 31 * (this.name == null ? 0 : this.name.hashCode())
                 + this.children
                 + (this.birthday == null ? 0 : this.birthday.hashCode());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UserOverrideHashCode that = (UserOverrideHashCode) o;
+        return children == that.children
+                && Objects.equals(name, that.name)
+                && Objects.equals(birthday, that.birthday);
     }
 }
