@@ -1,6 +1,7 @@
 package ru.rrusanov.collection.store;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 /**
  * @author Roman Rusanov
@@ -90,7 +91,7 @@ public class Store {
          * @param name User name.
          */
         User(String name) {
-            this.id = (int) System.currentTimeMillis() / name.hashCode() + name.length();
+            this.id = ThreadLocalRandom.current().nextInt();
             this.name = name;
         }
         /**
