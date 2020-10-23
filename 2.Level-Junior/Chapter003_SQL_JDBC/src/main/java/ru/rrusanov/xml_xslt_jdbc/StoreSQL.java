@@ -1,6 +1,6 @@
 package ru.rrusanov.xml_xslt_jdbc;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,7 +28,7 @@ public class StoreSQL implements AutoCloseable {
     /**
      * Logger.
      */
-    private static final Logger LOG = LogManager.getLogger(StoreSQL.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(StoreSQL.class.getName());
     /**
      * Version for Logger.
      */

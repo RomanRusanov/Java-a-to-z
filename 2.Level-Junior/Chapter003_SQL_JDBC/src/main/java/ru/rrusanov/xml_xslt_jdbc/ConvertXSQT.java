@@ -1,6 +1,6 @@
 package ru.rrusanov.xml_xslt_jdbc;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -28,7 +28,7 @@ public class ConvertXSQT {
     /**
      * Logger.
      */
-    private static final Logger LOG = LogManager.getLogger(ConvertXSQT.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(ConvertXSQT.class.getName());
     /**
      * Version for Logger.
      */

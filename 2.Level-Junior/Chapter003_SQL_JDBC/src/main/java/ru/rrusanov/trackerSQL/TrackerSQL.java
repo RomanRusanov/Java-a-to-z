@@ -1,7 +1,7 @@
 package ru.rrusanov.trackerSQL;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.rrusanov.tracker.ConsoleInput;
 import ru.rrusanov.tracker.ITracker;
 import ru.rrusanov.tracker.Input;
@@ -37,7 +37,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     /**
      * The filed contain instance logger.
      */
-    private static final Logger LOG = LogManager.getLogger(TrackerSQL.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(TrackerSQL.class.getName());
     /**
      * The default constructor. Initiate connection to the database.
      */

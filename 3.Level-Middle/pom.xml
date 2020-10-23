@@ -9,6 +9,7 @@
     <version>1.0</version>
     <modules>
         <module>Multithreading</module>
+        <module>ServletJSP</module>
     </modules>
     <parent>
         <groupId>ru.rrusanov</groupId>

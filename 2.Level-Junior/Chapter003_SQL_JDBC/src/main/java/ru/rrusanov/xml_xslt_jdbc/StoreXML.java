@@ -1,6 +1,6 @@
 package ru.rrusanov.xml_xslt_jdbc;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -21,7 +21,7 @@ public class StoreXML {
     /**
      * Logger.
      */
-    private static final Logger LOG = LogManager.getLogger(StoreXML.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(StoreXML.class.getName());
     /**
      * Version for Logger.
      */
