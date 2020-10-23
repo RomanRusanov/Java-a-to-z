@@ -8,3 +8,8 @@
 ### ЦЕЛЬ.
 * Устроиться на работу java программистом(middle).
 "В курсе производилась работа с веткамы git."
+"Создание ветки из IDEA"
+Изменения второго комита через --amend
+first commit before soft reset
+second commit before soft reset
+
