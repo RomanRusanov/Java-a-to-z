@@ -11,6 +11,7 @@
         <module>Multithreading</module>
         <module>ServletJSP</module>
         <module>Hibernate</module>
+        <module>dependency_injection</module>
     </modules>
     <parent>
         <groupId>ru.rrusanov</groupId>
