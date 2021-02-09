@@ -1,6 +1,8 @@
+package di;
+
+import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Scanner;
-
 /**
  * A class implements an input from console.
  *
@@ -8,6 +10,7 @@ import java.util.Scanner;
  * @version 0.1
  * @since 24.01.17
  */
+@Component
 public class ConsoleInput {
     /**
      * @{value} for capture system in.

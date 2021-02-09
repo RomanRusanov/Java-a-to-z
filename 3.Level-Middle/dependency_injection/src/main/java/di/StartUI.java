@@ -1,10 +1,14 @@
+package di;
+
+import org.springframework.stereotype.Component;
 /**
  * @author Roman Rusanov
  * @version 0.1
  * @since 09.02.2021
  * email roman9628@gmail.com
- * This class, depend of class Store.
+ * This class, depend of class di.Store.
  */
+@Component
 public class StartUI {
     /**
      * The filed contain instance on which depend.

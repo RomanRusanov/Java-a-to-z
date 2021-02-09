@@ -1,6 +1,8 @@
+package di;
+
+import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * @author Roman Rusanov
  * @version 0.1
@@ -8,6 +10,7 @@ import java.util.List;
  * email roman9628@gmail.com
  * The class contain collection for example.
  */
+@Component
 public class Store {
     /**
      * The field contain collection of Strings.
