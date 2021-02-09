@@ -1,5 +1,6 @@
 package di;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Scanner;
@@ -10,6 +11,7 @@ import java.util.Scanner;
  * @version 0.1
  * @since 24.01.17
  */
+@Scope("prototype")
 @Component
 public class ConsoleInput {
     /**

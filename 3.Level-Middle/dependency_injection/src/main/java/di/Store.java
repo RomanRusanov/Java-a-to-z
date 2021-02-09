@@ -1,5 +1,6 @@
 package di;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
  * email roman9628@gmail.com
  * The class contain collection for example.
  */
+@Scope("prototype")
 @Component
 public class Store {
     /**
