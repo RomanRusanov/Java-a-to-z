@@ -1,8 +1,16 @@
 package cars;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 import java.util.Objects;
+
+/**
+ *
+ */
 @Entity
 @Table(name = "cars")
 public class Car {

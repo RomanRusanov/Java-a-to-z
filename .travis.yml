@@ -10,13 +10,16 @@ before_install:
   - export TZ=Europe/Moscow
   - date
   # JDBC создание базы данных
-  - psql -c 'create database tracker;' -U postgres
+  - psql -c 'create database tracker_java_a_to_z;' -U postgres
   - psql -c 'create database competition;' -U postgres
 
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
 # Здесь используется сторонни сервис https://codecov.io/
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+env:
+  global:
+    - CODECOV_TOKEN='7fc55221-8165-417a-b722-daf1405caa1d'
 
 # Отправлять уведомление на почту youremail@smtp.ru (Изменить на свою) если сборка упала
 notifications:
